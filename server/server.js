@@ -4,6 +4,7 @@ const path = require("path")
 const express = require("express");
 const mongoose = require("mongoose")
 const morgan = require("morgan")
+const aboutYouController = require("./controllers/aboutYouController");
 
 // Configuration
 const app = express();
@@ -21,7 +22,9 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.static("../client/dist"));
 
-app.get("/", (req, res) => {
+app.use("/api/aboutyou", aboutYouController);
+
+app.get("/api", (req, res) => {
     res.json({ msg: "Hello World!" });
 });
 
