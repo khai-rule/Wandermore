@@ -2,7 +2,7 @@ const AboutYou = require("../../models/AboutYou");
 
 const seed = async (req, res) => {
   const seedAboutYou = {
-      dateOfBirth: 20081996,
+      dateOfBirth: "20081996",
       hobbies: ["Cycling", "Bowling"],
       countryOfResidence : "Singapore",
       dietaryRestrictions: "Vegan",
