@@ -10,6 +10,10 @@ const app = express();
 const PORT = process.env.PORT ?? 3000;
 const MONGO_URI = process.env.MONGO_URI;
 
+console.log("Mongo_URI", MONGO_URI);
+mongoose.set("debug", true);
+mongoose.set("runValidators", true);
+mongoose.set("strictQuery", false);
 mongoose.connect(MONGO_URI);
 
 // Middleware
