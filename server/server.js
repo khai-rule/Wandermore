@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const aboutYouController = require("./controllers/aboutYouController");
 const newTripController = require("./controllers/newTripController");
+const userController = require("./controllers/userController");
 
 // Configuration
 const app = express();
@@ -25,6 +26,7 @@ app.use(express.static("../client/dist"));
 
 app.use("/api/aboutyou", aboutYouController);
 app.use("/api/newtrip", newTripController);
+app.use("/api/user", userController);
 
 app.get("/api", (req, res) => {
   res.json({ msg: "Hello World!" });
