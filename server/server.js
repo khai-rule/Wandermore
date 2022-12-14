@@ -3,6 +3,7 @@ require("dotenv").config();
 const path = require("path");
 const express = require("express");
 const mongoose = require("mongoose");
+const session = require("express-session");
 const morgan = require("morgan");
 const aboutYouController = require("./controllers/aboutYouController");
 const newTripController = require("./controllers/newTripController");
