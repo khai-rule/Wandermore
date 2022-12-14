@@ -6,6 +6,8 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const morgan = require("morgan");
 const aboutYouController = require("./controllers/aboutYouController");
+const newTripController = require("./controllers/newTripController");
+const userController = require("./controllers/userController");
 
 // Configuration
 const app = express();
@@ -24,18 +26,20 @@ app.use(express.json());
 app.use(express.static("../client/dist"));
 
 app.use("/api/aboutyou", aboutYouController);
+app.use("/api/newtrip", newTripController);
+app.use("/api/user", userController);
 
 app.get("/api", (req, res) => {
-    res.json({ msg: "Hello World!" });
+  res.json({ msg: "Hello World!" });
 });
 
 app.get("*", (req, res) => {
-    res.sendFile(path.resolve("..", "client", "dist", "index.html"));
+  res.sendFile(path.resolve("..", "client", "dist", "index.html"));
 });
-  
+
 mongoose.connection.once("open", () => {
-    console.log("connected to mongoose...");
-    app.listen(PORT, () => {
-      console.log(`Example app listening on port ${PORT}`);
-    });
+  console.log("connected to mongoose...");
+  app.listen(PORT, () => {
+    console.log(`Example app listening on port ${PORT}`);
+  });
 });
