@@ -1,6 +1,6 @@
 const express = require("express");
 const AboutYou = require("../models/AboutYou");
-const seed = require("./aboutYou/seed");
+const seed = require("./seeds/aboutYouSeed");
 
 const router = express.Router();
 
@@ -36,9 +36,5 @@ router.put("/", async (req, res) => {
     res.status(500).json({ error });
   }
 });
-
-//   return res.json(fruit);
-// });
-
 
 module.exports = router;
