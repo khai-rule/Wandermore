@@ -1,6 +1,6 @@
 const express = require("express");
 const NewTrip = require("../models/NewTrip");
-const newTripSeed = require("../controllers/aboutYou/newTripSeed");
+const newTripSeed = require("./seeds/newTripSeed");
 
 const router = express.Router();
 

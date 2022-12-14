@@ -7,6 +7,7 @@ const session = require("express-session");
 const morgan = require("morgan");
 const aboutYouController = require("./controllers/aboutYouController");
 const newTripController = require("./controllers/newTripController");
+const activityController = require("./controllers/activityController");
 const userController = require("./controllers/userController");
 const User = require("./models/User");
 
@@ -40,6 +41,7 @@ app.use(session(sess));
 
 app.use("/api/aboutyou", aboutYouController);
 app.use("/api/newtrip", newTripController);
+app.use("/api/activity", activityController);
 app.use("/api/user", userController);
 
 app.get("/api", (req, res) => {
