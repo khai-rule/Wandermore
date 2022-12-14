@@ -13,11 +13,11 @@ const seed = async (req, res) => {
     },
     {
         name: "Reykjavik Food Walk - Local Foodie Adventure in Iceland",
-        date: "04 Feb 2023",
+        date: "01 Feb 2023",
         time: 1400,
         duration: 150,
         location: "Grandagarður 2, 101 Reykjavík, Iceland",
-        photos: "https://guidetoiceland.imgix.net/198987/x/0/",
+        photos: ["https://i0.wp.com/hiddeniceland.is/wp-content/uploads/2019/10/Reykjavi%CC%81k-Food-Walk-Wake-up-Reykajvi%CC%81k-Hidden-Iceland-3.jpg?fit=1440%2C960&ssl=1", "https://images.ctfassets.net/a68ipajj4t9l/4dfUf1gsPXz2pap1LiAOzT/a7db672b03e6f3e4a3c472379c904f80/WR01.jpg?w=2400&q=60"],
         description: "Local food, city & history tour of Reykjavik.In the tastiest sight seeing tour in Iceland, we explore down town Reykjavik through delicious local cuisines that you would never come across in your typical “to-do in Iceland” itinerary! You will stroll around the city and visit 5-6 wonderful local restaurants with a fun & knowledgeable guide by your side.In our tours you will have a chance to try the best local cuisines of Iceland in each season, like the delicious Icelandic lamb, home made Icelandic ice cream from a secret family recipe, an authentic catch of the day, Icelandic cheese, a hot dog from the famous Icelandic hot dog stand and much more!If you like to experience Reykjavik, Iceland’s history, unique cuisine, local restaurants and make new friends, you should definitely join our Reykjavik Food Walk. Just make sure you show up hungry!",
     },
 ];
