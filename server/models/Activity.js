@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 
 const activitySchema = mongoose.Schema(
   {
-    name: { type: Date, required: true },
-    date: { type: Date, required: true },
+    name: { type: String, required: true },
+    date: { type: String, required: true },
     time: { type: Number, required: true },
     duration: { type: Number, required: true },
     location: { type: String, required: true },
