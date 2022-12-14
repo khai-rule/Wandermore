@@ -14,11 +14,16 @@ userRouter.get("/", async (req, res) => {
 });
 
 userRouter.post("/", async (req, res) => {
-  if (req.body.userid === "") {
-    return res.status(400).json({ error: "userid cannot be blank" });
-  } else if (req.body.password === "") {
-    return res.status(400).json({ error: "password cannot be blank" });
+  if (req.body.any === "") {
+    return res.status(400).json({ error: "Inputs cannot be blank" });
   }
+  // else if (req.body.password === "") {
+  //   return res.status(400).json({ error: "password cannot be blank" });
+  // } else if (req.body.firstName === "") {
+  //   return res.status(400).json({ error: "First Name cannot be blank" });
+  // } else if (req.body.lastName === "") {
+  //   return res.status(400).json({ error: "Last Name cannot be blank" });
+  // }
   try {
     const user = await User.create(req.body);
     res.status(201).json(user);
@@ -61,17 +66,17 @@ userRouter.get("/seed", async (req, res) => {
   }
 });
 
-userRouter.get("/:id", async (req, res) => {
-  const { id } = req.params;
-  const user = await User.findById(id).exec();
-  if (user === null) {
-    return res.status(404).json({ error: "User not found" });
-  }
-  try {
-    res.json(user);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
+// userRouter.get("/:id", async (req, res) => {
+//   const { id } = req.params;
+//   const user = await User.findById(id).exec();
+//   if (user === null) {
+//     return res.status(404).json({ error: "User not found" });
+//   }
+//   try {
+//     res.json(user);
+//   } catch (error) {
+//     res.status(500).json(error);
+//   }
+// });
 
 module.exports = userRouter;

@@ -58,6 +58,12 @@ app.post("/api/sessions", async (req, res) => {
   return res.status(202).json({ msg: "Logged in" });
 });
 
+app.delete("/api/secret", (req, res) => {
+  req.session.destroy(() => {
+    res.json({ msg: "Logout success" });
+  });
+});
+
 app.get("*", (req, res) => {
   res.sendFile(path.resolve("..", "client", "dist", "index.html"));
 });

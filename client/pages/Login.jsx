@@ -17,11 +17,8 @@ const Login = ({ setNotLoggedIn }) => {
     });
     if (response.ok) {
       console.log("logged in");
-      fetch("/api/secret")
-        .then((request) => request.json())
-        .then((data) => setMsg(data));
-      //   navigate("/aboutyou");
       setNotLoggedIn(false);
+      navigate("/aboutyou");
     }
   };
   return (
@@ -32,7 +29,8 @@ const Login = ({ setNotLoggedIn }) => {
             Email:{" "}
             <input
               name="email"
-              defaultValue="example@domain.com"
+              type="text"
+              placeholder="example@domain.com"
               required={true}
             />
           </label>
@@ -41,7 +39,8 @@ const Login = ({ setNotLoggedIn }) => {
             Password:{" "}
             <input
               name="password"
-              defaultValue="min. 6 characters"
+              type="password"
+              placeholder="min. 6 characters"
               required={true}
             />
           </label>

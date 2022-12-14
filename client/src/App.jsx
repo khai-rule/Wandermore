@@ -6,7 +6,7 @@ import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 
 function App() {
-  const [notLoggedIn, setNotLoggedIn] = useState(false);
+  const [notLoggedIn, setNotLoggedIn] = useState(true);
   return (
     <div>
       <BrowserRouter>
@@ -17,7 +17,15 @@ function App() {
             element={<Login setNotLoggedIn={setNotLoggedIn} />}
           />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/aboutyou" element={<AboutYou />} />
+          <Route
+            path="/aboutyou"
+            element={
+              <AboutYou
+                notLoggedIn={notLoggedIn}
+                setNotLoggedIn={setNotLoggedIn}
+              />
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>
