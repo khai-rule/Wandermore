@@ -1,81 +1,96 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Form, Formik } from "formik";
+import CustomInput from "../components/CustomInput";
+import { signUpSchema } from "../components/validation/schema";
 
 const SignUp = () => {
   const [msg, setMsg] = useState("");
+  const [link, setLink] = useState("");
 
-  const handleSignUp = async (event) => {
-    event.preventDefault();
-    const signUpData = new FormData(event.target);
-    const signUpInfo = Object.fromEntries(signUpData);
-
+  const handleSignUp = async (values, actions) => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
     try {
       const response = await fetch("/api/user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(signUpInfo), // body data type must match "Content-Type" header
+        body: JSON.stringify(values),
       });
       if (!response.ok) {
         throw new Error("Network response was not OK");
       }
-      //   const data = await response.json();
-      //   console.log(data);
+      actions.resetForm();
+      setMsg("Account Created, please login ");
+      setLink("here.");
     } catch (error) {
-      setMsg("Account exists, please log in.");
+      setMsg("Account exists, please login ");
+      setLink("here.");
     }
   };
 
   return (
     <>
-      <form onSubmit={handleSignUp}>
-        <legend>Sign Up</legend>
-        <fieldset>
-          <label>
-            Email:{" "}
-            <input
+      <Formik
+        initialValues={{
+          email: "",
+          firstName: "",
+          lastName: "",
+          password: "",
+          confirmPassword: "",
+        }}
+        validationSchema={signUpSchema}
+        onSubmit={handleSignUp}
+      >
+        {({ isSubmitting }) => (
+          <Form autoComplete="off">
+            <legend>Sign Up</legend>
+            <CustomInput
+              label="Email"
               name="email"
-              type="text"
-              placeholder="example@domain.com"
-              required={true}
+              type="email"
+              placeholder="Enter your email"
             />
-          </label>
-          <br />
-          <label>
-            First Name:{" "}
-            <input
+            <br />
+            <CustomInput
+              label="First Name"
               name="firstName"
               type="text"
-              placeholder="E.g. John"
-              required={true}
+              placeholder="Enter your first name"
             />
-          </label>
-          <br />
-          <label>
-            Last Name:{" "}
-            <input
+            <br />
+            <CustomInput
+              label="Last Name"
               name="lastName"
               type="text"
-              placeholder="E.g. Smith"
-              required={true}
+              placeholder="Enter your last name"
             />
-          </label>
-          <br />
-          <label>
-            Password:{" "}
-            <input
+            <br />
+            <CustomInput
+              label="Password"
               name="password"
               type="password"
-              placeholder="min. 6 characters"
-              required={true}
+              placeholder="Enter your Password"
             />
-          </label>
-          <br />
-        </fieldset>
-        <p>{msg}</p>
-        <button>Create</button>
-        <button type="reset">Reset</button>
-      </form>
+            <br />
+            <CustomInput
+              label="Confirm Password"
+              name="confirmPassword"
+              type="password"
+              placeholder="Enter your Password again"
+            />
+            <br />
+            <button disabled={isSubmitting} type="submit">
+              Submit
+            </button>
+          </Form>
+        )}
+      </Formik>
+      <p>
+        {msg}
+        <Link to="/login">{link}</Link>
+      </p>
     </>
   );
 };
