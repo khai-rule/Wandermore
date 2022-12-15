@@ -22,3 +22,29 @@ export const loginSchema = yup.object().shape({
   email: yup.string().email("Please enter a valid email").required("Required"),
   password: yup.string().required("Required"),
 });
+
+export const tripRequestSchema = yup.object().shape({
+  departureDate: yup
+    .date()
+    .min(new Date(), "Departure Date must be later than today")
+    .required("Required"),
+  returnDate: yup
+    .date()
+    .min(yup.ref("departureDate"), "Return Date must be after Departure Date")
+    .required("Required"),
+  country: yup.string().required("Required"),
+  activityPreference: yup
+    .string()
+    .oneOf(["adventure", "relaxation", "cultural"], "Invalid activity type")
+    .required("Required"),
+  accomodationPreference: yup
+    .string()
+    .oneOf(
+      ["hotel", "hostel", "bed & breakfast", "others"],
+      "Invalid accomodation type"
+    )
+    .required("Required"),
+  pax: yup.number().min(1).required("Required"),
+  paxInfo: yup.string(),
+  otherInfo: yup.string(),
+});

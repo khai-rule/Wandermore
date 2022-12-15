@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import AboutYouForm from "../components/AboutYouForm";
 
 const AboutYou = ({ notLoggedIn, setNotLoggedIn }) => {
@@ -17,6 +17,9 @@ const AboutYou = ({ notLoggedIn, setNotLoggedIn }) => {
 
   return (
     <div>
+      <Link to="/triprequest">
+        <button>New Trip +</button>
+      </Link>
       <AboutYouForm />
       <button onClick={handleLogout}>Logout</button>
     </div>
