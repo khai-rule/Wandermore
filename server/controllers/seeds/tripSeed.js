@@ -10,6 +10,7 @@ const newTripSeed = async (req, res) => {
     pax: 2,
     paxInfo: "No dietary restriction",
     otherInfo: "Camping",
+    activities: ["639b3025f670553ed36ca43c", "639b3025f670553ed36ca43d"]
   };
   await Trip.deleteMany({});
 

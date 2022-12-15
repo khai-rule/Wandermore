@@ -1,5 +1,5 @@
 const AboutYou = require("../../models/AboutYou");
-const User = require("../../models/User"); 
+
 
 const seed = async (req, res) => {
   const seedAboutYou = {
@@ -8,7 +8,6 @@ const seed = async (req, res) => {
       countryOfResidence : "Singapore",
       dietaryRestrictions: "Vegan",
       accessibility: "Nil",
-      user: "639a7bad282f5a048d1f47bd"
   };
   await AboutYou.deleteMany({});
 
