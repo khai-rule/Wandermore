@@ -9,6 +9,7 @@ const activitySchema = mongoose.Schema(
     location: { type: String, required: true },
     photos: [String],
     description: String,
+    trip: { type: mongoose.Schema.Types.ObjectId, ref: "Trip" }
   },
   { timestamps: true }
 );

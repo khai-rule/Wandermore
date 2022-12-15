@@ -13,13 +13,14 @@ const Activity = () => {
     }
     const data = await request.json();
         setInDatabase(data);
-        console.log("data", inDatabase)
     } catch (error) {
     console.error(error);
         };
     };
     
     useEffect(() => {fetchData()}, []);
+
+    console.log("data", inDatabase)
 
     //! Display Activities
     const activities = () => {

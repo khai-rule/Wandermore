@@ -1,4 +1,5 @@
 const Activity = require("../../models/Activity");
+const Trip = require("../../models/Trip");
 
 const seed = async (req, res) => {
   const seedActivity = [
@@ -25,6 +26,7 @@ const seed = async (req, res) => {
   await Activity.deleteMany({});
 
   const activity = await Activity.insertMany(seedActivity);
+  // await Trip.activities.push(seedActivity);
 
   res.json(activity);
 };
