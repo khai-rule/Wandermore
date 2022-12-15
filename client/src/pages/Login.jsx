@@ -43,7 +43,7 @@ const Login = ({ setNotLoggedIn }) => {
       >
         {({ isSubmitting }) => (
           <Form autoComplete="off">
-            <legend>Sign Up</legend>
+            <legend>Log in</legend>
             <CustomInput
               label="Email"
               name="email"
@@ -59,7 +59,7 @@ const Login = ({ setNotLoggedIn }) => {
             />
             <br />
             <button disabled={isSubmitting} type="submit">
-              Submit
+              Log In
             </button>
           </Form>
         )}
