@@ -1,56 +1,72 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Form, Formik } from "formik";
+import CustomInput from "../components/CustomInput";
+import { loginSchema } from "../components/validation/schema";
 
 const Login = ({ setNotLoggedIn }) => {
+  const [msg, setMsg] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async (event) => {
-    event.preventDefault();
-    const loginData = new FormData(event.target);
-    const loginInfo = Object.fromEntries(loginData);
-
-    const response = await fetch("/api/sessions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(loginInfo),
-    });
-    if (response.ok) {
-      console.log("logged in");
-      setNotLoggedIn(false);
-      navigate("/aboutyou");
+  const handleLogin = async (values, actions) => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    try {
+      const response = await fetch("/api/sessions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+      if (response.ok) {
+        actions.resetForm();
+        setNotLoggedIn(false);
+        navigate("/aboutyou");
+      }
+      const data = await response.json();
+      setMsg(data.msg);
+    } catch (error) {
+      setMsg("Network error, please try again later.");
     }
   };
+
   return (
     <>
-      <form onSubmit={handleLogin}>
-        <fieldset>
-          <label>
-            Email:{" "}
-            <input
+      <Formik
+        initialValues={{
+          email: "",
+          password: "",
+        }}
+        validationSchema={loginSchema}
+        onSubmit={handleLogin}
+      >
+        {({ isSubmitting }) => (
+          <Form autoComplete="off">
+            <legend>Log in</legend>
+            <CustomInput
+              label="Email"
               name="email"
-              type="text"
-              placeholder="example@domain.com"
-              required={true}
+              type="email"
+              placeholder="Enter your email"
             />
-          </label>
-          <br />
-          <label>
-            Password:{" "}
-            <input
+            <br />
+            <CustomInput
+              label="Password"
               name="password"
               type="password"
-              placeholder="min. 6 characters"
-              required={true}
+              placeholder="Enter your Password"
             />
-          </label>
-          <br />
-        </fieldset>
-        <button>Log In</button>
-        <button type="reset">Reset</button>
-      </form>
-      <br />
-      <label>Not a Member yet?</label> <Link to="/signup">SIGN UP</Link>
+            <br />
+            <button disabled={isSubmitting} type="submit">
+              Log In
+            </button>
+          </Form>
+        )}
+      </Formik>
+      <p>{msg}</p>
+      <p>
+        Not a Member yet? Sign up <Link to="/signup">here</Link>.
+      </p>
     </>
   );
 };
