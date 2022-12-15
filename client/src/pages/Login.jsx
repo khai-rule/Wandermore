@@ -25,7 +25,6 @@ const Login = ({ setNotLoggedIn }) => {
       }
       const data = await response.json();
       setMsg(data.msg);
-      console.log(data.msg);
     } catch (error) {
       setMsg("Network error, please try again later.");
     }
