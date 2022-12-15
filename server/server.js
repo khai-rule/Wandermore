@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const morgan = require("morgan");
 const aboutYouController = require("./controllers/aboutYouController");
-const newTripController = require("./controllers/newTripController");
+const tripController = require("./controllers/tripController");
 const activityController = require("./controllers/activityController");
 const userController = require("./controllers/userController");
 const User = require("./models/User");
@@ -40,8 +40,8 @@ if (app.get("env") === "production") {
 app.use(session(sess));
 
 app.use("/api/aboutyou", aboutYouController);
-app.use("/api/newtrip", newTripController);
-app.use("/api/activity", activityController);
+app.use("/api/trips", tripController);
+app.use("/api/activities", activityController);
 app.use("/api/user", userController);
 
 app.get("/api", (req, res) => {

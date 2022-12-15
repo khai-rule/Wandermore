@@ -1,6 +1,8 @@
 // const bcrypt = require("bcrypt");
 const express = require("express");
 const User = require("../models/User");
+const router = require("./activityController");
+// const AboutYou = require("../models/aboutyou");
 
 const userRouter = express.Router();
 
@@ -40,6 +42,7 @@ userRouter.get("/seed", async (req, res) => {
       firstName: "John",
       lastName: "Tan",
       password: "jt1234",
+      aboutYou: "639aaddd2e28dbb24606fa20"
       //   password: bcrypt.hashSync("1q2w3e4r", saltRounds),
     },
     {
@@ -65,6 +68,10 @@ userRouter.get("/seed", async (req, res) => {
     res.status(500).json(error);
   }
 });
+
+// router.get("/see", async (req, res) => {
+//   const user = await AboutYou.find({}).populate({ path: "User", model: "User" })
+// });
 
 // userRouter.get("/:id", async (req, res) => {
 //   const { id } = req.params;

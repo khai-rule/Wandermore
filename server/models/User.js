@@ -14,6 +14,8 @@ const userSchema = new mongoose.Schema(
       require: true,
       match: passwordRules,
     },
+    aboutYou: { type: mongoose.Schema.Types.ObjectId, ref: "AboutYou" },
+    trips: [{ type: mongoose.Schema.Types.ObjectId, ref: "Trip" }],
   },
   { timestamps: true }
 );
