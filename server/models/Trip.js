@@ -11,7 +11,6 @@ const tripSchema = mongoose.Schema (
     paxInfo: String,
     otherInfo: String,
     activities: [{ type: mongoose.Schema.Types.ObjectId, ref: "Activity" }],
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
   },
   { timestamps: true }
 );

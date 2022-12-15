@@ -7,7 +7,7 @@ const Activity = () => {
     //! Fetch Data
     const fetchData = async () => {
     try {
-    const request = await fetch("/api/activity")
+    const request = await fetch("/api/activities")
     if (!request.ok) {
     throw new Error ("Network error");
     }

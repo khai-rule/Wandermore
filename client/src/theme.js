@@ -4,9 +4,9 @@ import { green, grey, red } from '@mui/material/colors';
 const rawTheme = createTheme({
   palette: {
     primary: {
-      light: '#69696a',
-      main: '#28282a',
-      dark: '#1e1e1f',
+      light: '#ffff',
+      main: '#ffff',
+      dark: '#ffff',
     },
     secondary: {
       light: '#fff5f8',
@@ -41,7 +41,7 @@ const fontHeader = {
   color: rawTheme.palette.text.primary,
   fontWeight: rawTheme.typography.fontWeightMedium,
   fontFamily: "'Roboto Condensed', sans-serif",
-  textTransform: 'uppercase',
+  textTransform: '',
 };
 
 const theme = {
