@@ -48,3 +48,11 @@ export const tripRequestSchema = yup.object().shape({
   paxInfo: yup.string(),
   otherInfo: yup.string(),
 });
+
+export const aboutYouSchema = yup.object().shape({
+  dateOfBirth: yup.date().required("Required"),
+  hobbies: yup.string(),
+  countryOfResidence: yup.string().required("Required"),
+  dietaryRestrictions: yup.string(),
+  accessibility: yup.string(),
+});
