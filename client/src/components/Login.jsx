@@ -4,7 +4,7 @@ import { Form, Formik } from "formik";
 import CustomInput from "../components/CustomInput";
 import { loginSchema } from "../components/validation/schema";
 
-const Login = ({ setNotLoggedIn, setLoginID }) => {
+const Login = ({ setNotLoggedIn, setLoginID, setUser }) => {
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
 
@@ -24,6 +24,7 @@ const Login = ({ setNotLoggedIn, setLoginID }) => {
         setLoginID(data.id);
         setNotLoggedIn(false);
         navigate("/aboutyou");
+        setUser(values.email)
       }
       setMsg(data.msg);
     } catch (error) {

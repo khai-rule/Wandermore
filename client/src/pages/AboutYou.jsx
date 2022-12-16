@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import AboutYouForm from "../components/AboutYouForm";
 
-const AboutYou = ({ notLoggedIn, setNotLoggedIn, loginID }) => {
+const AboutYou = ({ notLoggedIn, setNotLoggedIn, loginID, user }) => {
   const navigate = useNavigate();
   //* Code to push back to login page if not Logged in
   useEffect(() => {
@@ -20,7 +20,7 @@ const AboutYou = ({ notLoggedIn, setNotLoggedIn, loginID }) => {
       <Link to="/triprequest">
         <button>New Trip +</button>
       </Link>
-      <AboutYouForm loginID={loginID} />
+      <AboutYouForm loginID={loginID} user={user}/>
       <button onClick={handleLogout}>Logout</button>
     </div>
   );

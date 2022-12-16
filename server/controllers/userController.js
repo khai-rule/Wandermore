@@ -2,6 +2,7 @@
 const express = require("express");
 const User = require("../models/User");
 const userRouter = express.Router();
+const ObjectId = require('mongodb').ObjectId;
 
 userRouter.get("/", async (req, res) => {
   try {
@@ -38,16 +39,18 @@ userRouter.get("/seed", async (req, res) => {
       email: "johntan@gmail.com",
       firstName: "John",
       lastName: "Tan",
-      password: "Jt1234",
-      // aboutYou: "639b300d62f32bb86b69ee46",
-      // trips: "639b375b3521f91ab2e7a387",
+      password: "jt1234",
+
+
       //   password: bcrypt.hashSync("1q2w3e4r", saltRounds),
     },
     {
       email: "bobbylee@hotmail.com",
       firstName: "Bobby",
       lastName: "Lee",
-      password: "Bl4321",
+      password: "bl4321",
+
+
       //   password: bcrypt.hashSync("qawsedrf", saltRounds),
     },
     {
@@ -84,6 +87,38 @@ userRouter.get("/seed", async (req, res) => {
 //   }
 // });
 
+
+//! View Single User
+//TODO catch if cant find
+userRouter.get("/:email", async (req, res) => {
+  const { email } = req.params;
+  const user = await User.findOne({ email: email }).exec();
+  if (user === null) {
+    return res.status(404).json({ msg: "User not found" }); //? Nothing there so 404
+  }
+  return res.json(user);
+});
+
+//! Update - find by email - Add aboutYou ID
+//TODO catch if cant find
+userRouter.put("/:email", async (req, res) => {
+  const { email } = req.params;
+  const data = req.body;
+
+  const user = await User.findOneAndUpdate(
+    { email: email },
+    data, {
+          new: true,
+    }
+  );
+    
+  return res.json(user);
+});
+
+
+
+//! Populate
+//TODO the email should comes from an input
 userRouter.get("/data", async (req, res) => {
   try {
     const usersData = await User.find({ email: "johntan@gmail.com" })

@@ -9,8 +9,11 @@ import Layout from "./layouts/Layout";
 import TripRequest from "./pages/TripRequest";
 
 function App() {
+
   const [notLoggedIn, setNotLoggedIn] = useState(true);
   const [loginID, setLoginID] = useState("");
+  const [user, setUser] = useState()
+
   return (
     <div>
       <BrowserRouter>
@@ -24,6 +27,7 @@ function App() {
                   notLoggedIn={notLoggedIn}
                   setNotLoggedIn={setNotLoggedIn}
                   loginID={loginID}
+                  user={user}
                 />
               }
             />
@@ -35,6 +39,7 @@ function App() {
                 <Login
                   setNotLoggedIn={setNotLoggedIn}
                   setLoginID={setLoginID}
+                  setUser={setUser}
                 />
               }
             />
