@@ -1,67 +1,88 @@
 import { useEffect, useState } from "react";
 import { Form, Formik } from "formik";
 import CustomInput from "../components/CustomInput";
+import HiddenInput from "./HiddenInput";
 import { aboutYouSchema } from "../components/validation/schema";
 
-const AboutYouForm = () => {
-  const [inDatabase, setInDatabase] = useState();
-  const [msg, setMsg] = useState("");
-  const [update, setUpdate] = useState({
+const AboutYouForm = ({ loginID }) => {
+  const [inDatabase, setInDatabase] = useState({
     dateOfBirth: "",
-    hobbies: [""],
+    hobbies: "",
     countryOfResidence: "",
-    dietaryRestrictions: [""],
-    accessibility: [""],
+    dietaryRestrictions: "",
+    accessibility: "",
+    user: "",
   });
+  const [msg, setMsg] = useState("");
+  // const [update, setUpdate] = useState({
+  //   dateOfBirth: "",
+  //   hobbies: [""],
+  //   countryOfResidence: "",
+  //   dietaryRestrictions: [""],
+  //   accessibility: [""],
+  // });
 
-  const handleChange = (e) => {
-    setUpdate({ ...update, [e.target.name]: e.target.value });
-  };
+  // const handleChange = (e) => {
+  //   setUpdate({ ...update, [e.target.name]: e.target.value });
+  // };
 
-  const handleUpdate = async () => {
-    // try {
-    //     const response = await fetch("/api/aboutyou", {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify(inDatabase),
-    //     });
-    //     if (!response.ok) {
-    //       throw new Error("Network response was not OK");
-    //     }
-    //     const data = await response.json();
-    //     console.log("update", update)
-    //     console.log("updated",inDatabase)
-    //   } catch (error) {
-    //     setMsg("something went wrong");
-    //   }
-    const response = await fetch("/api/aboutyou", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(update),
-    });
-    const data = await response.json();
-    console.log(data);
-  };
+  // const handleUpdate = async () => {
+  // try {
+  //     const response = await fetch("/api/aboutyou", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(inDatabase),
+  //     });
+  //     if (!response.ok) {
+  //       throw new Error("Network response was not OK");
+  //     }
+  //     const data = await response.json();
+  //     console.log("update", update)
+  //     console.log("updated",inDatabase)
+  //   } catch (error) {
+  //     setMsg("something went wrong");
+  //   }
+  //   const response = await fetch("/api/aboutyou", {
+  //     method: "PUT",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(update),
+  //   });
+  //   const data = await response.json();
+  //   console.log(data);
+  // };
 
   //? Formik submit handler (line 50 - 69)
   const handleAboutYouSubmit = async (values, actions) => {
-    console.log(values);
     await new Promise((resolve) => setTimeout(resolve, 500));
     try {
-      const response = await fetch("/api/aboutyou", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
-      if (response.ok) {
-        actions.resetForm();
-        setMsg("Your details have been updated!");
+      if (inDatabase.dateOfBirth === "") {
+        const response = await fetch("/api/aboutyou", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        });
+        if (response.ok) {
+          // actions.resetForm();
+          setMsg("Your details have been Added!");
+        }
+      } else {
+        const response = await fetch(`/api/aboutyou/${loginID}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        });
+        if (response.ok) {
+          // actions.resetForm();
+          setMsg("Your details have been updated!");
+        }
       }
     } catch (error) {
       throw new Error("Network response was not OK");
@@ -69,31 +90,27 @@ const AboutYouForm = () => {
   };
 
   //! Fetch Data
-  const fetchData = async () => {
-    try {
-      const request = await fetch("/api/aboutyou");
-      if (!request.ok) {
-        throw new Error("Network error");
-      }
-      const data = await request.json();
-      if (data.length < 1) {
-        console.log("no data");
-      } else {
-        setInDatabase(data[0]);
-        console.log("data", inDatabase);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`/api/aboutyou/${loginID}`);
+      try {
+        if (!response.ok) {
+          throw new Error("Network error");
+        }
+        const data = await response.json();
+        if (data !== null) {
+          setInDatabase(data);
+        }
+      } catch (error) {
+        throw new Error("Network response was not OK");
+      }
+    };
     fetchData();
-  }, []);
+  }, [loginID]);
 
   return (
     <div>
-      <fieldset>
+      {/* <fieldset>
         <legend>About You</legend>
         <label>
           Date of Birth:
@@ -146,21 +163,15 @@ const AboutYouForm = () => {
           />
         </label>
         <button onClick={handleUpdate}>Update Info</button>
-      </fieldset>
+      </fieldset> */}
       {/* Formik form start */}
       <Formik
-        initialValues={{
-          dateOfBirth: "",
-          hobbies: [""],
-          countryOfResidence: "",
-          dietaryRestrictions: [""],
-          accessibility: [""],
-        }}
+        enableReinitialize={true}
+        initialValues={inDatabase}
         validationSchema={aboutYouSchema}
-        onSubmit={handleAboutYouSubmit} //! to enable {handleUpdate} and {handleChange} for all the formik inputs
-        // onChange={handleChange}
+        onSubmit={handleAboutYouSubmit}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting, setFieldValue }) => (
           <Form autoComplete="off">
             <fieldset>
               <legend>About You</legend>
@@ -199,7 +210,14 @@ const AboutYouForm = () => {
                 placeholder="Optional"
               />
               <br />
-              <button disabled={isSubmitting} type="submit">
+              <HiddenInput name="user" type="hidden" value="" />
+              <button
+                type="submit"
+                onClick={() => {
+                  setFieldValue("user", `${loginID}`);
+                }}
+                disabled={isSubmitting}
+              >
                 Update Info
               </button>{" "}
               <span>{msg}</span>

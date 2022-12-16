@@ -55,4 +55,5 @@ export const aboutYouSchema = yup.object().shape({
   countryOfResidence: yup.string().required("Required"),
   dietaryRestrictions: yup.string(),
   accessibility: yup.string(),
+  user: yup.string(),
 });

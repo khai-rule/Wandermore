@@ -10,6 +10,7 @@ import TripRequest from "./pages/TripRequest";
 
 function App() {
   const [notLoggedIn, setNotLoggedIn] = useState(true);
+  const [loginID, setLoginID] = useState("");
   return (
     <div>
       <BrowserRouter>
@@ -22,6 +23,7 @@ function App() {
                 <AboutYou
                   notLoggedIn={notLoggedIn}
                   setNotLoggedIn={setNotLoggedIn}
+                  loginID={loginID}
                 />
               }
             />
@@ -29,10 +31,15 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route
               path="/login"
-              element={<Login setNotLoggedIn={setNotLoggedIn} />}
+              element={
+                <Login
+                  setNotLoggedIn={setNotLoggedIn}
+                  setLoginID={setLoginID}
+                />
+              }
             />
             <Route
-              path="/triprequest"
+              path="/triprequest/:id"
               element={<TripRequest notLoggedIn={notLoggedIn} />}
             />
           </Route>

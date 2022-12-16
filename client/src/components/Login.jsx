@@ -4,7 +4,7 @@ import { Form, Formik } from "formik";
 import CustomInput from "../components/CustomInput";
 import { loginSchema } from "../components/validation/schema";
 
-const Login = ({ setNotLoggedIn }) => {
+const Login = ({ setNotLoggedIn, setLoginID }) => {
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
 
@@ -18,12 +18,13 @@ const Login = ({ setNotLoggedIn }) => {
         },
         body: JSON.stringify(values),
       });
+      const data = await response.json();
       if (response.ok) {
         actions.resetForm();
+        setLoginID(data.id);
         setNotLoggedIn(false);
         navigate("/aboutyou");
       }
-      const data = await response.json();
       setMsg(data.msg);
     } catch (error) {
       setMsg("Network error, please try again later.");

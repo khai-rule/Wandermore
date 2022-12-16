@@ -59,7 +59,7 @@ app.post("/api/sessions", async (req, res) => {
       .status(401)
       .json({ msg: "Password not valid, please try again." });
   }
-  return res.status(202).json({ msg: "Logged in" });
+  return res.status(202).json({ msg: "Logged in", id: user._id });
 });
 
 app.delete("/api/secret", (req, res) => {

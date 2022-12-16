@@ -15,7 +15,21 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const aboutYou = await AboutYou.findOne(
+      { user: id },
+      { _id: 0, __v: 0, user: 0 }
+    ).exec();
+    res.json(aboutYou);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
 router.post("/", async (req, res) => {
+  // const newAboutYou = ...req.body,
   try {
     const aboutYou = await AboutYou.create(req.body);
     res.status(201).json(aboutYou);
@@ -24,9 +38,10 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/", async (req, res) => {
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
   try {
-    const aboutyou = await AboutYou(req.body, {
+    const aboutyou = await AboutYou.findOneAndUpdate({ user: id }, req.body, {
       new: true,
     });
     res.json(aboutyou);
