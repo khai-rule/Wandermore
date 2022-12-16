@@ -7,7 +7,7 @@ const seed = async (req, res) => {
       hobbies: ["Cycling", "Bowling"],
       countryOfResidence : "Singapore",
       dietaryRestrictions: "Vegan",
-      accessibility: "Nil",
+      others: "Nil",
   };
   await AboutYou.deleteMany({});
 

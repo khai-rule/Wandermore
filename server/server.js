@@ -48,6 +48,7 @@ app.get("/api", (req, res) => {
   res.json({ msg: "Hello World!" });
 });
 
+//! Check account
 app.post("/api/sessions", async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email }).exec();

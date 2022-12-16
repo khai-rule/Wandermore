@@ -8,14 +8,17 @@ import Itinerary from "./pages/Itinerary";
 import Layout from "./layouts/Layout";
 
 function App() {
+
   const [notLoggedIn, setNotLoggedIn] = useState(true);
+  const [user, setUser] = useState()
+
   return (
     <div>
       <BrowserRouter>
         <Routes>
           <Route
             path="/login"
-            element={<Login setNotLoggedIn={setNotLoggedIn} />}
+            element={<Login setNotLoggedIn={setNotLoggedIn} setUser={setUser}/>}
           />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/" element={<Layout />}>
@@ -26,6 +29,7 @@ function App() {
                 <AboutYou
                   notLoggedIn={notLoggedIn}
                   setNotLoggedIn={setNotLoggedIn}
+                  user={user}
                 />
               }
             />

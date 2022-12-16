@@ -16,15 +16,15 @@ router.get("/", async (req, res) => {
   }
 });
 
-
-// router.post("/", async (req, res) => {
-//     try {
-//       const aboutYou = await AboutYou.create(req.body);
-//       res.status(201).json(aboutYou);
-//     } catch (error) {
-//       res.status(500).json({ error });
-//     }
-// });
+//! Create new aboutYou
+router.post("/", async (req, res) => {
+    try {
+      const aboutYou = await AboutYou.create(req.body);
+      res.status(201).json(aboutYou);
+    } catch (error) {
+      res.status(500).json({ error });
+    }
+});
 
 router.put("/", async (req, res) => {
   try {

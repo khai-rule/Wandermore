@@ -2,6 +2,7 @@
 const express = require("express");
 const User = require("../models/User");
 const userRouter = express.Router();
+const ObjectId = require('mongodb').ObjectId;
 
 userRouter.get("/", async (req, res) => {
   try {
@@ -12,24 +13,25 @@ userRouter.get("/", async (req, res) => {
   }
 });
 
-// userRouter.post("/", async (req, res) => {
-//   if (req.body.any === "") {
-//     return res.status(400).json({ error: "Inputs cannot be blank" });
-//   }
-//   // else if (req.body.password === "") {
-//   //   return res.status(400).json({ error: "password cannot be blank" });
-//   // } else if (req.body.firstName === "") {
-//   //   return res.status(400).json({ error: "First Name cannot be blank" });
-//   // } else if (req.body.lastName === "") {
-//   //   return res.status(400).json({ error: "Last Name cannot be blank" });
-//   // }
-//   try {
-//     const user = await User.create(req.body);
-//     res.status(201).json(user);
-//   } catch (error) {
-//     res.status(500).json(error);
-//   }
-// });
+
+userRouter.post("/", async (req, res) => {
+  if (req.body.any === "") {
+    return res.status(400).json({ error: "Inputs cannot be blank" });
+  }
+  // else if (req.body.password === "") {
+  //   return res.status(400).json({ error: "password cannot be blank" });
+  // } else if (req.body.firstName === "") {
+  //   return res.status(400).json({ error: "First Name cannot be blank" });
+  // } else if (req.body.lastName === "") {
+  //   return res.status(400).json({ error: "Last Name cannot be blank" });
+  // }
+  try {
+    const user = await User.create(req.body);
+    res.status(201).json(user);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
 
 userRouter.get("/seed", async (req, res) => {
   //   const saltRounds = 10;
@@ -39,8 +41,8 @@ userRouter.get("/seed", async (req, res) => {
       firstName: "John",
       lastName: "Tan",
       password: "jt1234",
-      aboutYou: "639b300d62f32bb86b69ee46",
-      trips : "639b375b3521f91ab2e7a387"
+
+
       //   password: bcrypt.hashSync("1q2w3e4r", saltRounds),
     },
     {
@@ -48,6 +50,8 @@ userRouter.get("/seed", async (req, res) => {
       firstName: "Bobby",
       lastName: "Lee",
       password: "bl4321",
+
+
       //   password: bcrypt.hashSync("qawsedrf", saltRounds),
     },
     {
@@ -55,6 +59,8 @@ userRouter.get("/seed", async (req, res) => {
       firstName: "Jane",
       lastName: "Goh",
       password: "jg1111",
+
+
       //   password: bcrypt.hashSync("azsxdcfv", saltRounds),
     },
   ];
@@ -84,6 +90,38 @@ userRouter.get("/seed", async (req, res) => {
 //   }
 // });
 
+
+//! View Single User
+//TODO catch if cant find
+userRouter.get("/:email", async (req, res) => {
+  const { email } = req.params;
+  const user = await User.findOne({ email: email }).exec();
+  if (user === null) {
+    return res.status(404).json({ msg: "User not found" }); //? Nothing there so 404
+  }
+  return res.json(user);
+});
+
+//! Update - find by email - Add aboutYou ID
+//TODO catch if cant find
+userRouter.put("/:email", async (req, res) => {
+  const { email } = req.params;
+  const data = req.body;
+
+  const user = await User.findOneAndUpdate(
+    { email: email },
+    data, {
+          new: true,
+    }
+  );
+    
+  return res.json(user);
+});
+
+
+
+//! Populate
+//TODO the email should comes from an input
 userRouter.get("/data", async (req, res) => {
   try {
     const usersData = await User.find({ email: "johntan@gmail.com" })
