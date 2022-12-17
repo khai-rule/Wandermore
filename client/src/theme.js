@@ -9,7 +9,7 @@ const rawTheme = createTheme({
       dark: '#ffff',
     },
     secondary: {
-      light: '#fff5f8',
+      light: 'rgb(230, 230, 230)',
       main: '#ffffff',
       dark: '#e62958',
     },
@@ -39,7 +39,7 @@ const rawTheme = createTheme({
 
 const fontHeader = {
   color: rawTheme.palette.text.primary,
-  fontWeight: rawTheme.typography.fontWeightMedium,
+  fontWeight: rawTheme.typography.fontWeightRegular,
   fontFamily: "'Roboto Condensed', sans-serif",
   textTransform: '',
 };

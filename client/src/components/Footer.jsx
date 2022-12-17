@@ -4,7 +4,6 @@ import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import Container from '@mui/material/Container';
 import Typography from '../components/mui-components/Typography';
-import TextField from '../components/mui-components/TextField';
 
 function Copyright() {
   return (
@@ -17,19 +16,6 @@ function Copyright() {
     </React.Fragment>
   );
 }
-
-const iconStyle = {
-  width: 48,
-  height: 48,
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  backgroundColor: 'warning.main',
-  mr: 1,
-  '&:hover': {
-    bgcolor: 'warning.dark',
-  },
-};
 
 
 export default function AppFooter() {
@@ -63,6 +49,7 @@ export default function AppFooter() {
                 </Grid>
                 </Grid>
             </Grid>
+
                 <Grid item xs={6} sm={4} md={2}>
                     <Typography variant="h6" sx={{ color: 'primary.light' }}>
                     Explore

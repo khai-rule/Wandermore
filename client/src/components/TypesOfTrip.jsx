@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Container from '@mui/material/Container';
 import Typography from '../components/mui-components/Typography';
-import { common } from '@mui/material/colors';
 
 const ImageBackdrop = styled('div')(({ theme }) => ({
   position: 'absolute',
@@ -76,30 +75,30 @@ const images = [
     width: '38%',
   },
   {
-    url: 'https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2022/08/Ponza_17.jpg',
-    title: 'Promenade along the beach',
-    width: '38%',
-  },
-  {
     url: 'https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2022/07/MooreHotel_RM519_0231.jpg',
     title: 'Relax in comfort',
     width: '24%',
+  },
+  {
+    url: 'https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2022/08/Ponza_17.jpg',
+    title: 'Promenade along the beach',
+    width: '38%',
   }
-
 ];
 
 export default function ProductCategories() {
   return (
-    <Container component="section" sx={{ mt: 8, mb: 4 }}>
+    <Container component="section" sx={{ pt: 8, pb: 4, bgcolor:"secondary.light" }} maxWidth={false}>
       <Typography variant="h4" align="center" component="h2">
         For All Travellers
       </Typography>
-      <Box sx={{ mt: 8, display: 'flex', flexWrap: 'wrap' }}>
+      <Box sx={{ my: 8, display: 'flex', flexWrap: 'wrap', justifyContent:"center"}}>
         {images.map((image) => (
           <ImageIconButton
             key={image.title}
             style={{
               width: image.width,
+              margin: 8
             }}
           >
             <Box
