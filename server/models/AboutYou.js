@@ -7,6 +7,7 @@ const aboutYouSchema = mongoose.Schema(
     countryOfResidence: { type: String },
     dietaryRestrictions: { type: String, trim: true },
     accessibility: { type: String, trim: true },
+    user: String,
   },
   { timestamps: true }
 );

@@ -18,10 +18,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const aboutYou = await AboutYou.findOne(
-      { user: id },
-      { _id: 0, __v: 0, user: 0 }
-    ).exec();
+    const aboutYou = await AboutYou.findOne({ user: id }).exec();
     res.json(aboutYou);
   } catch (error) {
     res.status(500).json({ error });

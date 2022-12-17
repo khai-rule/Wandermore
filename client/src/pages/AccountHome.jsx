@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import AboutYouForm from "../components/AboutYouForm";
 import LoginMaint from "../components/LoginMaint";
 
-const AboutYou = ({ notLoggedIn, setNotLoggedIn, loginID, user }) => {
+const AccountHome = ({ notLoggedIn, setNotLoggedIn, loginID, user }) => {
   const [view, setView] = useState("aboutYou");
   const navigate = useNavigate();
   //* Code to push back to login page if not Logged in
@@ -44,18 +44,18 @@ const AboutYou = ({ notLoggedIn, setNotLoggedIn, loginID, user }) => {
             Login Info
           </span>
         </div>
+        <Link to="/triprequest">
+          <button>New Trip +</button>
+        </Link>
+        <button onClick={handleLogout}>Logout</button>
       </nav>
       {view === "aboutYou" ? (
         <AboutYouForm loginID={loginID} user={user} />
       ) : (
         <LoginMaint loginID={loginID} />
       )}
-      <Link to="/triprequest">
-        <button>New Trip +</button>
-      </Link>
-      <button onClick={handleLogout}>Logout</button>
     </div>
   );
 };
 
-export default AboutYou;
+export default AccountHome;
