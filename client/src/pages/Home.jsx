@@ -14,9 +14,6 @@ const Home = () => {
     <Header />
     <Reviews />
     <TypesOfTrip />
-      <br />
-      New to Wandermore? Sign up <Link to="/signup">here</Link>. <br />
-      Already a user? Login <Link to="/login">here</Link>.
     </div>
   );
 };

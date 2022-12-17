@@ -10,12 +10,6 @@ const rightLink = {
   ml: 3,
 };
 
-const leftLink = {
-  fontSize: 16,
-  color: "ffffff",
-  mr: 3,
-};
-
 function AppAppBar() {
   return (
     <div>
