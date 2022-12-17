@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Container from '@mui/material/Container';
 import Typography from '../components/mui-components/Typography';
+import { common } from '@mui/material/colors';
 
 const ImageBackdrop = styled('div')(({ theme }) => ({
   position: 'absolute',
@@ -12,7 +13,7 @@ const ImageBackdrop = styled('div')(({ theme }) => ({
   top: 0,
   bottom: 0,
   background: '#000',
-  opacity: 0.5,
+  opacity: 0,
   transition: theme.transitions.create('opacity'),
 }));
 
@@ -30,13 +31,13 @@ const ImageIconButton = styled(ButtonBase)(({ theme }) => ({
     zIndex: 1,
   },
   '&:hover .imageBackdrop': {
-    opacity: 0.15,
+    opacity: 0.3,
   },
   '&:hover .imageMarked': {
     opacity: 0,
   },
   '&:hover .imageTitle': {
-    border: '4px solid currentColor',
+    // border: '4px solid currentColor',
   },
   '& .imageTitle': {
     position: 'relative',
@@ -55,50 +56,36 @@ const ImageIconButton = styled(ButtonBase)(({ theme }) => ({
 
 const images = [
   {
-    url: 'https://images.unsplash.com/photo-1534081333815-ae5019106622?auto=format&fit=crop&w=400',
-    title: 'Snorkeling',
+    url: 'https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2022/10/Gotland_13-2048x1366.jpg',
+    title: 'Explore the uncharted',
     width: '40%',
   },
   {
-    url: 'https://images.unsplash.com/photo-1531299204812-e6d44d9a185c?auto=format&fit=crop&w=400',
-    title: 'Massage',
+    url: 'https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2021/11/Kinfolk-Canal_4.jpg',
+    title: 'Meet the locals',
     width: '20%',
   },
   {
-    url: 'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=400',
-    title: 'Hiking',
+    url: 'https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2021/11/Orcas-1_sRGB.jpg',
+    title: 'Elevate to new heights',
     width: '40%',
   },
   {
-    url: 'https://images.unsplash.com/photo-1453747063559-36695c8771bd?auto=format&fit=crop&w=400',
-    title: 'Tour',
+    url: 'https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2021/11/Orcas-17_sRGB-2048x1638.jpg',
+    title: 'Tour the seas',
     width: '38%',
   },
   {
-    url: 'https://images.unsplash.com/photo-1523309996740-d5315f9cc28b?auto=format&fit=crop&w=400',
-    title: 'Gastronomy',
+    url: 'https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2022/08/Ponza_17.jpg',
+    title: 'Promenade along the beach',
     width: '38%',
   },
   {
-    url: 'https://images.unsplash.com/photo-1534452203293-494d7ddbf7e0?auto=format&fit=crop&w=400',
-    title: 'Shopping',
+    url: 'https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2022/07/MooreHotel_RM519_0231.jpg',
+    title: 'Relax in comfort',
     width: '24%',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1506941433945-99a2aa4bd50a?auto=format&fit=crop&w=400',
-    title: 'Walking',
-    width: '40%',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1533727937480-da3a97967e95?auto=format&fit=crop&w=400',
-    title: 'Fitness',
-    width: '20%',
-  },
-  {
-    url: 'https://images.unsplash.com/photo-1518136247453-74e7b5265980?auto=format&fit=crop&w=400',
-    title: 'Reading',
-    width: '40%',
-  },
+  }
+
 ];
 
 export default function ProductCategories() {

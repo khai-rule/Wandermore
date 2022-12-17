@@ -4,13 +4,13 @@ import { green, grey, red } from '@mui/material/colors';
 const rawTheme = createTheme({
   palette: {
     primary: {
-      light: '#ffff',
-      main: '#ffff',
+      light: '#ffffff',
+      main: '#000000',
       dark: '#ffff',
     },
     secondary: {
       light: '#fff5f8',
-      main: '#ff3366',
+      main: '#ffffff',
       dark: '#e62958',
     },
     warning: {
@@ -61,7 +61,7 @@ const theme = {
       ...rawTheme.typography.h1,
       ...fontHeader,
       letterSpacing: 0,
-      fontSize: 60,
+      fontSize: 80,
     },
     h2: {
       ...rawTheme.typography.h2,
@@ -77,6 +77,7 @@ const theme = {
       ...rawTheme.typography.h4,
       ...fontHeader,
       fontSize: 36,
+      fontWeight: rawTheme.typography.fontWeightRegular,
     },
     h5: {
       ...rawTheme.typography.h5,
@@ -87,6 +88,7 @@ const theme = {
       ...rawTheme.typography.h6,
       ...fontHeader,
       fontSize: 18,
+      fontWeight: rawTheme.typography.fontWeightRegular,
     },
     subtitle1: {
       ...rawTheme.typography.subtitle1,

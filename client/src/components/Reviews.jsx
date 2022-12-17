@@ -16,9 +16,9 @@ function ProductValues() {
   return (
     <Box
       component="section"
-      sx={{ display: 'flex', overflow: 'hidden', bgcolor: 'secondary.light' }}
+      sx={{ display: 'flex', overflow: 'hidden', bgcolor: 'primary.main' }}
     >
-      <Container sx={{ mt: 15, mb: 30, display: 'flex', position: 'relative' }}>
+      <Container sx={{ mt: 15, mb: 15, display: 'flex', position: 'relative' }}>
         <Box
           component="img"
           src="/static/themes/onepirate/productCurvyLines.png"
@@ -30,14 +30,14 @@ function ProductValues() {
             <Box sx={item}>
               <Box
                 component="img"
-                src="/static/themes/onepirate/productValues1.svg"
-                alt="suitcase"
-                sx={{ height: 55 }}
+                src="https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2022/08/Thomas_MacDonell_02-2000x2573.jpg"
+                alt="Sam Portrait"
+                sx={{ height: 455 }}
               />
-              <Typography variant="h6" sx={{ my: 2 }}>
+              <Typography variant="h6" sx={{ my: 2, color:"primary.light" }}>
                 Sam, Software Engineer
               </Typography>
-              <Typography variant="p">
+              <Typography variant="body2" sx={{ color:"primary.light" }}>
                 {
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "
                 }
@@ -48,14 +48,14 @@ function ProductValues() {
             <Box sx={item}>
               <Box
                 component="img"
-                src="/static/themes/onepirate/productValues2.svg"
-                alt="graph"
-                sx={{ height: 55 }}
+                src="https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2022/08/Cara_Marie_Piazza_01-2000x2701.jpg"
+                alt="Yuri Portrait"
+                sx={{ height: 455 }}
               />
-              <Typography variant="h6" sx={{ my: 2 }}>
+              <Typography variant="h6" sx={{ my: 2, color:"primary.light" }}>
                 Yuri, Artist
               </Typography>
-              <Typography variant="p">
+              <Typography variant="body2" sx={{ color:"primary.light" }}>
                 {
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "
                 }
@@ -66,14 +66,14 @@ function ProductValues() {
             <Box sx={item}>
               <Box
                 component="img"
-                src="/static/themes/onepirate/productValues3.svg"
-                alt="clock"
-                sx={{ height: 55 }}
+                src="https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2022/08/Gabe_Verduzco_02-2000x2667.jpg"
+                alt="Logan Portrait"
+                sx={{ height: 455 }}
               />
-              <Typography variant="h6" sx={{ my: 2 }}>
+              <Typography variant="h6" sx={{ my: 2, color:"primary.light" }}>
                 Logan, Technician
               </Typography>
-              <Typography variant="p">
+              <Typography variant="body2" sx={{ color:"primary.light" }}>
                 {
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
                 }

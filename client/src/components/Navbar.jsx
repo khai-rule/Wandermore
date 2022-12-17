@@ -6,44 +6,49 @@ import Toolbar from "../components/mui-components/Toolbar";
 
 const rightLink = {
   fontSize: 16,
-  color: "common.black",
+  color: "ffffff",
   ml: 3,
 };
 
 const leftLink = {
   fontSize: 16,
-  color: "common.black",
-  ml: 3,
+  color: "ffffff",
+  mr: 3,
 };
 
 function AppAppBar() {
   return (
     <div>
       <Navbar position="fixed">
-        <Toolbar sx={{ justifyContent: "space-between" }}>
+        <Toolbar sx={{ justifyContent: "space-between", borderBottom: 1}}>
+        
+        <Link
+        variant="h6"
+        underline="none"
+        color="inherit"
+        href="/"
+        sx={{ fontSize: 24 }}
+      >
+        {"Wandermore"}
+      </Link>
+ 
+
+          <Box sx={{ flex: 1 }} />
+
+          <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end"}}>
           <Link
             color="inherit"
-            variant="h6"
+            variant="h5"
             underline="none"
             href="/itinerary"
             sx={rightLink}
           >
             {"Itinerary"}
-          </Link>
-          <Box sx={{ flex: 1 }} />
-          <Link
-            variant="h6"
-            underline="none"
-            color="inherit"
-            href="/"
-            sx={{ fontSize: 24 }}
-          >
-            {"Wandermore"}
-          </Link>
-          <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
+          </Link>  
+
             <Link
               color="inherit"
-              variant="h6"
+              variant="h5"
               underline="none"
               href="/login"
               sx={rightLink}
@@ -51,10 +56,10 @@ function AppAppBar() {
               {"Login"}
             </Link>
             <Link
-              variant="h6"
+              variant="h5"
               underline="none"
               href="/signup"
-              sx={{ ...rightLink, color: "secondary.main" }}
+              sx={{ ...rightLink, color: "primary.light" }}
             >
               {"Sign Up"}
             </Link>
