@@ -11,11 +11,11 @@ const NewTripForm = ({ notLoggedIn }) => {
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (notLoggedIn) {
-      navigate("/login");
-    }
-  }, [navigate, notLoggedIn]);
+//   useEffect(() => {
+//     if (notLoggedIn) {
+//       navigate("/login");
+//     }
+//   }, [navigate, notLoggedIn]);
 
   const handleTripSubmit = async (values, actions) => {
     await new Promise((resolve) => setTimeout(resolve, 500));

@@ -16,6 +16,15 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.post("/", async (req, res) => {
+  try {
+    const activity = await Activity.create(req.body);
+    res.status(201).json(activity);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
 router.put("/", async (req, res) => {
   try {
     const activity = await Activity(req.body, {

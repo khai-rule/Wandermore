@@ -13,6 +13,7 @@ const activitySchema = mongoose.Schema(
   { timestamps: true }
 );
 
+
 const Activity = mongoose.model("Activity", activitySchema);
 
 module.exports = Activity;
