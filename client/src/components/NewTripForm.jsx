@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Form, Formik } from "formik";
 import CustomInput from "../components/CustomInput";
 import CustomSelect from "../components/CustomSelect";
@@ -7,15 +7,8 @@ import CustomTextArea from "../components/CustomTextArea";
 import { tripRequestSchema } from "../components/validation/schema";
 import HiddenInput from "../components/HiddenInput";
 
-const NewTripForm = ({ notLoggedIn }) => {
+const NewTripForm = ({ loginID }) => {
   const [msg, setMsg] = useState("");
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (notLoggedIn) {
-      navigate("/login");
-    }
-  }, [navigate, notLoggedIn]);
 
   const handleTripSubmit = async (values, actions) => {
     await new Promise((resolve) => setTimeout(resolve, 500));
@@ -50,6 +43,7 @@ const NewTripForm = ({ notLoggedIn }) => {
           pax: "",
           paxInfo: "",
           otherInfo: "",
+          user: {},
         }}
         validationSchema={tripRequestSchema}
         onSubmit={handleTripSubmit}
@@ -125,7 +119,13 @@ const NewTripForm = ({ notLoggedIn }) => {
               />
               <br />
               <HiddenInput name="user" type="hidden" value="" />
-              <button disabled={isSubmitting} type="submit">
+              <button
+                type="submit"
+                onClick={() => {
+                  setFieldValue("user", `${loginID}`);
+                }}
+                disabled={isSubmitting}
+              >
                 Submit
               </button>
             </fieldset>

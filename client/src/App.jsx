@@ -44,9 +44,7 @@ function App() {
             />
             <Route
               path="/newtrip"
-              element={
-                <NewTrip notLoggedIn={notLoggedIn} loginID={loginID} />
-              }
+              element={<NewTrip notLoggedIn={notLoggedIn} loginID={loginID} />}
             />
           </Route>
         </Routes>

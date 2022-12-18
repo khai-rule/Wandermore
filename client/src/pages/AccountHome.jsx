@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import AboutYouForm from "../components/AboutYouForm";
 import LoginMaint from "../components/LoginMaint";
 import MiniNavOption from "../components/MiniNavOption";
-import TripRequest from "./TripRequest";
+import NewTripForm from "../components/NewTripForm";
 
 const AccountHome = ({ notLoggedIn, setNotLoggedIn, loginID, user }) => {
   const [view, setView] = useState("aboutYou");
@@ -45,6 +45,9 @@ const AccountHome = ({ notLoggedIn, setNotLoggedIn, loginID, user }) => {
             setView={setView}
           />
         </div>
+        <Link to="/newtrip">
+          <button>New Trip +</button>
+        </Link>
         <button onClick={handleLogout}>Logout</button>
       </nav>
       {view === "aboutYou" ? (
@@ -52,7 +55,7 @@ const AccountHome = ({ notLoggedIn, setNotLoggedIn, loginID, user }) => {
       ) : view === "loginInfo" ? (
         <LoginMaint loginID={loginID} />
       ) : (
-        <TripRequest loginID={loginID} />
+        <NewTripForm loginID={loginID} />
       )}
     </div>
   );
