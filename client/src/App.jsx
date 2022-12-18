@@ -6,7 +6,7 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import Itinerary from "./pages/Itinerary";
 import Layout from "./layouts/Layout";
-import TripRequest from "./pages/TripRequest";
+import NewTrip from "./pages/NewTrip";
 
 function App() {
   const [notLoggedIn, setNotLoggedIn] = useState(true);
@@ -43,9 +43,9 @@ function App() {
               }
             />
             <Route
-              path="/triprequest"
+              path="/newtrip"
               element={
-                <TripRequest notLoggedIn={notLoggedIn} loginID={loginID} />
+                <NewTrip notLoggedIn={notLoggedIn} loginID={loginID} />
               }
             />
           </Route>

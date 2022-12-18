@@ -30,6 +30,17 @@ function AppAppBar() {
           <Box sx={{ flex: 1 }} />
 
           <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end"}}>
+
+          <Link
+          color="inherit"
+          variant="h5"
+          underline="none"
+          href="/newtrip"
+          sx={rightLink}
+          >
+            {"+ New Trip"}
+          </Link>  
+
           <Link
             color="inherit"
             variant="h5"

@@ -7,7 +7,7 @@ import CustomTextArea from "../components/CustomTextArea";
 import { tripRequestSchema } from "../components/validation/schema";
 import HiddenInput from "../components/HiddenInput";
 
-const TripRequest = ({ notLoggedIn }) => {
+const NewTripForm = ({ notLoggedIn }) => {
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
 
@@ -140,4 +140,4 @@ const TripRequest = ({ notLoggedIn }) => {
   );
 };
 
-export default TripRequest;
+export default NewTripForm;
