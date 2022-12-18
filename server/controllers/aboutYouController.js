@@ -14,12 +14,26 @@ router.get("/", async (req, res) => {
     res.status(500).json({ error });
   }
 });
-
+// get all details by id
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const aboutYou = await AboutYou.findOne({ user: id }).exec();
+    const aboutYou = await AboutYou.findOne({ user: { _id: id } })
+      // .populate("user", "firstName") //? if you want to populate user object in fetch data and show firstName to be used in front end
+      .exec();
     res.json(aboutYou);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+// get only _id details by id
+router.get("/getid/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const aboutYouID = await AboutYou.findOne({ user: { _id: id } }, { _id: 1 })
+      // .populate("user", "firstName") //? if you want to populate user object in fetch data and show firstName to be used in front end
+      .exec();
+    res.json(aboutYouID);
   } catch (error) {
     res.status(500).json({ error });
   }
