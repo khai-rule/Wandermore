@@ -48,12 +48,12 @@ export const tripRequestSchema = yup.object().shape({
   country: yup.string().required("Required"),
   activityPreference: yup
     .string()
-    .oneOf(["adventure", "relaxation", "cultural"], "Invalid activity type")
+    .oneOf(["Adventure", "Relaxation", "Cultural"], "Invalid activity type")
     .required("Required"),
   accomodationPreference: yup
     .string()
     .oneOf(
-      ["hotel", "hostel", "bed & breakfast", "others"],
+      ["Hotel", "Hostel", "Bed & breakfast", "Others"],
       "Invalid accomodation type"
     )
     .required("Required"),
@@ -68,5 +68,4 @@ export const aboutYouSchema = yup.object().shape({
   countryOfResidence: yup.string().required("Required"),
   dietaryRestrictions: yup.string(),
   accessibility: yup.string(),
-  user: yup.string(),
 });

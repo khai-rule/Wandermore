@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Form, Formik } from "formik";
 import CustomInput from "../components/CustomInput";
@@ -6,9 +6,12 @@ import CustomSelect from "../components/CustomSelect";
 import CustomTextArea from "../components/CustomTextArea";
 import { tripRequestSchema } from "../components/validation/schema";
 import HiddenInput from "../components/HiddenInput";
+import { ref } from "yup";
 
 const NewTripForm = ({ loginID }) => {
+  const [inDatabase, setInDatabase] = useState([]);
   const [msg, setMsg] = useState("");
+  const [render, setRender] = useState(0);
 
   const handleTripSubmit = async (values, actions) => {
     await new Promise((resolve) => setTimeout(resolve, 500));
@@ -21,15 +24,50 @@ const NewTripForm = ({ loginID }) => {
         body: JSON.stringify(values),
       });
       if (response.ok) {
-        actions.resetForm();
-        setMsg(
-          "Trip request submitted successfully, please give us some time to come back with your Itinerary!"
-        );
+        try {
+          //adding aboutyou id to ARRAY in user database.
+          const response = await fetch(`/api/trips/getid/${loginID}`);
+          const fetchID = await response.json();
+          const res = await fetch(`/api/user/setnewtrip/${loginID}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(fetchID[fetchID.length - 1]),
+          });
+          if (res.ok) {
+            actions.resetForm();
+            setMsg(
+              "Trip request submitted successfully, please give us some time to come back with your Itinerary!"
+            );
+            setRender(render + 1);
+          }
+        } catch (error) {
+          throw new Error("Network response was not OK");
+        }
       }
     } catch (error) {
       throw new Error("Network response was not OK");
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`/api/trips/${loginID}`);
+      try {
+        if (!response.ok) {
+          throw new Error("Network error");
+        }
+        const data = await response.json();
+        if (data !== null) {
+          setInDatabase(data);
+        }
+      } catch (error) {
+        throw new Error("Network response was not OK");
+      }
+    };
+    fetchData();
+  }, [loginID, render]);
 
   return (
     <>
@@ -40,7 +78,7 @@ const NewTripForm = ({ loginID }) => {
           country: "",
           activityPreference: "",
           accomodationPreference: "",
-          pax: "",
+          pax: "1",
           paxInfo: "",
           otherInfo: "",
           user: {},
@@ -48,7 +86,7 @@ const NewTripForm = ({ loginID }) => {
         validationSchema={tripRequestSchema}
         onSubmit={handleTripSubmit}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting, setFieldValue, values }) => (
           <Form autoComplete="off">
             <fieldset>
               <legend>New Trip Request</legend>
@@ -79,9 +117,9 @@ const NewTripForm = ({ loginID }) => {
                 placeholder="Please select an activity"
               >
                 <option value="">Please select an activity type</option>
-                <option value="adventure">Adventure</option>
-                <option value="relaxation">Relaxation</option>
-                <option value="cultural">Cultural</option>
+                <option value="Adventure">Adventure</option>
+                <option value="Relaxation">Relaxation</option>
+                <option value="Cultural">Cultural</option>
               </CustomSelect>
               <br />
               <CustomSelect
@@ -90,10 +128,10 @@ const NewTripForm = ({ loginID }) => {
                 placeholder="Please select accomodation type"
               >
                 <option value="">Please select accomodation type</option>
-                <option value="hotel">Hotel</option>
-                <option value="hostel">Hostel</option>
-                <option value="bed & breakfast">Bed & Breakfast</option>
-                <option value="others">Others</option>
+                <option value="Hotel">Hotel</option>
+                <option value="Hostel">Hostel</option>
+                <option value="Bed & breakfast">Bed & Breakfast</option>
+                <option value="Others">Others</option>
               </CustomSelect>
               <br />
               <CustomInput
@@ -136,6 +174,30 @@ const NewTripForm = ({ loginID }) => {
         )}
       </Formik>
       <p>{msg}</p>
+      <h2>Your Trip requests:</h2>
+      {inDatabase.map((trip, index) => {
+        const dDate = new Date(trip.departureDate);
+        const localDDate = dDate.toLocaleDateString("en-GB");
+        const rDate = new Date(trip.returnDate);
+        const localRDate = rDate.toLocaleDateString("en-GB");
+        return (
+          <div key={trip._id}>
+            <h3>Trip {index + 1}</h3>
+            <ul>
+              <li>Departure Date: {localDDate}</li>
+              <li>Return Date: {localRDate}</li>
+              <li>Country: {trip.country}</li>
+              <li>Activity Preference: {trip.activityPreference}</li>
+              <li>Accomodation Preference: {trip.accomodationPreference}</li>
+              <li>No. of Pax: {trip.pax}</li>
+              <li>Pax Info: {trip.paxInfo === "" ? "N/A" : trip.paxInfo}</li>
+              <li>
+                Anything Else: {trip.otherInfo === "" ? "N/A" : trip.otherInfo}
+              </li>
+            </ul>
+          </div>
+        );
+      })}
     </>
   );
 };
