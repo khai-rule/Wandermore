@@ -33,8 +33,8 @@ const Activity = () => {
                     <h5>{item.time} Hour</h5>
                     <h5>{item.duration} Mins</h5>
                     <p>{item.description}</p>
-                    <img src={item.photos[0]} width="500"/>
-                    <img src={item.photos[1]} width="500"/>
+                    <img src={item.photo1} width="500"/>
+                    <img src={item.photo2} width="500"/>
                 </div>
             );
         });

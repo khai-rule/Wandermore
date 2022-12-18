@@ -10,6 +10,7 @@ import HiddenInput from "../components/HiddenInput";
 const CreateItineraryForm = ({ notLoggedIn }) => {
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
+  const [inDatabase, setInDatabase] = useState()
 
 //   useEffect(() => {
 //     if (notLoggedIn) {
@@ -17,8 +18,8 @@ const CreateItineraryForm = ({ notLoggedIn }) => {
 //     }
 //   }, [navigate, notLoggedIn]);
 
-
-  const handleTripSubmit = async (values, actions) => {
+//! On submit, uplaod to database
+  const handleActivitySubmit = async (values, actions) => {
     await new Promise((resolve) => setTimeout(resolve, 500));
     try {
       const response = await fetch("/api/activities", {
@@ -39,26 +40,47 @@ const CreateItineraryForm = ({ notLoggedIn }) => {
     }
   };
 
-  return (
-    <>
-    <button onClick={() => navigate(-1)}>Back</button>
-      <Formik
+    //! Fetch Activities
+    useEffect(() => {
+        const fetchData = async () => {
+          const response = await fetch(`/api/activities`);
+          try {
+            if (!response.ok) {
+              throw new Error("Network error");
+            }
+            const data = await response.json();
+            if (data !== null) {
+              setInDatabase(data);
+            }
+          } catch (error) {
+            throw new Error("Network response was not OK");
+          }
+        };
+        fetchData();
+      }, []);
+
+//! Form 
+  const form = (name, date, time, duration, location, photo1, photo2, description, index) => {
+    return (
+        <div>
+        <Formik
         initialValues={{
-          name: "",
-          date: "",
-          time: 0,
-          duration: 0,
-          location: "",
-          photos: "",
-          description: ""
-        }}
+            name: name,
+            date: date,
+            time: time,
+            duration: duration,
+            location: location,
+            photo1: photo1,
+            photo2: photo2,
+            description: description
+          }}
         validationSchema={activitySchema}
-        onSubmit={handleTripSubmit}
+        onSubmit={handleActivitySubmit}
       >
         {({ isSubmitting }) => (
           <Form autoComplete="off">
             <fieldset>
-              <legend>Itinerary</legend>
+              <legend>Activity {index}</legend>
               
             <CustomTextArea
                 label="Name"
@@ -68,10 +90,10 @@ const CreateItineraryForm = ({ notLoggedIn }) => {
             />
             <br />
 
-            <CustomInput
+            <CustomTextArea
                 label="Date"
                 name="date"
-                type="date"
+                type="textarea"
                 placeholder="Date of Activity"
             />
             <br />
@@ -101,8 +123,16 @@ const CreateItineraryForm = ({ notLoggedIn }) => {
             <br />
 
             <CustomTextArea
-                label="Photos"
-                name="photos"
+                label="First Photo"
+                name="photo1"
+                type="textarea"
+                placeholder="Photos of Activity"
+            />
+            <br />
+
+            <CustomTextArea
+                label="Second Photo"
+                name="photo2"
                 type="textarea"
                 placeholder="Photos of Activity"
             />
@@ -118,14 +148,42 @@ const CreateItineraryForm = ({ notLoggedIn }) => {
 
               <HiddenInput name="user" type="hidden" value="" />
               <button disabled={isSubmitting} type="submit">
-                Create Activity
+                Add/Update Activity
               </button>
             </fieldset>
           </Form>
         )}
       </Formik>
       <p>{msg}</p>
-    </>
+        </div>
+    )
+  }
+
+    const addActivity = () => {
+
+
+    }
+
+    const mapInDatabase = inDatabase?.map(item => {
+        const name = item.name
+        const date = item.date
+        const time = item.time
+        const duration = item.duration
+        const location = item.location
+        const photo1 = item.photo1
+        const photo2 = item.photo2
+        const description = item.description
+        const index = inDatabase?.indexOf(item) + 1
+        return form(name, date, time, duration, location, photo1, photo2, description, index)
+    })
+
+  return (
+    <div>
+    <button onClick={() => navigate(-1)}>Back</button>
+    <h1>Activities</h1>
+        {mapInDatabase}
+    <buttonn onClick={handleActivitySubmit}>Add Another Activity</buttonn>
+    </div>
   );
 };
 
