@@ -8,6 +8,7 @@ import Itinerary from "./pages/Itinerary";
 import Layout from "./layouts/Layout";
 import NewTrip from "./pages/NewTrip";
 import CreateItinerary from './pages/admin-pages/CreateItineray';
+import YourTrips from "./pages/YourTrips";
 
 function App() {
   const [notLoggedIn, setNotLoggedIn] = useState(true);
@@ -43,6 +44,13 @@ function App() {
               path="/itinerary"
               element={
                 <Itinerary />
+              }
+            />
+
+            <Route
+              path="/yourtrips"
+              element={
+                <YourTrips />
               }
             />
 

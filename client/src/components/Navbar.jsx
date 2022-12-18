@@ -56,10 +56,10 @@ function AppAppBar() {
             color="inherit"
             variant="h5"
             underline="none"
-            href="/itinerary"
+            href="/yourtrips"
             sx={rightLink}
           >
-            {"Itinerary"}
+            {"Your Trips"}
           </Link>  
 
             <Link

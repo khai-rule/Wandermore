@@ -1,17 +1,23 @@
-import * as React from 'react';
-import HeroLayout from './HeroLayout';
+import HeroLayout from "./HeroLayout";
+import Typography from "../components/mui-components/Typography";
 
-const backgroundImage =
-  'https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2021/11/01_Mirbach_HiRes_sRGB-2048x1384.jpg';
+const Header = ({ img, text, height }) => {
 
-export default function ProductHero() {
-  return (
-    <HeroLayout
-      sxBackground={{
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundPosition: 'center',
-      }}
-    >
-    </HeroLayout>
-  );
+    return (
+        <HeroLayout
+        sxBackground={{
+          backgroundImage: `url(${img})`,
+          backgroundPosition: 'center',
+          height:{height}
+        }}
+        >
+
+            <Typography color="inherit" align="center" variant="h2">
+            {text}
+            </Typography>
+
+        </HeroLayout>
+    );
 }
+ 
+export default Header;

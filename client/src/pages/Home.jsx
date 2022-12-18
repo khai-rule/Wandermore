@@ -1,10 +1,10 @@
-import Header from "../components/Header.jsx"
 import Reviews from "../components/Reviews.jsx"
 import TypesOfTrip from "../components/TypesOfTrip.jsx"
 import Typography from "../components/mui-components/Typography.jsx";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
+import HeroLayout from '../components/HeroLayout';
 
 const Home = () => {
   return (
@@ -40,7 +40,13 @@ const Home = () => {
     </Container>
   </Typography>
 
-    <Header />
+  <HeroLayout
+  sxBackground={{
+    backgroundImage: `url(https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2021/11/01_Mirbach_HiRes_sRGB-2048x1384.jpg)`,
+    backgroundPosition: 'center',
+  }}
+/>
+
     <Reviews />
     <TypesOfTrip />
     </div>
