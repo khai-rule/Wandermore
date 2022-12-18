@@ -23,8 +23,8 @@ const Login = ({ setNotLoggedIn, setLoginID, setUser }) => {
         actions.resetForm();
         setLoginID(data.id);
         setNotLoggedIn(false);
-        navigate("/aboutyou");
-        setUser(values.email)
+        navigate("/account");
+        setUser(values.email);
       }
       setMsg(data.msg);
     } catch (error) {

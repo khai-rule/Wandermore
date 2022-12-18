@@ -2,7 +2,7 @@
 const express = require("express");
 const User = require("../models/User");
 const userRouter = express.Router();
-const ObjectId = require('mongodb').ObjectId;
+const ObjectId = require("mongodb").ObjectId;
 
 userRouter.get("/", async (req, res) => {
   try {
@@ -10,6 +10,32 @@ userRouter.get("/", async (req, res) => {
     res.json(users);
   } catch (error) {
     res.status(500).json(error);
+  }
+});
+
+userRouter.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const userInfo = await User.findById(id).exec();
+    res.json(userInfo);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
+// For LoginMaint page
+userRouter.get("/database/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const userInfo = await User.findById(id, {
+      email: 1,
+      firstName: 1,
+      lastName: 1,
+      _id: 0,
+    }).exec();
+    res.json(userInfo);
+  } catch (error) {
+    res.status(500).json({ error });
   }
 });
 
@@ -32,6 +58,18 @@ userRouter.post("/", async (req, res) => {
   }
 });
 
+userRouter.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const userUpdate = await User.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    res.json(userUpdate);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
 userRouter.get("/seed", async (req, res) => {
   //   const saltRounds = 10;
   const users = [
@@ -41,7 +79,6 @@ userRouter.get("/seed", async (req, res) => {
       lastName: "Tan",
       password: "jt1234",
 
-
       //   password: bcrypt.hashSync("1q2w3e4r", saltRounds),
     },
     {
@@ -49,7 +86,6 @@ userRouter.get("/seed", async (req, res) => {
       firstName: "Bobby",
       lastName: "Lee",
       password: "bl4321",
-
 
       //   password: bcrypt.hashSync("qawsedrf", saltRounds),
     },
@@ -87,7 +123,6 @@ userRouter.get("/seed", async (req, res) => {
 //   }
 // });
 
-
 //! View Single User
 //TODO catch if cant find
 userRouter.get("/:email", async (req, res) => {
@@ -105,17 +140,12 @@ userRouter.put("/:email", async (req, res) => {
   const { email } = req.params;
   const data = req.body;
 
-  const user = await User.findOneAndUpdate(
-    { email: email },
-    data, {
-          new: true,
-    }
-  );
-    
+  const user = await User.findOneAndUpdate({ email: email }, data, {
+    new: true,
+  });
+
   return res.json(user);
 });
-
-
 
 //! Populate
 //TODO the email should comes from an input
