@@ -31,6 +31,17 @@ function AppAppBar() {
 
           <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end"}}>
 
+
+          <Link
+          color="inherit"
+          variant="h5"
+          underline="none"
+          href="/createitinerary"
+          sx={rightLink}
+          >
+            {"Create Itinerary (admin)"}
+          </Link>  
+
           <Link
           color="inherit"
           variant="h5"
@@ -45,10 +56,10 @@ function AppAppBar() {
             color="inherit"
             variant="h5"
             underline="none"
-            href="/itinerary"
+            href="/yourtrips"
             sx={rightLink}
           >
-            {"Itinerary"}
+            {"Your Trips"}
           </Link>  
 
             <Link

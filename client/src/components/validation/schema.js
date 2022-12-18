@@ -69,3 +69,13 @@ export const aboutYouSchema = yup.object().shape({
   dietaryRestrictions: yup.string(),
   accessibility: yup.string(),
 });
+
+export const activitySchema = yup.object().shape({
+    name: yup.string().required("Required"),
+    date: yup.date().required("Required"),
+    time: yup.number().required("Required"),
+    duration: yup.string(),
+    location: yup.string().required("Required"),
+    photos: yup.string(),
+    description: yup.string(),
+  });

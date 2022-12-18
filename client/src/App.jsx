@@ -7,6 +7,8 @@ import SignUp from "./components/SignUp";
 import Itinerary from "./pages/Itinerary";
 import Layout from "./layouts/Layout";
 import NewTrip from "./pages/NewTrip";
+import CreateItinerary from './pages/admin-pages/CreateItineray';
+import YourTrips from "./pages/YourTrips";
 
 function App() {
   const [notLoggedIn, setNotLoggedIn] = useState(true);
@@ -17,8 +19,16 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
+
           <Route path="/" element={<Layout />}>
-            <Route path="/" element={<Home />} />
+
+            <Route
+              path="/"
+              element={
+                <Home />
+              }
+            />
+
             <Route
               path="/account"
               element={
@@ -26,27 +36,55 @@ function App() {
                   notLoggedIn={notLoggedIn}
                   setNotLoggedIn={setNotLoggedIn}
                   loginID={loginID}
-                  user={user}
-                />
+                  user={user} />
               }
             />
-            <Route path="/itinerary" element={<Itinerary />} />
-            <Route path="/signup" element={<SignUp />} />
+
+            <Route
+              path="/itinerary"
+              element={
+                <Itinerary />
+              }
+            />
+
+            <Route
+              path="/yourtrips"
+              element={
+                <YourTrips />
+              }
+            />
+
+            <Route
+              path="/signup"
+              element={
+                <SignUp />
+              }
+            />
+
             <Route
               path="/login"
               element={
                 <Login
                   setNotLoggedIn={setNotLoggedIn}
                   setLoginID={setLoginID}
-                  setUser={setUser}
-                />
+                  setUser={setUser} />
               }
             />
+
             <Route
               path="/newtrip"
               element={<NewTrip notLoggedIn={notLoggedIn} loginID={loginID} />}
             />
+
+            <Route
+              path="/createitinerary"
+              element={
+              <CreateItinerary notLoggedIn={notLoggedIn} loginID={loginID} />
+              }
+            />
+
           </Route>
+
         </Routes>
       </BrowserRouter>
     </div>
