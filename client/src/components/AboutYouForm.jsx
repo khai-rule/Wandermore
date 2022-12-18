@@ -27,7 +27,23 @@ const AboutYouForm = ({ loginID }) => {
           body: JSON.stringify(values),
         });
         if (response.ok) {
-          setMsg("Your details have been Added!");
+          try {
+            //adding aboutyou id to user database
+            const response = await fetch(`/api/aboutyou/getid/${loginID}`);
+            const fetchID = await response.json();
+            const res = await fetch(`/api/user/setaboutyou/${loginID}`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(fetchID),
+            });
+            if (res.ok) {
+              setMsg("Your details have been Added!");
+            }
+          } catch (error) {
+            throw new Error("Network response was not OK");
+          }
         }
       } else {
         const response = await fetch(`/api/aboutyou/${loginID}`, {

@@ -72,6 +72,22 @@ userRouter.put("/:id", async (req, res) => {
     res.status(500).json({ error });
   }
 });
+// Updating new aboutYou id to user
+userRouter.put("/setaboutyou/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const userUpdate = await User.findByIdAndUpdate(
+      id,
+      { aboutYou: req.body._id },
+      {
+        new: true,
+      }
+    );
+    res.json(userUpdate);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
 
 // router.get("/see", async (req, res) => {
 //   const user = await AboutYou.find({}).populate({ path: "User", model: "User" })
