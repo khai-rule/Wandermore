@@ -18,7 +18,9 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const aboutYou = await AboutYou.findOne({ user: id }).exec();
+    const aboutYou = await AboutYou.findOne({ user: { _id: id } })
+      // .populate("user", "firstName") //? if you want to populate user object in fetch data and show firstName to be used in front end
+      .exec();
     res.json(aboutYou);
   } catch (error) {
     res.status(500).json({ error });
