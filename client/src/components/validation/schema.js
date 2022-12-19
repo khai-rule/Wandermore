@@ -74,8 +74,8 @@ export const activitySchema = yup.object().shape({
     name: yup.string().required("Required"),
     date: yup.date().required("Required"),
     time: yup.number().required("Required"),
-    duration: yup.string(),
+    duration: yup.number().required("Required"),
     location: yup.string().required("Required"),
-    photos: yup.string(),
+    photo: yup.string(),
     description: yup.string(),
   });
