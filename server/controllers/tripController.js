@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
 
 router.get("/data", async (req, res) => {
   try {
-    const trip = await Trip.find({}).populate({path: "activities"});
+    const trip = await Trip.find({}).populate("activities");
     res.status(200).send(trip);
   } catch (err) {
     res.status(500).send({ err });

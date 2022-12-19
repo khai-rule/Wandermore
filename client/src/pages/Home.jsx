@@ -5,6 +5,8 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import HeroLayout from '../components/HeroLayout';
+import Button from "../components/mui-components/Typography.jsx";
+
 
 const Home = () => {
   return (
@@ -31,7 +33,7 @@ const Home = () => {
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.
               </Typography>     
               <Typography variant="body2" sx={{ mt: 2, color: 'primary.light' }}>
-                <button>Explore More</button>
+                <Button>Explore More</Button>
               </Typography>                  
             </Box>
           </Grid>

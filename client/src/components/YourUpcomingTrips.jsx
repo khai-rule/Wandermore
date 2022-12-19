@@ -42,7 +42,7 @@ function YourUpcomingTrips() {
               pr: { md: 0 },
             }}
           >
-            <Typography component="h1" variant="h3" color="inherit" gutterBottom>
+            <Typography component="h3" variant="h3" color="inherit" gutterBottom>
             Iceland
             </Typography>
             <Typography variant="h6" color="inherit" paragraph>
