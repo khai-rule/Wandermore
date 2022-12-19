@@ -16,14 +16,27 @@ router.get("/", async (req, res) => {
   }
 });
 
+// //! get all details by id
+// router.get("/:id", async (req, res) => {
+//   const { id } = req.params;
+//   try {
+//     const trip = await Trip.find({ user: { _id: id } })
+//       // .populate("user", "firstName") //? if you want to populate user object in fetch data and show firstName to be used in front end
+//       .exec();
+//     res.json(trip);
+//   } catch (error) {
+//     res.status(500).json({ error });
+//   }
+// });
+
 //! get all details by id
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const newTrip = await Trip.find({ user: { _id: id } })
+    const trip = await Trip.findById(id)
       // .populate("user", "firstName") //? if you want to populate user object in fetch data and show firstName to be used in front end
       .exec();
-    res.json(newTrip);
+    res.json(trip);
   } catch (error) {
     res.status(500).json({ error });
   }
