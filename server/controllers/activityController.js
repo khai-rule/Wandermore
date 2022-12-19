@@ -15,6 +15,16 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const activity = await Activity.findById(id).exec();
+    res.json(activity);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
 router.post("/", async (req, res) => {
   try {
     const activity = await Activity.create(req.body);

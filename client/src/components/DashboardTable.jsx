@@ -2,6 +2,7 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const columns = [
     { field: 'firstName', headerName: 'First name', width: 150 },
@@ -15,27 +16,29 @@ const columns = [
 
 
 export default function DataTable() {
-const [inDatabase, setInDatabase] = useState();
-const [message, setMessage] = useState("");
-const [id, setId] = useState();
+    const [inDatabase, setInDatabase] = useState();
+    const [message, setMessage] = useState("");
+    const [id, setId] = useState();
 
-useEffect(() => {
-    const fetchData = async () => {
-        const response = await fetch(`/api/trips`);
-        try {
-        if (!response.ok) {
-            throw new Error("Network error");
-        }
-        const data = await response.json();
-        if (data !== null) {
-            setInDatabase(data);
-        }
-        } catch (error) {
-        throw new Error("Network response was not OK");
-        }
-    };
-    fetchData();
-    }, [inDatabase]);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch(`/api/trips`);
+            try {
+            if (!response.ok) {
+                throw new Error("Network error");
+            }
+            const data = await response.json();
+            if (data !== null) {
+                setInDatabase(data);
+            }
+            } catch (error) {
+            throw new Error("Network response was not OK");
+            }
+        };
+        fetchData();
+        }, [inDatabase]);
 
     const rows = () => {
         const mapInDatabase = inDatabase?.map(item => {
@@ -87,7 +90,7 @@ useEffect(() => {
 
     //! Go to add activities page
     const handleItinerary = () => {
-        console.log("delete", id)
+        navigate(`/createitinerary/${id}`);
     }
 
     const data = rows();
