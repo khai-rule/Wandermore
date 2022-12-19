@@ -1,5 +1,4 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
@@ -9,12 +8,23 @@ import Box from '@mui/material/Box';
 function YourUpcomingTrips() {
 
   return (
+
+    <Grid
+    container
+    columns={{ xs: 4, sm: 8, md: 12 }}
+    justifyContent="center"
+    sx={{ my: 2, px: 2}}
+    >
+    
     <Paper
       sx={{
+        boxShadow: 0,
+        borderRadius: 0,
         position: 'relative',
         // backgroundColor: 'grey.800',
+        width: "100%",
+        height: "100%",
         color: '#fff',
-        mb: 4,
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
@@ -49,12 +59,14 @@ function YourUpcomingTrips() {
             Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.
             </Typography>
             <Link variant="subtitle1" color="inherit" href="">
-                See Itinerary
+                View Itinerary
             </Link>
           </Box>
         </Grid>
       </Grid>
     </Paper>
+    </Grid>
+
   );
 }
 

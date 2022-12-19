@@ -1,7 +1,6 @@
 import YourUpcomingTrips from "../components/YourUpcomingTrips";
 import YourPastTrips from "../components/YourPastTrips";
-import Header from "../components/Header";
-import Typography from "../components/mui-components/Typography";
+import YourOtherUpcomingTrips from "../components/YourOtherUpcomingTrips";
 
 const YourTrips = () => {
 
@@ -10,6 +9,7 @@ const YourTrips = () => {
     return (
         <div>
             <YourUpcomingTrips />
+            <YourOtherUpcomingTrips />
             <YourPastTrips />
         </div>
     );

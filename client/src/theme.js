@@ -50,7 +50,7 @@ const theme = {
     ...rawTheme.palette,
     background: {
       ...rawTheme.palette.background,
-      default: rawTheme.palette.common.white,
+      default: "rgb(230, 230, 230)",
       placeholder: grey[200],
     },
   },
@@ -82,7 +82,7 @@ const theme = {
     h5: {
       ...rawTheme.typography.h5,
       fontSize: 20,
-      fontWeight: rawTheme.typography.fontWeightLight,
+      fontWeight: rawTheme.typography.fontWeightRegular,
     },
     h6: {
       ...rawTheme.typography.h6,
