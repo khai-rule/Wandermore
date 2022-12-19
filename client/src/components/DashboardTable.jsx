@@ -15,6 +15,7 @@ const columns = [
 
 export default function DataTable() {
 const [inDatabase, setInDatabase] = useState();
+const [message, setMessage] = useState('');
 
 useEffect(() => {
     const fetchData = async () => {
@@ -44,8 +45,9 @@ useEffect(() => {
             const country = item?.country
             const departureDate = item?.departureDate
             const returnDate = item?.returnDate
+            const id = item?._id
             const obj = {
-                id: firstName,
+                id: id,
                 firstName: firstName,
                 lastName: lastName, 
                 email: email,
@@ -57,17 +59,27 @@ useEffect(() => {
         })
         return mapInDatabase
     }
+    
+    const data = rows();
+    const handleRowClick = (params) => {
+        setMessage(`User ${params.row.firstName} "${params.row.id}" clicked`);
+      };
+
+
 
   return (
-    <div style={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={rows() ?? rows}
-        rowCount={2}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-      />
-    </div>
+    <>
+        <div style={{ height: 400, width: '100%' }}>
+        <DataGrid
+            onRowClick={handleRowClick} {...data}
+            rows={rows() ?? rows}
+            rowCount={2}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5]}
+        />
+        </div>
+        <p>{message}</p>
+    </>
   );
 }

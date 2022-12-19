@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
-import CustomInput from "../components/CustomInput";
-import CustomSelect from "./CustomSelect";
 import CustomTextArea from "../components/CustomTextArea";
 import { activitySchema } from "../components/validation/schema";
 import HiddenInput from "../components/HiddenInput";
