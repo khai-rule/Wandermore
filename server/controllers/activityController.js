@@ -7,7 +7,6 @@ const router = express.Router();
 router.get("/seed", seed);
 
 router.get("/", async (req, res) => {
-
   try {
     const activity = await Activity.find().exec();
     res.json(activity);
