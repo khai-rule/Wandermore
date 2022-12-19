@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const aboutYouSchema = mongoose.Schema(
   {
-    dateOfBirth: { type: String },
+    dateOfBirth: { type: Date },
     hobbies: { type: String, trim: true },
     countryOfResidence: { type: String },
     dietaryRestrictions: { type: String, trim: true },

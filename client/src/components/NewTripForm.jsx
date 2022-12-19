@@ -6,7 +6,6 @@ import CustomSelect from "../components/CustomSelect";
 import CustomTextArea from "../components/CustomTextArea";
 import { tripRequestSchema } from "../components/validation/schema";
 import HiddenInput from "../components/HiddenInput";
-import { ref } from "yup";
 
 const NewTripForm = ({ loginID }) => {
   const [inDatabase, setInDatabase] = useState([]);
@@ -174,7 +173,7 @@ const NewTripForm = ({ loginID }) => {
         )}
       </Formik>
       <p>{msg}</p>
-      <h2>Your Trip requests:</h2>
+      {inDatabase === null ? <h2>Your Trip requests:</h2> : <></>}
       {inDatabase.map((trip, index) => {
         const dDate = new Date(trip.departureDate);
         const localDDate = dDate.toLocaleDateString("en-GB");

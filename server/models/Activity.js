@@ -3,13 +3,13 @@ const mongoose = require("mongoose");
 const activitySchema = mongoose.Schema(
   {
     name: { type: String, required: true },
-    date: { type: String, required: true },
+    date: { type: Date, required: true },
     time: { type: Number, required: true },
     duration: { type: Number, required: true },
     location: { type: String, required: true },
-    photo1: String,
-    photo2: String,
+    photo: String,
     description: String,
+    trip: { type: mongoose.Schema.Types.ObjectId, ref: "Trip"},
   },
   { timestamps: true }
 );
