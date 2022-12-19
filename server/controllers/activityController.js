@@ -24,9 +24,10 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/", async (req, res) => {
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
   try {
-    const activity = await Activity(req.body, {
+    const activity = await Activity.findByIdAndUpdate(id, req.body, {
       new: true,
     });
     res.json(activity);
@@ -34,6 +35,5 @@ router.put("/", async (req, res) => {
     res.status(500).json({ error });
   }
 });
-
 
 module.exports = router;

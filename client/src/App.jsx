@@ -7,7 +7,7 @@ import SignUp from "./components/SignUp";
 import Itinerary from "./pages/Itinerary";
 import Layout from "./layouts/Layout";
 import NewTrip from "./pages/NewTrip";
-import CreateItinerary from './pages/admin-pages/CreateItineray';
+import CreateItinerary from "./pages/admin-pages/CreateItineray";
 import YourTrips from "./pages/YourTrips";
 import Dashboard from "./pages/admin-pages/Dashboard";
 
@@ -20,15 +20,8 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-
           <Route path="/" element={<Layout />}>
-
-            <Route
-              path="/"
-              element={
-                <Home />
-              }
-            />
+            <Route path="/" element={<Home />} />
 
             <Route
               path="/account"
@@ -37,30 +30,16 @@ function App() {
                   notLoggedIn={notLoggedIn}
                   setNotLoggedIn={setNotLoggedIn}
                   loginID={loginID}
-                  user={user} />
+                  user={user}
+                />
               }
             />
 
-            <Route
-              path="/itinerary"
-              element={
-                <Itinerary />
-              }
-            />
+            <Route path="/itinerary" element={<Itinerary />} />
 
-            <Route
-              path="/yourtrips"
-              element={
-                <YourTrips />
-              }
-            />
+            <Route path="/yourtrips" element={<YourTrips />} />
 
-            <Route
-              path="/signup"
-              element={
-                <SignUp />
-              }
-            />
+            <Route path="/signup" element={<SignUp />} />
 
             <Route
               path="/login"
@@ -68,33 +47,25 @@ function App() {
                 <Login
                   setNotLoggedIn={setNotLoggedIn}
                   setLoginID={setLoginID}
-                  setUser={setUser} />
+                  setUser={setUser}
+                />
               }
             />
 
             <Route
               path="/newtrip"
-              element={
-                <NewTrip notLoggedIn={notLoggedIn} loginID={loginID} />
-              }
+              element={<NewTrip notLoggedIn={notLoggedIn} loginID={loginID} />}
             />
 
             <Route
-              path="/createitinerary/:id"
+              path="/createitinerary/"
               element={
-              <CreateItinerary notLoggedIn={notLoggedIn} loginID={loginID} />
+                <CreateItinerary notLoggedIn={notLoggedIn} loginID={loginID} />
               }
             />
 
-            <Route
-              path="/dashboard"
-              element={
-              <Dashboard />
-              }
-            />
-
+            <Route path="/dashboard" element={<Dashboard />} />
           </Route>
-
         </Routes>
       </BrowserRouter>
     </div>
