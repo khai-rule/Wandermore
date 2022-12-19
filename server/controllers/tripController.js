@@ -15,7 +15,8 @@ router.get("/", async (req, res) => {
     res.status(500).json({ error });
   }
 });
-// get all details by id
+
+//! get all details by id
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
@@ -27,7 +28,8 @@ router.get("/:id", async (req, res) => {
     res.status(500).json({ error });
   }
 });
-// get multiple _id details by id - for ARRAY
+
+//! get multiple _id details by id - for ARRAY
 router.get("/getid/:id", async (req, res) => {
   const { id } = req.params;
   try {
@@ -57,5 +59,17 @@ router.get("/data", async (req, res) => {
     res.status(500).send({ err });
   }
 });
+
+//! Delete by ID
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const trip = await Trip.findByIdAndDelete(id).exec();
+    return res.json(trip);
+  } catch (err) {
+    res.status(500).send({ err });
+  }
+});
+
 
 module.exports = router;

@@ -80,7 +80,7 @@ function App() {
             />
 
             <Route
-              path="/createitinerary"
+              path="/createitinerary/:id"
               element={
               <CreateItinerary notLoggedIn={notLoggedIn} loginID={loginID} />
               }

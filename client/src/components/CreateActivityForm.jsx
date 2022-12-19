@@ -33,7 +33,7 @@ const CreateActivityForm = ({ activity, index }) => {
         {({ isSubmitting }) => (
           <Form autoComplete="off">
             <fieldset>
-              <legend>Activity {index}</legend>
+              <legend>Activity {(index + 1)}</legend>
             <CustomInput
                 label="Name"
                 name="name"
