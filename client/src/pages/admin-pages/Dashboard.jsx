@@ -1,3 +1,6 @@
+
+import DashboardTable from "../../components/DashboardTable";
+
 const Dashboard = () => {
 
     //TODO Overview of request
@@ -7,6 +10,7 @@ const Dashboard = () => {
 
     return (
         <div>
+            <DashboardTable />
         </div>
     );
 }

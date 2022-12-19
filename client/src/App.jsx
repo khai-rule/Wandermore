@@ -9,6 +9,7 @@ import Layout from "./layouts/Layout";
 import NewTrip from "./pages/NewTrip";
 import CreateItinerary from './pages/admin-pages/CreateItineray';
 import YourTrips from "./pages/YourTrips";
+import Dashboard from "./pages/admin-pages/Dashboard";
 
 function App() {
   const [notLoggedIn, setNotLoggedIn] = useState(true);
@@ -73,13 +74,22 @@ function App() {
 
             <Route
               path="/newtrip"
-              element={<NewTrip notLoggedIn={notLoggedIn} loginID={loginID} />}
+              element={
+                <NewTrip notLoggedIn={notLoggedIn} loginID={loginID} />
+              }
             />
 
             <Route
               path="/createitinerary"
               element={
               <CreateItinerary notLoggedIn={notLoggedIn} loginID={loginID} />
+              }
+            />
+
+            <Route
+              path="/dashboard"
+              element={
+              <Dashboard />
               }
             />
 

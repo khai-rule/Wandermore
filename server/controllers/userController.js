@@ -7,24 +7,23 @@ const ObjectId = require("mongodb").ObjectId;
 
 userRouter.get("/seed", userSeed);
 
+//! View all users
 userRouter.get("/", async (req, res) => {
   try {
-    const users = await User.find().exec();
-    res.json(users);
-  } catch (error) {
-    res.status(500).json(error);
-  }
+    const users = await User.find()
+    .populate("aboutYou")
+    .populate({
+      path: "trips",
+      populate: {
+        path: "activities"
+      },
+    });
+  res.status(200).send(users);
+} catch (err) {
+  res.status(500).send({ err });
+}
 });
 
-userRouter.get("/:id", async (req, res) => {
-  const { id } = req.params;
-  try {
-    const userInfo = await User.findById(id).exec();
-    res.json(userInfo);
-  } catch (error) {
-    res.status(500).json({ error });
-  }
-});
 
 // For LoginMaint page
 userRouter.get("/database/:id", async (req, res) => {
@@ -124,41 +123,53 @@ userRouter.put("/setnewtrip/:id", async (req, res) => {
 
 //! View Single User
 //TODO catch if cant find
-userRouter.get("/:email", async (req, res) => {
-  const { email } = req.params;
-  const user = await User.findOne({ email: email }).exec();
-  if (user === null) {
-    return res.status(404).json({ msg: "User not found" }); //? Nothing there so 404
-  }
-  return res.json(user);
-});
+// userRouter.get("/:email", async (req, res) => {
+//   const { email } = req.params;
+//   const user = await User.findOne({ email: email }).exec();
+//   if (user === null) {
+//     return res.status(404).json({ msg: "User not found" }); //? Nothing there so 404
+//   }
+//   return res.json(user);
+// });
 
-//! Update - find by email - Add aboutYou ID
-//TODO catch if cant find
-userRouter.put("/:email", async (req, res) => {
-  const { email } = req.params;
-  const data = req.body;
+// //! Update - find by email - Add aboutYou ID
+// //TODO catch if cant find
+// userRouter.put("/:email", async (req, res) => {
+//   const { email } = req.params;
+//   const data = req.body;
 
-  const user = await User.findOneAndUpdate({ email: email }, data, {
-    new: true,
-  });
+//   const user = await User.findOneAndUpdate({ email: email }, data, {
+//     new: true,
+//   });
 
-  return res.json(user);
-});
+//   return res.json(user);
+// });
 
-//! Populate
-//TODO the email should comes from an input
-userRouter.get("/data", async (req, res) => {
+
+// userRouter.get("/:id", async (req, res) => {
+//   const { id } = req.params;
+//   try {
+//     const userInfo = await User.findById(id).exec();
+//     res.json(userInfo);
+//   } catch (error) {
+//     res.status(500).json({ error });
+//   }
+// });
+
+//! View a single user all data
+userRouter.get("/:id", async (req, res) => {
   try {
-    const usersData = await User.find({ email: "johntan@gmail.com" })
+    // const usersData = await User.find({ email: "johntan@gmail.com" })
+    const { id } = req.params;
+    const userInfo = await User.findById(id)
       .populate("aboutYou")
       .populate({
         path: "trips",
         populate: {
-          path: "activities",
+          path: "activities"
         },
       });
-    res.status(200).send(usersData);
+    res.status(200).send(userInfo);
   } catch (err) {
     res.status(500).send({ err });
   }
