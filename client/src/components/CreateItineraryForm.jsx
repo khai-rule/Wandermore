@@ -10,7 +10,7 @@ import HiddenInput from "../components/HiddenInput";
 const CreateItineraryForm = ({ notLoggedIn }) => {
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
-  const [inDatabase, setInDatabase] = useState()
+  const [inDatabase, setInDatabase] = useState();
 
 //   useEffect(() => {
 //     if (notLoggedIn) {

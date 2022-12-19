@@ -8,7 +8,8 @@ router.get("/seed", tripSeed);
 
 router.get("/", async (req, res) => {
   try {
-    const trip = await Trip.find().exec();
+    const trip = await Trip.find().
+    populate("user");
     res.json(trip);
   } catch (error) {
     res.status(500).json({ error });
