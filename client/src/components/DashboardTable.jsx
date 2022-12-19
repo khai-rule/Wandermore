@@ -15,7 +15,8 @@ const columns = [
 
 export default function DataTable() {
 const [inDatabase, setInDatabase] = useState();
-const [message, setMessage] = useState('');
+const [message, setMessage] = useState();
+const [id, setId] = useState();
 
 useEffect(() => {
     const fetchData = async () => {
@@ -60,12 +61,22 @@ useEffect(() => {
         return mapInDatabase
     }
     
+
     const data = rows();
     const handleRowClick = (params) => {
+        setId(params.row.id)
         setMessage(`User ${params.row.firstName} "${params.row.id}" clicked`);
+
       };
-
-
+    
+      const actions = () => {
+        return (
+            <div>
+                <button>Delete</button>
+                <button>Create/Update Itinerary</button>
+            </div>
+        )
+      }
 
   return (
     <>
@@ -80,6 +91,7 @@ useEffect(() => {
         />
         </div>
         <p>{message}</p>
+        {actions()}
     </>
   );
 }
