@@ -6,11 +6,33 @@ import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import HeroLayout from '../components/HeroLayout';
 import Button from "../components/mui-components/Typography.jsx";
+import { Modal } from "@mui/material";
+import { useState } from "react";
+import Login from "../components/Login.jsx";
 
 
 const Home = () => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true)
+  }
+  const handleClose = () => {
+    setOpen(false)
+  }
   return (
     <div>
+      <Button onClick={handleOpen}>Open modal</Button>
+<Modal
+  open={open}
+  onClose={handleClose}
+  aria-labelledby="modal-modal-title"
+  aria-describedby="modal-modal-description"
+  sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+>
+  <Box sx={{bgcolor: "primary.main", color: "white", top: 10, margin: "auto"}}>
+    <Login />
+  </Box>
+</Modal>
 
     <Typography
     component="header"
