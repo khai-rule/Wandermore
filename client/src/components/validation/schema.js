@@ -73,8 +73,8 @@ export const aboutYouSchema = yup.object().shape({
 export const activitySchema = yup.object().shape({
     name: yup.string().required("Required"),
     date: yup.date().required("Required"),
-    time: yup.number().required("Required"),
-    duration: yup.number().required("Required"),
+    startTime: yup.string().required("Required"),
+    endTime: yup.string().required("Required"),
     location: yup.string().required("Required"),
     photo: yup.string(),
     description: yup.string(),

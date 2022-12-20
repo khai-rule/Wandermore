@@ -4,8 +4,8 @@ const activitySchema = mongoose.Schema(
   {
     name: { type: String, required: true },
     date: { type: Date, required: true },
-    time: { type: Number, required: true },
-    duration: { type: Number, required: true },
+    startTime: { type: String, required: true },
+    endTime: { type: String, required: true },
     location: { type: String, required: true },
     photo: String,
     description: String,

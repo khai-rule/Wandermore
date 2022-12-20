@@ -205,8 +205,8 @@ const CreateItineraryForm = ({ notLoggedIn }) => {
           initialValues={{
             name: "",
             date: "",
-            time: "",
-            duration: "",
+            startTime: "",
+            endTime: "",
             location: "",
             photo: "",
             description: "",
@@ -233,18 +233,18 @@ const CreateItineraryForm = ({ notLoggedIn }) => {
                   placeholder="Date of Activity"
                 />
                 <br />
-                <CustomTextArea
-                  label="Time"
-                  name="time"
-                  type="date"
-                  placeholder="Time of Activity"
+                <CustomInput
+                  label="Start Time"
+                  name="startTime"
+                  type="time"
+                  placeholder="Start Time of Activity"
                 />
                 <br />
                 <CustomInput
-                  label="Duration"
-                  name="duration"
-                  type="text"
-                  placeholder="Duration of Activity (hrs)"
+                  label="End Time"
+                  name="endTime"
+                  type="time"
+                  placeholder="End Time of Activity"
                 />
                 <br />
                 <CustomInput
@@ -296,8 +296,8 @@ const CreateItineraryForm = ({ notLoggedIn }) => {
                 initialValues={{
                   name: activity.name,
                   date: localNDate,
-                  time: activity.time,
-                  duration: activity.duration,
+                  startTime: activity.startTime,
+                  endTime: activity.endTime,
                   location: activity.location,
                   photo: activity.photo,
                   description: activity.description,
@@ -325,18 +325,18 @@ const CreateItineraryForm = ({ notLoggedIn }) => {
                         placeholder="Date of Activity"
                       />
                       <br />
-                      <CustomTextArea
-                        label="Time"
-                        name="time"
-                        type="date"
-                        placeholder="Time of Activity"
+                      <CustomInput
+                        label="Start Time"
+                        name="startTime"
+                        type="time"
+                        placeholder="Start Time of Activity"
                       />
                       <br />
                       <CustomInput
-                        label="Duration"
-                        name="duration"
-                        type="text"
-                        placeholder="Duration of Activity (hrs)"
+                        label="End Time"
+                        name="endTime"
+                        type="time"
+                        placeholder="End Time of Activity"
                       />
                       <br />
                       <CustomInput
