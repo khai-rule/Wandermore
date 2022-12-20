@@ -35,7 +35,7 @@ router.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const trip = await Trip.findById(id)
-      // .populate("user", "firstName") //? if you want to populate user object in fetch data and show firstName to be used in front end
+      .populate("activities")
       .exec();
     res.json(trip);
   } catch (error) {
@@ -60,8 +60,7 @@ router.get("/getid/:id/:id2", async (req, res) => {
 router.put("/setnewactivity/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const updateTrip = await Trip.findByIdAndUpdate(
-      id,
+    const updateTrip = await Trip.findByIdAndUpdate( id,
       { $push: { activities: req.body._id } },
       {
         new: true,

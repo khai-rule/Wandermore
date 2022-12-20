@@ -34,18 +34,17 @@ const CreateItineraryForm = ({ notLoggedIn }) => {
       });
       if (response.ok) {
         setMsg("Activity Successfully Created");
-        // fetchData();
+        actions.resetForm();
         try {
           //! add new activity id to ARRAY in trip
-          //TODO get the id of the current activity
-          const response = await fetch(`/api/activities/getid/${loginID}`);
+          const response = await fetch(`/api/activities/getid/${id}`);
           const fetchID = await response.json();
           const res = await fetch(`/api/trips/setnewactivity/${id}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(fetchID[fetchID.length - 1]),
+            body: JSON.stringify(fetchID),
           });
           if (res.ok) {
             setMsg(
@@ -85,14 +84,14 @@ const CreateItineraryForm = ({ notLoggedIn }) => {
 
   //! Fetch Current Activities
   const fetchData = async () => {
-    const response = await fetch("/api/activities");
+    const response = await fetch(`/api/trips/${id}`);
     try {
       if (!response.ok) {
         throw new Error("Network error");
       }
       const data = await response.json();
       if (data !== null) {
-        setInDatabase(data);
+        setInDatabase(data.activities);
       }
     } catch (error) {
       throw new Error("Network response was not OK");
@@ -100,7 +99,7 @@ const CreateItineraryForm = ({ notLoggedIn }) => {
   };
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [msg]);
   // console.log(inDatabase)
 
   //! Form
@@ -236,6 +235,7 @@ const CreateItineraryForm = ({ notLoggedIn }) => {
             location: "",
             photo: "",
             description: "",
+            trip: id
             // user: {}
           }}
           validationSchema={activitySchema}

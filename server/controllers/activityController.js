@@ -38,7 +38,7 @@ router.post("/", async (req, res) => {
 router.get("/getid/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const newActivityID = await Activity.find({ trip: { _id: id } }, { _id: 1 })
+    const newActivityID = await Activity.findOne({ trip: { _id: id } }, { _id: 1 })
       .exec();
     res.json(newActivityID);
   } catch (error) {
