@@ -34,6 +34,18 @@ router.post("/", async (req, res) => {
   }
 });
 
+//! get multiple _id details by id - for ARRAY
+router.get("/getid/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const newActivityID = await Activity.find({ trip: { _id: id } }, { _id: 1 })
+      .exec();
+    res.json(newActivityID);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
   try {

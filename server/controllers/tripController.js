@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.get("/seed", tripSeed);
 
+//! All trips, show user
 router.get("/", async (req, res) => {
   try {
     const trip = await Trip.find().
@@ -43,13 +44,30 @@ router.get("/:id", async (req, res) => {
 });
 
 //! get multiple _id details by id - for ARRAY
-router.get("/getid/:id", async (req, res) => {
+router.get("/getid/:id/:id2", async (req, res) => {
   const { id } = req.params;
   try {
     const newTripID = await Trip.find({ user: { _id: id } }, { _id: 1 })
       // .populate("user", "firstName") //? if you want to populate user object in fetch data and show firstName to be used in front end
       .exec();
     res.json(newTripID);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
+//! Add new activity id to trip
+router.put("/setnewactivity/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const updateTrip = await Trip.findByIdAndUpdate(
+      id,
+      { $push: { activities: req.body._id } },
+      {
+        new: true,
+      }
+    );
+    res.json(updateTrip);
   } catch (error) {
     res.status(500).json({ error });
   }
