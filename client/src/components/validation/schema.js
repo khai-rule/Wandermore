@@ -32,8 +32,8 @@ export const loginMaintSchema = yup.object().shape({
 });
 
 export const loginSchema = yup.object().shape({
-  email: yup.string().email("Please enter a valid email").required("Required"),
-  password: yup.string().required("Required"),
+  email: yup.string().email("Please enter a valid email"),
+  password: yup.string(),
 });
 
 export const tripRequestSchema = yup.object().shape({
@@ -71,11 +71,11 @@ export const aboutYouSchema = yup.object().shape({
 });
 
 export const activitySchema = yup.object().shape({
-    name: yup.string().required("Required"),
-    date: yup.date().required("Required"),
-    startTime: yup.string().required("Required"),
-    endTime: yup.string().required("Required"),
-    location: yup.string().required("Required"),
-    photo: yup.string(),
-    description: yup.string(),
-  });
+  name: yup.string().required("Required"),
+  date: yup.date().required("Required"),
+  startTime: yup.string().required("Required"),
+  endTime: yup.string().required("Required"),
+  location: yup.string().required("Required"),
+  photo: yup.string(),
+  description: yup.string(),
+});

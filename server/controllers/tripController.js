@@ -1,16 +1,14 @@
 const express = require("express");
 const Trip = require("../models/Trip");
 const tripSeed = require("./seeds/tripSeed");
+const tripRouter = express.Router();
 
-const router = express.Router();
-
-router.get("/seed", tripSeed);
+tripRouter.get("/seed", tripSeed);
 
 //! All trips, show user
-router.get("/", async (req, res) => {
+tripRouter.get("/", async (req, res) => {
   try {
-    const trip = await Trip.find().
-    populate("user");
+    const trip = await Trip.find().populate("user");
     res.json(trip);
   } catch (error) {
     res.status(500).json({ error });
@@ -31,12 +29,10 @@ router.get("/", async (req, res) => {
 // });
 
 //! get all details by id
-router.get("/:id", async (req, res) => {
+tripRouter.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const trip = await Trip.findById(id)
-      .populate("activities")
-      .exec();
+    const trip = await Trip.findById(id).populate("activities").exec();
     res.json(trip);
   } catch (error) {
     res.status(500).json({ error });
@@ -44,7 +40,7 @@ router.get("/:id", async (req, res) => {
 });
 
 //! get multiple _id details by id - for ARRAY
-router.get("/getid/:id/:id2", async (req, res) => {
+tripRouter.get("/getid/:id/:id2", async (req, res) => {
   const { id } = req.params;
   try {
     const newTripID = await Trip.find({ user: { _id: id } }, { _id: 1 })
@@ -57,10 +53,11 @@ router.get("/getid/:id/:id2", async (req, res) => {
 });
 
 //! Add new activity id to trip
-router.put("/setnewactivity/:id", async (req, res) => {
+tripRouter.put("/setnewactivity/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const updateTrip = await Trip.findByIdAndUpdate( id,
+    const updateTrip = await Trip.findByIdAndUpdate(
+      id,
       { $push: { activities: req.body._id } },
       {
         new: true,
@@ -72,7 +69,7 @@ router.put("/setnewactivity/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+tripRouter.post("/", async (req, res) => {
   try {
     const trip = await Trip.create(req.body);
     res.status(201).json(trip);
@@ -81,7 +78,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/data", async (req, res) => {
+tripRouter.get("/data", async (req, res) => {
   try {
     const trip = await Trip.find({}).populate({ path: "activities" });
     res.status(200).send(trip);
@@ -91,7 +88,7 @@ router.get("/data", async (req, res) => {
 });
 
 //! Delete by ID
-router.delete("/:id", async (req, res) => {
+tripRouter.delete("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const trip = await Trip.findByIdAndDelete(id).exec();
@@ -101,5 +98,4 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-
-module.exports = router;
+module.exports = tripRouter;

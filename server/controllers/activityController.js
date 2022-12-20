@@ -2,11 +2,11 @@ const express = require("express");
 const Activity = require("../models/Activity");
 const seed = require("./seeds/activitySeed");
 
-const router = express.Router();
+const activityRouter = express.Router();
 
-router.get("/seed", seed);
+activityRouter.get("/seed", seed);
 
-router.get("/", async (req, res) => {
+activityRouter.get("/", async (req, res) => {
   try {
     const activity = await Activity.find().exec();
     res.json(activity);
@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+activityRouter.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const activity = await Activity.findById(id).exec();
@@ -25,7 +25,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+activityRouter.post("/", async (req, res) => {
   try {
     const activity = await Activity.create(req.body);
     res.status(201).json(activity);
@@ -35,18 +35,20 @@ router.post("/", async (req, res) => {
 });
 
 //! get multiple _id details by id - for ARRAY
-router.get("/getid/:id", async (req, res) => {
+activityRouter.get("/getid/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const newActivityID = await Activity.findOne({ trip: { _id: id } }, { _id: 1 })
-      .exec();
+    const newActivityID = await Activity.findOne(
+      { trip: { _id: id } },
+      { _id: 1 }
+    ).exec();
     res.json(newActivityID);
   } catch (error) {
     res.status(500).json({ error });
   }
 });
 
-router.put("/:id", async (req, res) => {
+activityRouter.put("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const activity = await Activity.findByIdAndUpdate(id, req.body, {
@@ -58,4 +60,4 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = activityRouter;

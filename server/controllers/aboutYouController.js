@@ -1,12 +1,14 @@
 const express = require("express");
+const checkLogin = require("../middleware/loginMiddleware");
 const AboutYou = require("../models/AboutYou");
+
 const seed = require("./seeds/aboutYouSeed");
 
-const router = express.Router();
+const aboutYouRouter = express.Router();
 
-router.get("/seed", seed);
+aboutYouRouter.get("/seed", seed);
 
-router.get("/", async (req, res) => {
+aboutYouRouter.get("/", async (req, res) => {
   try {
     const aboutYou = await AboutYou.find().exec();
     res.json(aboutYou);
@@ -15,7 +17,7 @@ router.get("/", async (req, res) => {
   }
 });
 // get all details by id
-router.get("/:id", async (req, res) => {
+aboutYouRouter.get("/:id", [checkLogin], async (req, res) => {
   const { id } = req.params;
   try {
     const aboutYou = await AboutYou.findOne({ user: { _id: id } })
@@ -27,7 +29,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 // get only _id details by id
-router.get("/getid/:id", async (req, res) => {
+aboutYouRouter.get("/getid/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const aboutYouID = await AboutYou.findOne({ user: { _id: id } }, { _id: 1 })
@@ -39,7 +41,7 @@ router.get("/getid/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+aboutYouRouter.post("/", async (req, res) => {
   // const newAboutYou = ...req.body,
   try {
     const aboutYou = await AboutYou.create(req.body);
@@ -49,7 +51,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+aboutYouRouter.put("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const aboutyou = await AboutYou.findOneAndUpdate({ user: id }, req.body, {
@@ -61,4 +63,4 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = aboutYouRouter;

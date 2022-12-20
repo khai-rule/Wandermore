@@ -1,101 +1,111 @@
-import * as React from 'react';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
-import Box from '@mui/material/Box';
-import { useState, useEffect } from 'react';
-import { DataContext } from "../App";
+import * as React from "react";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
+import Box from "@mui/material/Box";
+import { useState, useEffect } from "react";
+// import { DataContext } from "../App";
 import { useContext } from "react";
 
 function YourUpcomingTrips({ loginID }) {
   const [inDatabase, setInDatabase] = useState();
 
-  const ID = useContext(DataContext);
-  console.log("baik", ID)
+  // const ID = useContext(DataContext);
+  console.log("baik", ID);
 
-    //! Fetch Data
-    useEffect(() => {
-      const fetchData = async () => {
-        const response = await fetch(`/api/user/${loginID}`);
-        try {
-          if (!response.ok) {
-            throw new Error("Network error");
-          }
-          const data = await response.json();
-          if (data !== null) {
-            setInDatabase(data);
-          }
-        } catch (error) {
-          throw new Error("Network response was not OK");
+  //! Fetch Data
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`/api/user/${loginID}`);
+      try {
+        if (!response.ok) {
+          throw new Error("Network error");
         }
-      };
-      fetchData();
-    }, []);
+        const data = await response.json();
+        if (data !== null) {
+          setInDatabase(data);
+        }
+      } catch (error) {
+        throw new Error("Network response was not OK");
+      }
+    };
+    fetchData();
+  }, []);
 
-    console.log("in", loginID)
-    console.log(inDatabase)
+  console.log("in", loginID);
+  console.log(inDatabase);
 
   return (
-
     <Grid
-    container
-    columns={{ xs: 4, sm: 8, md: 12 }}
-    justifyContent="center"
-    sx={{ my: 2, px: 2}}
+      container
+      columns={{ xs: 4, sm: 8, md: 12 }}
+      justifyContent="center"
+      sx={{ my: 2, px: 2 }}
     >
-    
-    <Paper
-      sx={{
-        boxShadow: 0,
-        borderRadius: 0,
-        position: 'relative',
-        // backgroundColor: 'grey.800',
-        width: "100%",
-        height: "100%",
-        color: '#fff',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-        backgroundImage: `url(https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2021/11/01_Mirbach_HiRes_sRGB-2048x1384.jpg})`,
-      }}
-    >
-      {/* Increase the priority of the hero background image */}
-      {<img style={{ display: 'none' }} src="https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2021/11/01_Mirbach_HiRes_sRGB-2048x1384.jpg" alt="Upcoming Trip" />}
-      <Box
+      <Paper
         sx={{
-          position: 'absolute',
-          top: 0,
-          bottom: 0,
-          right: 0,
-          left: 0,
-          backgroundColor: 'rgba(0,0,0,.3)',
+          boxShadow: 0,
+          borderRadius: 0,
+          position: "relative",
+          // backgroundColor: 'grey.800',
+          width: "100%",
+          height: "100%",
+          color: "#fff",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundImage: `url(https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2021/11/01_Mirbach_HiRes_sRGB-2048x1384.jpg})`,
         }}
-      />
-      <Grid container>
-        <Grid item md={6}>
-          <Box
-            sx={{
-              position: 'relative',
-              p: { xs: 8, md: 16, lg: 24 },
-              pr: { md: 0 },
-            }}
-          >
-            <Typography component="h3" variant="h3" color="inherit" gutterBottom>
-            Iceland
-            </Typography>
-            <Typography variant="h6" color="inherit" paragraph>
-            Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.
-            </Typography>
-            <Link variant="subtitle1" color="inherit" href="">
+      >
+        {/* Increase the priority of the hero background image */}
+        {
+          <img
+            style={{ display: "none" }}
+            src="https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2021/11/01_Mirbach_HiRes_sRGB-2048x1384.jpg"
+            alt="Upcoming Trip"
+          />
+        }
+        <Box
+          sx={{
+            position: "absolute",
+            top: 0,
+            bottom: 0,
+            right: 0,
+            left: 0,
+            backgroundColor: "rgba(0,0,0,.3)",
+          }}
+        />
+        <Grid container>
+          <Grid item md={6}>
+            <Box
+              sx={{
+                position: "relative",
+                p: { xs: 8, md: 16, lg: 24 },
+                pr: { md: 0 },
+              }}
+            >
+              <Typography
+                component="h3"
+                variant="h3"
+                color="inherit"
+                gutterBottom
+              >
+                Iceland
+              </Typography>
+              <Typography variant="h6" color="inherit" paragraph>
+                Multiple lines of text that form the lede, informing new readers
+                quickly and efficiently about what's most interesting in this
+                post's contents.
+              </Typography>
+              <Link variant="subtitle1" color="inherit" href="">
                 View Itinerary
-            </Link>
-          </Box>
+              </Link>
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
-    </Paper>
+      </Paper>
     </Grid>
-
   );
 }
 

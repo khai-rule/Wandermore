@@ -16,25 +16,25 @@ const AboutYouForm = ({ loginID }) => {
   const [msg, setMsg] = useState("");
 
   //! Check Login, Get ID
-  useEffect(() => {
-    const fetchData = async () => {
-        const response = await fetch(`/api/secret`);
-        try {
-        if (!response.ok) {
-            throw new Error("Network error");
-        }
-        const data = await response.json();
-        console.log("baik juga", data);
-        if (data !== null) {
-            console.log("baik", data);
-        }
-        } catch (error) {
-          console.log("baik juga", data);
-        throw new Error("Network response was not OK");
-        }
-    };
-    fetchData();
-    }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await fetch(`/api/session/${id}`);
+  //     try {
+  //       if (!response.ok) {
+  //         throw new Error("Network error");
+  //       }
+  //       const data = await response.json();
+  //       console.log("baik juga", data);
+  //       if (data !== null) {
+  //         console.log("baik", data);
+  //       }
+  //     } catch (error) {
+  //       console.log("baik juga", data);
+  //       throw new Error("Network response was not OK");
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   const handleAboutYouSubmit = async (values, actions) => {
     await new Promise((resolve) => setTimeout(resolve, 500));
@@ -50,7 +50,6 @@ const AboutYouForm = ({ loginID }) => {
         if (response.ok) {
           try {
             //adding aboutyou id to user database
-
             const response = await fetch(`/api/aboutyou/getid/${loginID}`);
             const fetchID = await response.json();
 
@@ -85,8 +84,6 @@ const AboutYouForm = ({ loginID }) => {
     }
   };
 
-  
-
   //! Fetch Data
   useEffect(() => {
     const fetchData = async () => {
@@ -97,6 +94,9 @@ const AboutYouForm = ({ loginID }) => {
         }
         const data = await response.json();
         if (data !== null) {
+          const dOB = new Date(data.dateOfBirth);
+          const localDOB = dOB.toLocaleDateString("sv-SE");
+          data.dateOfBirth = localDOB;
           setInDatabase(data);
         }
       } catch (error) {
