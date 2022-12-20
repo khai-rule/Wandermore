@@ -4,37 +4,25 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import Box from "@mui/material/Box";
-import { useState, useEffect } from "react";
-// import { DataContext } from "../App";
 import { useContext } from "react";
+import { UserContext } from "../pages/YourTrips";
+import capitaliseFirstLetter from "../utilities/capitaliseFirstLetter";
+import formatDate from "../utilities/formatDate";
 
-function YourUpcomingTrips({ loginID }) {
-  const [inDatabase, setInDatabase] = useState();
+function YourUpcomingTrips() {
+  const data = useContext(UserContext);
 
-  // const ID = useContext(DataContext);
-  console.log("baik", ID);
+  const country = capitaliseFirstLetter(data?.trips[0]?.country);
+  const activityPreference = capitaliseFirstLetter(
+    data?.trips[0]?.activityPreference
+  );
+  const depatureDate = formatDate(data?.trips[0]?.departureDate);
+  const returnDate = formatDate(data?.trips[0]?.returnDate);
+  const photo =
+    data?.trips[0]?.activities[0]?.photo ??
+    "https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2021/11/01_Mirbach_HiRes_sRGB-2048x1384.jpg";
 
-  //! Fetch Data
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(`/api/user/${loginID}`);
-      try {
-        if (!response.ok) {
-          throw new Error("Network error");
-        }
-        const data = await response.json();
-        if (data !== null) {
-          setInDatabase(data);
-        }
-      } catch (error) {
-        throw new Error("Network response was not OK");
-      }
-    };
-    fetchData();
-  }, []);
-
-  console.log("in", loginID);
-  console.log(inDatabase);
+  console.log(data?.trips[0]?.activities[0]?.photo);
 
   return (
     <Grid
@@ -59,13 +47,7 @@ function YourUpcomingTrips({ loginID }) {
         }}
       >
         {/* Increase the priority of the hero background image */}
-        {
-          <img
-            style={{ display: "none" }}
-            src="https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2021/11/01_Mirbach_HiRes_sRGB-2048x1384.jpg"
-            alt="Upcoming Trip"
-          />
-        }
+        {<img style={{ display: "none" }} src={photo} alt="Upcoming Trip" />}
         <Box
           sx={{
             position: "absolute",
@@ -85,18 +67,19 @@ function YourUpcomingTrips({ loginID }) {
                 pr: { md: 0 },
               }}
             >
+              <Typography variant="h6" color="inherit" paragraph>
+                Your {activityPreference} trip is coming up!
+              </Typography>
               <Typography
                 component="h3"
                 variant="h3"
                 color="inherit"
                 gutterBottom
               >
-                Iceland
+                {country}
               </Typography>
               <Typography variant="h6" color="inherit" paragraph>
-                Multiple lines of text that form the lede, informing new readers
-                quickly and efficiently about what's most interesting in this
-                post's contents.
+                {depatureDate} - <br></br> {returnDate}
               </Typography>
               <Link variant="subtitle1" color="inherit" href="">
                 View Itinerary
