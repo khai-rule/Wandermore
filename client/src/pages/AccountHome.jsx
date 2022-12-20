@@ -25,6 +25,7 @@ const AccountHome = () => {
   return (
     <div>
       <nav>
+        <button onClick={handleLogout}>Logout</button>
         <div>
           <MiniNavOption
             label="About You"
@@ -39,26 +40,29 @@ const AccountHome = () => {
             view={view}
             setView={setView}
           />
-          {" | "}
+          {/* {" | "}
           <MiniNavOption
             label="New Trip"
             option="newTrip"
             view={view}
             setView={setView}
-          />
+          /> */}
         </div>
-        <Link to="/newtrip">
+        {/* <Link to="/newtrip">
           <button>New Trip +</button>
-        </Link>
-        <button onClick={handleLogout}>Logout</button>
+        </Link> */}
       </nav>
-      {view === "aboutYou" ? (
-        <AboutYouForm loginID={authApi.loginID} />
-      ) : view === "loginInfo" ? (
-        <LoginMaint loginID={authApi.loginID} />
-      ) : (
-        <NewTripForm loginID={authApi.loginID} />
-      )}
+      {
+        view === "aboutYou" ? (
+          <AboutYouForm loginID={authApi.loginID} />
+        ) : (
+          // view === "loginInfo" ? (
+          <LoginMaint loginID={authApi.loginID} />
+        )
+        // ) : (
+        //   <NewTripForm loginID={authApi.loginID} />
+        // )
+      }
     </div>
   );
 };

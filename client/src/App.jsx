@@ -6,7 +6,7 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import Itinerary from "./pages/Itinerary";
 import Layout from "./layouts/Layout";
-import NewTripForm from "./components/NewTripForm";
+import NewTrip from "./pages/NewTrip";
 import CreateItinerary from "./pages/admin-pages/CreateItineray";
 import YourTrips from "./pages/YourTrips";
 import Dashboard from "./pages/admin-pages/Dashboard";
@@ -76,10 +76,7 @@ function App() {
                 }
               />
 
-              <Route
-                path="/newtrip"
-                element={<NewTripForm loginID={loginID} />}
-              />
+              <Route path="/newtrip" element={<NewTrip loginID={loginID} />} />
 
               <Route
                 path="/createitinerary/:id"
