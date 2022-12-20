@@ -24,7 +24,7 @@ const NewTripForm = ({ loginID }) => {
       });
       if (response.ok) {
         try {
-          //adding aboutyou id to ARRAY in user database.
+          //! adding aboutyou id to ARRAY in user database.
           const response = await fetch(`/api/trips/getid/${loginID}`);
           const fetchID = await response.json();
           const res = await fetch(`/api/user/setnewtrip/${loginID}`, {

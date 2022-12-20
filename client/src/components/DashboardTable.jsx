@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+//TODO get rid of the infinity request in console
+
 const columns = [
     { field: 'firstName', headerName: 'First name', width: 150 },
     { field: 'lastName', headerName: 'Last name', width: 150 },
