@@ -14,7 +14,6 @@ const LoginMaint = ({ loginID }) => {
   });
   const [msg, setMsg] = useState("");
 
-  //? Formik submit handler (line 50 - 69)
   const handlePasswordChange = async (values, actions) => {
     await new Promise((resolve) => setTimeout(resolve, 500));
     try {

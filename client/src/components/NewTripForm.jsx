@@ -1,16 +1,19 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
 import CustomInput from "../components/CustomInput";
 import CustomSelect from "../components/CustomSelect";
 import CustomTextArea from "../components/CustomTextArea";
 import { tripRequestSchema } from "../components/validation/schema";
 import HiddenInput from "../components/HiddenInput";
+import AuthAPI from "../utils/AuthAPI";
 
-const NewTripForm = ({ loginID }) => {
+const NewTripForm = () => {
   const [inDatabase, setInDatabase] = useState([]);
   const [msg, setMsg] = useState("");
   const [render, setRender] = useState(0);
+  const navigate = useNavigate();
+  const authApi = React.useContext(AuthAPI);
 
   const handleTripSubmit = async (values, actions) => {
     await new Promise((resolve) => setTimeout(resolve, 500));
@@ -23,16 +26,17 @@ const NewTripForm = ({ loginID }) => {
         body: JSON.stringify(values),
       });
       if (response.ok) {
+        const tripID = await response.json();
         try {
           //! adding aboutyou id to ARRAY in user database.
-          const response = await fetch(`/api/trips/getid/${loginID}`);
-          const fetchID = await response.json();
-          const res = await fetch(`/api/user/setnewtrip/${loginID}`, {
+          // const response = await fetch(`/api/trips/getid/${authApi.loginID}`);
+          // const fetchID = await response.json();
+          const res = await fetch(`/api/user/setnewtrip/${authApi.loginID}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(fetchID[fetchID.length - 1]),
+            body: JSON.stringify(tripID[tripID.length - 1]),
           });
           if (res.ok) {
             actions.resetForm();
@@ -50,10 +54,30 @@ const NewTripForm = ({ loginID }) => {
     }
   };
 
+  const handleDelete = (id) => async () => {
+    try {
+      const response = await fetch(`/api/trips/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Network error");
+      }
+      setRender(render + 1);
+    } catch (error) {
+      throw new Error("Network response was not OK");
+    }
+  };
+
   useEffect(() => {
+    if (!authApi.auth) {
+      navigate("/login");
+    }
     const fetchData = async () => {
-      const response = await fetch(`/api/trips/${loginID}`);
       try {
+        const response = await fetch(`/api/trips/fetch/${authApi.loginID}`);
         if (!response.ok) {
           throw new Error("Network error");
         }
@@ -66,11 +90,12 @@ const NewTripForm = ({ loginID }) => {
       }
     };
     fetchData();
-  }, [loginID, render]);
+  }, [authApi.loginID, render]);
 
   return (
     <>
       <Formik
+        enableReinitialize={true}
         initialValues={{
           departureDate: "",
           returnDate: "",
@@ -80,12 +105,12 @@ const NewTripForm = ({ loginID }) => {
           pax: "1",
           paxInfo: "",
           otherInfo: "",
-          user: {},
+          user: "",
         }}
         validationSchema={tripRequestSchema}
         onSubmit={handleTripSubmit}
       >
-        {({ isSubmitting, setFieldValue, values }) => (
+        {({ isSubmitting, setFieldValue }) => (
           <Form autoComplete="off">
             <fieldset>
               <legend>New Trip Request</legend>
@@ -159,7 +184,7 @@ const NewTripForm = ({ loginID }) => {
               <button
                 type="submit"
                 onClick={() => {
-                  setFieldValue("user", `${loginID}`);
+                  setFieldValue("user", `${authApi.loginID}`);
                 }}
                 disabled={isSubmitting}
               >
@@ -182,6 +207,7 @@ const NewTripForm = ({ loginID }) => {
         return (
           <div key={trip._id}>
             <h3>Trip {index + 1}</h3>
+            <button onClick={handleDelete(trip._id)}>Del</button>
             <ul>
               <li>Departure Date: {localDDate}</li>
               <li>Return Date: {localRDate}</li>

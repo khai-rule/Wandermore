@@ -16,17 +16,17 @@ tripRouter.get("/", async (req, res) => {
 });
 
 // //! get all details by id
-// router.get("/:id", async (req, res) => {
-//   const { id } = req.params;
-//   try {
-//     const trip = await Trip.find({ user: { _id: id } })
-//       // .populate("user", "firstName") //? if you want to populate user object in fetch data and show firstName to be used in front end
-//       .exec();
-//     res.json(trip);
-//   } catch (error) {
-//     res.status(500).json({ error });
-//   }
-// });
+tripRouter.get("/fetch/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const trip = await Trip.find({ user: { _id: id } })
+      // .populate("user", "firstName") //? if you want to populate user object in fetch data and show firstName to be used in front end
+      .exec();
+    res.json(trip);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
 
 //! get all details by id
 tripRouter.get("/:id", async (req, res) => {
@@ -71,8 +71,21 @@ tripRouter.put("/setnewactivity/:id", async (req, res) => {
 
 tripRouter.post("/", async (req, res) => {
   try {
-    const trip = await Trip.create(req.body);
-    res.status(201).json(trip);
+    const { activityPreference, accomodationPreference } = req.body;
+    if (
+      activityPreference.includes("Adventure") ||
+      activityPreference.includes("Relaxation") ||
+      activityPreference.includes("Cultural") ||
+      accomodationPreference.includes("Hotel") ||
+      accomodationPreference.includes("Hostel") ||
+      accomodationPreference.includes("Bed & Breakfast") ||
+      accomodationPreference.includes("Others")
+    ) {
+      const trip = await Trip.create(req.body);
+      res.status(201).json(trip);
+    } else {
+      res.status(404).json({ error: "Invalid Response" });
+    }
   } catch (error) {
     res.status(500).json({ error });
   }

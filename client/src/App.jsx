@@ -6,7 +6,7 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import Itinerary from "./pages/Itinerary";
 import Layout from "./layouts/Layout";
-import NewTrip from "./pages/NewTrip";
+import NewTripForm from "./components/NewTripForm";
 import CreateItinerary from "./pages/admin-pages/CreateItineray";
 import YourTrips from "./pages/YourTrips";
 import Dashboard from "./pages/admin-pages/Dashboard";
@@ -18,35 +18,9 @@ function App() {
   const [user, setUser] = useState();
   const [auth, setAuth] = useState(false);
 
-  console.log("auth", auth);
-
-  // const RouteRegistration = ({ component: Component, ...rest }) => {
-  //   const authApi = React.useContext(AuthAPI);
-  //   return (
-  //     <Route
-  //       {...rest}
-  //       render={(props) =>
-  //         !authApi.auth ? <Component {...props} /> : <Navigate to="/account" />
-  //       }
-  //     />
-  //   );
-  // };
-
-  // const RouteProtected = ({ component: Component, ...rest }) => {
-  //   const authApi = React.useContext(AuthAPI);
-  //   return (
-  //     <Route
-  //       {...rest}
-  //       render={(props) =>
-  //         authApi.auth ? <Component {...props} /> : <Navigate to="/login" />
-  //       }
-  //     />
-  //   );
-  // };
-
   return (
     <div>
-      <AuthAPI.Provider value={{ auth, setAuth }}>
+      <AuthAPI.Provider value={{ auth, setAuth, loginID, setLoginID }}>
         {/* <DataContext.Provider value={loginID}> */}
         <BrowserRouter>
           <Routes>
@@ -104,9 +78,7 @@ function App() {
 
               <Route
                 path="/newtrip"
-                element={
-                  <NewTrip notLoggedIn={notLoggedIn} loginID={loginID} />
-                }
+                element={<NewTripForm loginID={loginID} />}
               />
 
               <Route

@@ -15,7 +15,7 @@ import {
 import Typography from "./mui-components/Typography";
 import AuthAPI from "../utils/AuthAPI";
 
-const Login = ({ setNotLoggedIn, setLoginID, setUser }) => {
+const Login = () => {
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
   const authApi = React.useContext(AuthAPI);
@@ -34,10 +34,10 @@ const Login = ({ setNotLoggedIn, setLoginID, setUser }) => {
 
       if (response.ok) {
         actions.resetForm();
-        setLoginID(data.currentUser);
-        setNotLoggedIn(false);
-        setUser(values.email);
-        authApi.setAuth(true);
+        authApi.setLoginID(data.currentUser);
+        authApi.setAuth(data.authenticated);
+        // setNotLoggedIn(false);
+        // setUser(values.email);
         navigate("/account");
       }
       setMsg(data.msg);

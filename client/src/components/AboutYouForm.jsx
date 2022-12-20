@@ -15,28 +15,7 @@ const AboutYouForm = ({ loginID }) => {
   });
   const [msg, setMsg] = useState("");
 
-  //! Check Login, Get ID
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const response = await fetch(`/api/session/${id}`);
-  //     try {
-  //       if (!response.ok) {
-  //         throw new Error("Network error");
-  //       }
-  //       const data = await response.json();
-  //       console.log("baik juga", data);
-  //       if (data !== null) {
-  //         console.log("baik", data);
-  //       }
-  //     } catch (error) {
-  //       console.log("baik juga", data);
-  //       throw new Error("Network response was not OK");
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
-
-  const handleAboutYouSubmit = async (values, actions) => {
+  const handleAboutYouSubmit = async (values) => {
     await new Promise((resolve) => setTimeout(resolve, 500));
     try {
       if (inDatabase.dateOfBirth === "") {
@@ -48,17 +27,15 @@ const AboutYouForm = ({ loginID }) => {
           body: JSON.stringify(values),
         });
         if (response.ok) {
+          const aboutYouID = await response.json();
           try {
             //adding aboutyou id to user database
-            const response = await fetch(`/api/aboutyou/getid/${loginID}`);
-            const fetchID = await response.json();
-
             const res = await fetch(`/api/user/setaboutyou/${loginID}`, {
               method: "PUT",
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify(fetchID),
+              body: JSON.stringify(aboutYouID),
             });
             if (res.ok) {
               setMsg("Your details have been Added!");

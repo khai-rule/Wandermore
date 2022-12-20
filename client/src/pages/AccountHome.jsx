@@ -6,7 +6,7 @@ import MiniNavOption from "../components/MiniNavOption";
 import NewTripForm from "../components/NewTripForm";
 import AuthAPI from "../utils/AuthAPI";
 
-const AccountHome = ({ notLoggedIn, setNotLoggedIn, loginID, user }) => {
+const AccountHome = () => {
   const [view, setView] = useState("aboutYou");
   const navigate = useNavigate();
   const authApi = React.useContext(AuthAPI);
@@ -16,10 +16,10 @@ const AccountHome = ({ notLoggedIn, setNotLoggedIn, loginID, user }) => {
     if (!authApi.auth) {
       navigate("/login");
     }
-  }, [AuthAPI.auth]);
+  }, [authApi.auth]);
 
   const handleLogout = () => {
-    setNotLoggedIn(true);
+    authApi.setAuth(false);
   };
 
   return (
@@ -53,11 +53,11 @@ const AccountHome = ({ notLoggedIn, setNotLoggedIn, loginID, user }) => {
         <button onClick={handleLogout}>Logout</button>
       </nav>
       {view === "aboutYou" ? (
-        <AboutYouForm loginID={loginID} user={user} />
+        <AboutYouForm loginID={authApi.loginID} />
       ) : view === "loginInfo" ? (
-        <LoginMaint loginID={loginID} />
+        <LoginMaint loginID={authApi.loginID} />
       ) : (
-        <NewTripForm loginID={loginID} />
+        <NewTripForm loginID={authApi.loginID} />
       )}
     </div>
   );
