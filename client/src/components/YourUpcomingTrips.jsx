@@ -4,8 +4,37 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
+import { useState, useEffect } from 'react';
+import { DataContext } from "../App";
+import { useContext } from "react";
 
-function YourUpcomingTrips() {
+function YourUpcomingTrips({ loginID }) {
+  const [inDatabase, setInDatabase] = useState();
+
+  const ID = useContext(DataContext);
+  console.log("baik", ID)
+
+    //! Fetch Data
+    useEffect(() => {
+      const fetchData = async () => {
+        const response = await fetch(`/api/user/${loginID}`);
+        try {
+          if (!response.ok) {
+            throw new Error("Network error");
+          }
+          const data = await response.json();
+          if (data !== null) {
+            setInDatabase(data);
+          }
+        } catch (error) {
+          throw new Error("Network response was not OK");
+        }
+      };
+      fetchData();
+    }, []);
+
+    console.log("in", loginID)
+    console.log(inDatabase)
 
   return (
 

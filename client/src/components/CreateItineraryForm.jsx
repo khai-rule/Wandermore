@@ -5,6 +5,7 @@ import CustomInput from "../components/CustomInput";
 import CustomTextArea from "../components/CustomTextArea";
 import HiddenInput from "../components/HiddenInput";
 import { activitySchema } from "../components/validation/schema";
+import { useParams } from 'react-router-dom'
 
 const CreateItineraryForm = ({ notLoggedIn }) => {
   const [msg, setMsg] = useState("");
@@ -12,13 +13,15 @@ const CreateItineraryForm = ({ notLoggedIn }) => {
   const navigate = useNavigate();
   const [inDatabase, setInDatabase] = useState([]);
 
+  const { id } = useParams();
+
   //   useEffect(() => {
   //     if (notLoggedIn) {
   //       navigate("/login");
   //     }
   //   }, [navigate, notLoggedIn]);
 
-  //! Submit handlers
+  //! Add new activity
   const handleNewActivity = async (values, actions) => {
     await new Promise((resolve) => setTimeout(resolve, 500));
     try {
@@ -31,13 +34,35 @@ const CreateItineraryForm = ({ notLoggedIn }) => {
       });
       if (response.ok) {
         setMsg("Activity Successfully Created");
-        fetchData();
+        actions.resetForm();
+        try {
+          //! add new activity id to ARRAY in trip
+          const response = await fetch(`/api/activities/getid/${id}`);
+          const fetchID = await response.json();
+          const res = await fetch(`/api/trips/setnewactivity/${id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(fetchID),
+          });
+          if (res.ok) {
+            setMsg(
+              "Trip request submitted successfully, please give us some time to come back with your Itinerary!"
+            );
+            console.log("idfetch", fetchID)
+          }
+        } catch (error) {
+          throw new Error("Network response was not OK");
+        }
       }
     } catch (error) {
       throw new Error("Network response was not OK");
     }
   };
+  
 
+  //! Update 
   const handleUpdateActivity = async (values, actions) => {
     await new Promise((resolve) => setTimeout(resolve, 500));
     try {
@@ -57,16 +82,16 @@ const CreateItineraryForm = ({ notLoggedIn }) => {
     }
   };
 
-  //! Fetch Activities
+  //! Fetch Current Activities
   const fetchData = async () => {
-    const response = await fetch("/api/activities");
+    const response = await fetch(`/api/trips/${id}`);
     try {
       if (!response.ok) {
         throw new Error("Network error");
       }
       const data = await response.json();
       if (data !== null) {
-        setInDatabase(data);
+        setInDatabase(data.activities);
       }
     } catch (error) {
       throw new Error("Network response was not OK");
@@ -74,7 +99,7 @@ const CreateItineraryForm = ({ notLoggedIn }) => {
   };
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [msg]);
   // console.log(inDatabase)
 
   //! Form
@@ -210,6 +235,7 @@ const CreateItineraryForm = ({ notLoggedIn }) => {
             location: "",
             photo: "",
             description: "",
+            trip: id
             // user: {}
           }}
           validationSchema={activitySchema}

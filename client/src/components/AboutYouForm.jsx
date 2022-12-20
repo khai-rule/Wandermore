@@ -15,6 +15,27 @@ const AboutYouForm = ({ loginID }) => {
   });
   const [msg, setMsg] = useState("");
 
+  //! Check Login, Get ID
+  useEffect(() => {
+    const fetchData = async () => {
+        const response = await fetch(`/api/secret`);
+        try {
+        if (!response.ok) {
+            throw new Error("Network error");
+        }
+        const data = await response.json();
+        console.log("baik juga", data);
+        if (data !== null) {
+            console.log("baik", data);
+        }
+        } catch (error) {
+          console.log("baik juga", data);
+        throw new Error("Network response was not OK");
+        }
+    };
+    fetchData();
+    }, []);
+
   const handleAboutYouSubmit = async (values, actions) => {
     await new Promise((resolve) => setTimeout(resolve, 500));
     try {
@@ -29,8 +50,10 @@ const AboutYouForm = ({ loginID }) => {
         if (response.ok) {
           try {
             //adding aboutyou id to user database
+
             const response = await fetch(`/api/aboutyou/getid/${loginID}`);
             const fetchID = await response.json();
+
             const res = await fetch(`/api/user/setaboutyou/${loginID}`, {
               method: "PUT",
               headers: {
@@ -61,6 +84,8 @@ const AboutYouForm = ({ loginID }) => {
       throw new Error("Network response was not OK");
     }
   };
+
+  
 
   //! Fetch Data
   useEffect(() => {

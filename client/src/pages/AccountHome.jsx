@@ -9,16 +9,19 @@ import NewTripForm from "../components/NewTripForm";
 const AccountHome = ({ notLoggedIn, setNotLoggedIn, loginID, user }) => {
   const [view, setView] = useState("aboutYou");
   const navigate = useNavigate();
+
   //* Code to push back to login page if not Logged in
-  useEffect(() => {
-    if (notLoggedIn) {
-      navigate("/login");
-    }
-  }, [navigate, notLoggedIn]);
+  // useEffect(() => {
+  //   if (notLoggedIn) {
+  //     navigate("/login");
+  //   }
+  // }, [navigate, notLoggedIn]);
 
   const handleLogout = () => {
     setNotLoggedIn(true);
   };
+
+
 
   return (
     <div>
