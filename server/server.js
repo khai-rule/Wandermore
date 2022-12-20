@@ -5,7 +5,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const morgan = require("morgan");
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
 
 const aboutYouController = require("./controllers/aboutYouController");
 const tripController = require("./controllers/tripController");
@@ -36,7 +36,7 @@ mongoose.connect(MONGO_URI);
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.static("../client/dist"));
-app.use(cookieParser());
+// app.use(cookieParser());
 
 if (app.get("env") === "production") {
   app.set("trust proxy", 1); // trust first proxy
