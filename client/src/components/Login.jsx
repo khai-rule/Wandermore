@@ -19,6 +19,7 @@ const Login = ({ setNotLoggedIn, setLoginID, setUser }) => {
         body: JSON.stringify(values),
       });
       const data = await response.json();
+      
       if (response.ok) {
         actions.resetForm();
         setLoginID(data.id);
@@ -29,6 +30,7 @@ const Login = ({ setNotLoggedIn, setLoginID, setUser }) => {
       setMsg(data.msg);
     } catch (error) {
       setMsg("Network error, please try again later.");
+      console.log(data)
     }
   };
 

@@ -5,21 +5,25 @@ const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const morgan = require("morgan");
+const cookieParser = require('cookie-parser');
+
 const aboutYouController = require("./controllers/aboutYouController");
 const tripController = require("./controllers/tripController");
 const activityController = require("./controllers/activityController");
 const userController = require("./controllers/userController");
 const User = require("./models/User");
 
+
 // Configuration
 const app = express();
 const PORT = process.env.PORT ?? 3000;
 const MONGO_URI = process.env.MONGO_URI;
+
 const sess = {
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
-  cookie: {},
+  // cookie: {},
 };
 
 console.log("Mongo_URI", MONGO_URI);
@@ -32,6 +36,7 @@ mongoose.connect(MONGO_URI);
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.static("../client/dist"));
+app.use(cookieParser());
 
 if (app.get("env") === "production") {
   app.set("trust proxy", 1); // trust first proxy
@@ -48,7 +53,7 @@ app.get("/api", (req, res) => {
   res.json({ msg: "Hello World!" });
 });
 
-//! Check account
+//! Login
 app.post("/api/sessions", async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email }).exec();
@@ -60,13 +65,29 @@ app.post("/api/sessions", async (req, res) => {
       .status(401)
       .json({ msg: "Password not valid, please try again." });
   }
-  return res.status(202).json({ msg: "Logged in", id: user._id });
+  const session = req.session;
+  session.userid = user._id;
+  console.log(req.session)
+  res.status(202).json({ msg: "Logged in", id: user._id });
 });
 
+//! Check if logged in
+
+app.get("/api/secret", (req, res) => {
+  if (req.session.userid !== "639b381b0324bdef02951996") {
+    res.status(401).json({ msg: "Cannot see" });
+    console.log("asda", req.session)
+  } else {
+    res.json({ msg: "Need more milo" });
+  }
+});
+
+//! Log out
 app.delete("/api/secret", (req, res) => {
   req.session.destroy(() => {
     res.json({ msg: "Logout success" });
   });
+  res.redirect('/');
 });
 
 app.get("*", (req, res) => {
