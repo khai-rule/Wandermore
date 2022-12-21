@@ -3,12 +3,18 @@ import YourPastTrips from "../components/YourPastTrips";
 import YourOtherUpcomingTrips from "../components/YourOtherUpcomingTrips";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState, createContext } from "react";
+import AuthAPI from "../utils/AuthAPI";
+import { useContext } from "react";
 
 export const UserContext = createContext();
 
 const YourTrips = () => {
     const navigate = useNavigate();
     const [inDatabase, setInDatabase] = useState();
+    const authApi = useContext(AuthAPI);
+
+    console.log("alhamdulilah", authApi)
+
 //     // Return to login page if not logged in
 //   useEffect(() => {
 //     if (notLoggedIn) {
@@ -21,9 +27,7 @@ const YourTrips = () => {
 //! Fetch data
 useEffect(() => {
     const fetchData = async () => {
-        const response = await fetch(`/api/user/639b381b0324bdef02951996`);
-        //TODO replace with below once we have id
-        // const response = await fetch(`/api/user/${id}`);
+        const response = await fetch(`/api/user/${authApi.loginID}`);
         try {
         if (!response.ok) {
             throw new Error("Network error");
