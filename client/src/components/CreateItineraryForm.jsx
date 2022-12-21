@@ -163,7 +163,7 @@ const CreateItineraryForm = ({ refresh }) => {
                       <br />
                       <CustomInput
                         label="Photo 1"
-                        name="photo2"
+                        name="photo1"
                         type="text"
                         placeholder="Photo 1 of Activity"
                       />

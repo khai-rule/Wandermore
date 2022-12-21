@@ -14,14 +14,14 @@ import Header from "./Header";
 function YourUpcomingTrips() {
   const data = useContext(UserContext);
 
-  const country = capitaliseFirstLetter(data?.trips[0]?.country);
+  const country = capitaliseFirstLetter(data?.trips?.[0]?.country);
   const activityPreference = capitaliseFirstLetter(
-    data?.trips[0]?.activityPreference
+    data?.trips?.[0]?.activityPreference
   );
-  const depatureDate = formatDate(data?.trips[0]?.departureDate);
-  const returnDate = formatDate(data?.trips[0]?.returnDate);
+  const depatureDate = formatDate(data?.trips?.[0]?.departureDate);
+  const returnDate = formatDate(data?.trips?.[0]?.returnDate);
   const photo =
-    data?.trips[0]?.activities[0]?.photo ??
+    data?.trips?.[0]?.activities?.[0]?.photo1 ??
     "https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2021/11/01_Mirbach_HiRes_sRGB-2048x1384.jpg";
 
   //TODO change link
@@ -29,12 +29,12 @@ function YourUpcomingTrips() {
   console.log
   
   const link = () => {
-    if (data?.trips[0]?.activities < 1) {
+    if (data?.trips?.[0]?.activities < 1) {
       return (
         <>
         <Typography variant="subtitle2" color="inherit">
           Your Itinerary is being prepared. <br />
-          We will notified you once it is ready.
+          We will notify you once it is ready.
         </Typography>
         </>
       )
@@ -81,7 +81,7 @@ function YourUpcomingTrips() {
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
             backgroundPosition: "center",
-            backgroundImage: `url(https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2021/11/01_Mirbach_HiRes_sRGB-2048x1384.jpg})`,
+            backgroundImage: `url(${photo})`,
           }}
         >
           {/* Increase the priority of the hero background image */}

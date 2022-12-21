@@ -27,6 +27,7 @@ const Header = ({ img, text, height, link, linkText }) => {
                 variant="subtitle1"
                 color="inherit"
                 to={link}
+                as={NavLink}
                 padding="4px 0"
             >
                 {linkText}
