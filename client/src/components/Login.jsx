@@ -11,6 +11,7 @@ import {
   Box,
   Avatar,
   Paper,
+  Button,
 } from "@mui/material";
 import Typography from "./mui-components/Typography";
 import AuthAPI from "../utils/AuthAPI";
@@ -53,7 +54,11 @@ const Login = () => {
     <>
       <ThemeProvider theme={theme}>
         {/* <Grid container component="main" sx={{ height: '100vh' }}> */}
-        <Grid container component="main" sx={{ height: "80vh" }}>
+        <Grid
+          container
+          component="main"
+          sx={{ height: "80vh", border: "solid white 1px" }}
+        >
           <CssBaseline />
           <Grid
             item
@@ -79,6 +84,11 @@ const Login = () => {
             component={Paper}
             elevation={6}
             square
+            sx={{
+              backgroundColor: "black",
+              color: "white",
+            }}
+            f
           >
             <Box
               sx={{
@@ -89,13 +99,13 @@ const Login = () => {
                 alignItems: "center",
               }}
             >
-              <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+              <Avatar sx={{ m: 1, bgcolor: "success.main" }}>
                 {/* <LockOutlinedIcon /> */}
               </Avatar>
               <Typography component="h1" variant="h5">
-                Sign in
+                Log In
               </Typography>
-              <Box sx={{ mt: 1 }}>
+              <Box sx={{ mt: 1, width: "70%" }}>
                 <Formik
                   initialValues={{
                     email: "",
@@ -106,12 +116,16 @@ const Login = () => {
                 >
                   {({ isSubmitting }) => (
                     <Form autoComplete="off">
-                      <legend>Log in</legend>
                       <CustomInput
                         label="Email"
                         name="email"
                         type="email"
                         placeholder="Enter your email"
+                        style={{
+                          backgroundColor: "white",
+                          width: "100%",
+                          margin: "auto",
+                        }}
                       />
                       <br />
                       <CustomInput
@@ -119,67 +133,37 @@ const Login = () => {
                         name="password"
                         type="password"
                         placeholder="Enter your Password"
+                        style={{
+                          backgroundColor: "white",
+                          width: "100%",
+                          margin: "auto",
+                        }}
                       />
                       <br />
-                      <button disabled={isSubmitting} type="submit">
+                      <Button
+                        disabled={isSubmitting}
+                        type="submit"
+                        variant="contained"
+                        color="success"
+                        sx={{ mt: 3, mb: 2, width: "100%" }}
+                      >
                         Log In
-                      </button>
+                      </Button>
                     </Form>
                   )}
                 </Formik>
-                {/* <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Sign In
-              </Button> */}
                 <Grid container>
                   <Grid item xs>
-                    <Link href="#" variant="body2">
-                      Forgot password?
-                    </Link>
+                    Not a Member yet? Sign up <Link to="/signup">here</Link>.
                   </Grid>
-                  <Grid item>
-                    <Link href="#" variant="body2">
-                      {"Don't have an account? Sign Up"}
-                    </Link>
+                  <Grid container>
+                    <p>{msg}</p>
                   </Grid>
                 </Grid>
               </Box>
             </Box>
           </Grid>
         </Grid>
-
-        <p>{msg}</p>
-        <p>
-          Not a Member yet? Sign up <Link to="/signup">here</Link>.
-        </p>
       </ThemeProvider>
     </>
   );

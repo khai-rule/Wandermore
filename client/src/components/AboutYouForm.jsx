@@ -3,6 +3,7 @@ import { Form, Formik } from "formik";
 import CustomInput from "../components/CustomInput";
 import HiddenInput from "./HiddenInput";
 import { aboutYouSchema } from "../components/validation/schema";
+import { Button } from "@mui/material";
 
 const AboutYouForm = ({ loginID }) => {
   const [inDatabase, setInDatabase] = useState({
@@ -131,15 +132,16 @@ const AboutYouForm = ({ loginID }) => {
               />
               <br />
               <HiddenInput name="user" type="hidden" value="" />
-              <button
+              <Button
                 type="submit"
                 onClick={() => {
                   setFieldValue("user", `${loginID}`);
                 }}
                 disabled={isSubmitting}
+                variant="outlined"
               >
                 Update Info
-              </button>{" "}
+              </Button>{" "}
               <span>{msg}</span>
             </fieldset>
           </Form>

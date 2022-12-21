@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Form, Formik } from "formik";
 import CustomInput from "../components/CustomInput";
 import { loginMaintSchema } from "../components/validation/schema";
+import { Button } from "@mui/material";
 
 const LoginMaint = ({ loginID }) => {
   const [inDatabase, setInDatabase] = useState({
@@ -21,8 +22,6 @@ const LoginMaint = ({ loginID }) => {
       setMsg("Old Password and New Password cannot be the same");
     } else {
       try {
-        // const res = await fetch(`/api/user/check/${loginID}`);
-        // if (res.ok) {
         const response = await fetch(`/api/user/${loginID}`, {
           method: "PUT",
           headers: {
@@ -119,9 +118,9 @@ const LoginMaint = ({ loginID }) => {
                 placeholder="Enter your New Password again"
               />
               <br />
-              <button type="submit" disabled={isSubmitting}>
+              <Button type="submit" disabled={isSubmitting} variant="outlined">
                 Change Password
-              </button>{" "}
+              </Button>{" "}
               <span>{msg}</span>
             </fieldset>
           </Form>

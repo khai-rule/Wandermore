@@ -6,6 +6,7 @@ import CustomSelect from "../components/CustomSelect";
 import CustomTextArea from "../components/CustomTextArea";
 import { tripRequestSchema } from "../components/validation/schema";
 import HiddenInput from "../components/HiddenInput";
+import { Button } from "@mui/material";
 
 const NewTripForm = ({ loginID, auth }) => {
   const [inDatabase, setInDatabase] = useState([1, 2]);
@@ -179,18 +180,19 @@ const NewTripForm = ({ loginID, auth }) => {
               />
               <br />
               <HiddenInput name="user" type="hidden" value="" />
-              <button
+              <Button
                 type="submit"
                 onClick={() => {
                   setFieldValue("user", `${loginID}`);
                 }}
                 disabled={isSubmitting}
+                variant="outlined"
               >
                 Submit
-              </button>
+              </Button>
             </fieldset>
             <Link to="/account">
-              <button>Back</button>
+              <Button variant="outlined">Back</Button>
             </Link>
           </Form>
         )}

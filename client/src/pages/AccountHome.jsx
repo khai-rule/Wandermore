@@ -1,8 +1,8 @@
+import { Button, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AboutYouForm from "../components/AboutYouForm";
 import LoginMaint from "../components/LoginMaint";
-import MiniNavOption from "../components/MiniNavOption";
 import AuthAPI from "../utils/AuthAPI";
 
 const AccountHome = () => {
@@ -23,31 +23,36 @@ const AccountHome = () => {
     setAuth(false);
   };
 
+  const handleChange = (event, value) => {
+    setView(value);
+    console.log(view);
+  };
+
   return (
     <div>
       <nav>
-        <button onClick={handleLogout}>Logout</button>
-        <div>
-          <MiniNavOption
-            label="About You"
-            option="aboutYou"
-            view={view}
-            setView={setView}
-          />
-          {" | "}
-          <MiniNavOption
-            label="Login Info"
-            option="loginInfo"
-            view={view}
-            setView={setView}
-          />
-        </div>
+        <ToggleButtonGroup
+          value={view}
+          exclusive
+          onChange={handleChange}
+          aria-label="Account View"
+        >
+          <ToggleButton value="aboutYou" aria-label="about you">
+            About You
+          </ToggleButton>
+          <ToggleButton value="loginInfo" aria-label="Login Info">
+            Login Info
+          </ToggleButton>
+        </ToggleButtonGroup>
       </nav>
       {view === "aboutYou" ? (
         <AboutYouForm loginID={loginID} />
       ) : (
         <LoginMaint loginID={loginID} />
       )}
+      <Button onClick={handleLogout} variant="outlined">
+        Logout
+      </Button>
     </div>
   );
 };

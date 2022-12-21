@@ -1,12 +1,13 @@
+import { TextField } from "@mui/material";
 import { useField } from "formik";
 
 const CustomInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
   return (
     <>
-      <label>{label}:</label>
+      <label>{label}</label>
       <br />
-      <input
+      <TextField
         {...field}
         {...props}
         className={meta.touched && meta.error ? "input-error" : ""}

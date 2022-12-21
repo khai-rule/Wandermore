@@ -1,12 +1,13 @@
+import { Select } from "@mui/material";
 import { useField } from "formik";
 
 const CustomSelect = ({ label, ...props }) => {
   const [field, meta] = useField(props);
   return (
     <>
-      <label>{label}:</label>
+      <label>{label}</label>
       <br />
-      <select
+      <Select
         {...field}
         {...props}
         className={meta.touched && meta.error ? "input-error" : ""}

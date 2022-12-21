@@ -4,6 +4,9 @@ import Link from "@mui/material/Link";
 import Navbar from "../components/mui-components/Navbar";
 import Toolbar from "../components/mui-components/Toolbar";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { Button, Modal } from "@mui/material";
+import Login from "./Login";
 
 const rightLink = {
   fontSize: 16,
@@ -12,8 +15,38 @@ const rightLink = {
 };
 
 function AppAppBar() {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Box
+          sx={{
+            bgcolor: "primary.main",
+            color: "white",
+            margin: "auto",
+            width: "80%",
+          }}
+        >
+          <Login />
+        </Box>
+      </Modal>
+
       <Navbar position="fixed">
         <Toolbar sx={{ justifyContent: "space-between", borderBottom: 1 }}>
           <Link
@@ -67,9 +100,10 @@ function AppAppBar() {
               color="inherit"
               variant="h5"
               underline="none"
-              to="/login"
+              // to="/login"
               sx={rightLink}
-              as={NavLink}
+              // as={NavLink}
+              onClick={handleOpen}
             >
               {"Login"}
             </Link>

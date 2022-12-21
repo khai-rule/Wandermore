@@ -1,12 +1,13 @@
+import { TextareaAutosize } from "@mui/material";
 import { useField } from "formik";
 
 const CustomTextArea = ({ label, ...props }) => {
   const [field, meta] = useField(props);
   return (
     <>
-      <label>{label}:</label>
+      <label>{label}</label>
       <br />
-      <textarea
+      <TextareaAutosize
         {...field}
         {...props}
         className={meta.touched && meta.error ? "input-error" : ""}
