@@ -54,13 +54,12 @@ export default function DataTable() {
             const lastName = item?.user?.lastName
             const email = item?.user?.email
             const country = item?.country
-            //TODO format date
-            // const localNDate = nDate.toLocaleDateString('sv-SE');
             const departureDate = item?.departureDate
             const returnDate = item?.returnDate
             const paxInfo = item?.paxInfo
             const otherInfo = item?.otherInfo
             const id = item?._id
+            
             const obj = {
                 id: id,
                 firstName: capitaliseFirstLetter(firstName),

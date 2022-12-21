@@ -1,9 +1,7 @@
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
 import CustomInput from "../components/CustomInput";
 import CustomTextArea from "../components/CustomTextArea";
-import HiddenInput from "../components/HiddenInput";
 import { activitySchema } from "../components/validation/schema";
 import { useParams } from 'react-router-dom'
 import { UserContext } from "../pages/admin-pages/CreateItineray";
@@ -11,7 +9,6 @@ import { UserContext } from "../pages/admin-pages/CreateItineray";
 const CreateItineraryForm = ({ refresh, setRefresh }) => {
   const [msg, setMsg] = useState("");
   const [updateMsg, setUpdateMsg] = useState("");
-  const navigate = useNavigate();
 
   const userData = useContext(UserContext);
 
@@ -38,7 +35,7 @@ const CreateItineraryForm = ({ refresh, setRefresh }) => {
       });
       if (response.ok) {
         setMsg("Activity Successfully Created");
-        // actions.resetForm();
+        actions.resetForm();
         const fetchAdded = await response.json();
         try {
           console.log(fetchAdded)
@@ -232,8 +229,6 @@ const CreateItineraryForm = ({ refresh, setRefresh }) => {
 
   return (
     <div>
-      <button onClick={() => navigate(-1)}>Back</button>
-      <h1>Create Itinerary</h1>
         <h2>Add Activity</h2>
       <div>
         <Formik
@@ -330,7 +325,7 @@ const CreateItineraryForm = ({ refresh, setRefresh }) => {
         <p>{msg}</p>
       </div>
       <>
-        <h2>Activities Created</h2>
+        <h2>Activities Added</h2>
         {addedActivities()}
       </>
     </div>
