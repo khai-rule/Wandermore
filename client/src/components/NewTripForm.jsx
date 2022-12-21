@@ -8,7 +8,7 @@ import { tripRequestSchema } from "../components/validation/schema";
 import HiddenInput from "../components/HiddenInput";
 
 const NewTripForm = ({ loginID, auth }) => {
-  const [inDatabase, setInDatabase] = useState([]);
+  const [inDatabase, setInDatabase] = useState([1, 2]);
   const [msg, setMsg] = useState("");
   const [render, setRender] = useState(0);
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const NewTripForm = ({ loginID, auth }) => {
         const tripID = await response.json();
         try {
           //! adding new trip id to ARRAY in user database.
-          const res = await fetch(`/api/user/setnewtrip/${authApi.loginID}`, {
+          const res = await fetch(`/api/user/setnewtrip/${loginID}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
@@ -75,7 +75,7 @@ const NewTripForm = ({ loginID, auth }) => {
     }
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/trips/fetch/${authApi.loginID}`);
+        const response = await fetch(`/api/trips/fetch/${loginID}`);
         if (!response.ok) {
           throw new Error("Network error");
         }
@@ -88,7 +88,7 @@ const NewTripForm = ({ loginID, auth }) => {
       }
     };
     fetchData();
-  }, [authApi.loginID, render]);
+  }, [loginID, render]);
 
   return (
     <>
@@ -197,7 +197,7 @@ const NewTripForm = ({ loginID, auth }) => {
       </Formik>
       <p>{msg}</p>
       {inDatabase === null ? <h2>Your Trip requests:</h2> : <></>}
-      {inDatabase.map((trip, index) => {
+      {inDatabase?.map((trip, index) => {
         const dDate = new Date(trip.departureDate);
         const localDDate = dDate.toLocaleDateString("en-GB");
         const rDate = new Date(trip.returnDate);

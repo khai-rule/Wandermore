@@ -7,7 +7,7 @@ const userSeed = async (req, res) => {
       email: "johntan@gmail.com",
       firstName: "John",
       lastName: "Tan",
-      password: "jt1234",
+      password: "Jt1234",
 
       //   password: bcrypt.hashSync("1q2w3e4r", saltRounds),
     },
@@ -15,7 +15,7 @@ const userSeed = async (req, res) => {
       email: "bobbylee@hotmail.com",
       firstName: "Bobby",
       lastName: "Lee",
-      password: "bl4321",
+      password: "Bl4321",
 
       //   password: bcrypt.hashSync("qawsedrf", saltRounds),
     },

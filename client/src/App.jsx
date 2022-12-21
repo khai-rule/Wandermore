@@ -21,7 +21,6 @@ function App() {
   return (
     <div>
       <AuthAPI.Provider value={{ auth, setAuth, loginID, setLoginID }}>
-
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Layout />}>
@@ -76,7 +75,7 @@ function App() {
                 }
               />
 
-              <Route path="/newtrip" element={<NewTrip loginID={loginID} />} />
+              <Route path="/newtrip" element={<NewTrip />} />
 
               <Route
                 path="/createitinerary/:id"
@@ -92,7 +91,6 @@ function App() {
             </Route>
           </Routes>
         </BrowserRouter>
-
       </AuthAPI.Provider>
     </div>
   );
