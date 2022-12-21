@@ -26,18 +26,16 @@ const NewTripForm = ({ loginID, auth }) => {
       if (response.ok) {
         const tripID = await response.json();
         try {
-          //! adding aboutyou id to ARRAY in user database.
-          // const response = await fetch(`/api/trips/getid/${authApi.loginID}`);
-          // const fetchID = await response.json();
-          const res = await fetch(`/api/user/setnewtrip/${loginID}`, {
+          //! adding new trip id to ARRAY in user database.
+          const res = await fetch(`/api/user/setnewtrip/${authApi.loginID}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(tripID[tripID.length - 1]),
+            body: JSON.stringify(tripID),
           });
           if (res.ok) {
-            actions.resetForm();
+            // actions.resetForm();
             setMsg(
               "Trip request submitted successfully, please give us some time to come back with your Itinerary!"
             );
@@ -77,20 +75,20 @@ const NewTripForm = ({ loginID, auth }) => {
     }
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/trips/fetch/${loginID}`);
+        const response = await fetch(`/api/trips/fetch/${authApi.loginID}`);
         if (!response.ok) {
           throw new Error("Network error");
         }
         const data = await response.json();
         if (data !== null) {
-          setInDatabase(data);
+          setInDatabase(data.trips);
         }
       } catch (error) {
         throw new Error("Network response was not OK");
       }
     };
     fetchData();
-  }, [loginID, render]);
+  }, [authApi.loginID, render]);
 
   return (
     <>

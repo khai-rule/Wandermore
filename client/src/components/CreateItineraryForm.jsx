@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
 import CustomInput from "../components/CustomInput";
@@ -6,12 +6,18 @@ import CustomTextArea from "../components/CustomTextArea";
 import HiddenInput from "../components/HiddenInput";
 import { activitySchema } from "../components/validation/schema";
 import { useParams } from 'react-router-dom'
+import { UserContext } from "../pages/admin-pages/CreateItineray";
 
-const CreateItineraryForm = ({ notLoggedIn }) => {
+const CreateItineraryForm = () => {
   const [msg, setMsg] = useState("");
   const [updateMsg, setUpdateMsg] = useState("");
   const navigate = useNavigate();
-  const [inDatabase, setInDatabase] = useState([]);
+
+  const userData = useContext(UserContext);
+
+  console.log("lol",userData)
+
+  const inDatabase = [userData]
 
   const { id } = useParams();
 
@@ -81,26 +87,6 @@ const CreateItineraryForm = ({ notLoggedIn }) => {
       throw new Error("Network response was not OK");
     }
   };
-
-  //! Fetch Current Activities
-  const fetchData = async () => {
-    const response = await fetch(`/api/trips/${id}`);
-    try {
-      if (!response.ok) {
-        throw new Error("Network error");
-      }
-      const data = await response.json();
-      if (data !== null) {
-        setInDatabase(data.activities);
-      }
-    } catch (error) {
-      throw new Error("Network response was not OK");
-    }
-  };
-  useEffect(() => {
-    fetchData();
-  }, [msg]);
-  // console.log(inDatabase)
 
   //! Form
   // const form = (name, date, time, duration, location, photo1, photo2, description, index) => {

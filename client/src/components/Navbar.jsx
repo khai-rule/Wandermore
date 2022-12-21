@@ -34,11 +34,11 @@ function AppAppBar() {
               color="inherit"
               variant="h5"
               underline="none"
-              to="/createitinerary"
+              to="/dashboard"
               sx={rightLink}
               as={NavLink}
             >
-              {"Create Itinerary (admin)"}
+              {"Dasboard (admin)"}
             </Link>
 
             <Link

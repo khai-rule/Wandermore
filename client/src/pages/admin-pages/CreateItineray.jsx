@@ -1,13 +1,41 @@
 import CreateItineraryForm from "../../components/CreateItineraryForm";
+import { useEffect, useState, createContext } from "react";
+import AuthAPI from "../../utils/AuthAPI";
+import { useContext } from "react";
+import { useParams } from 'react-router-dom'
+
+export const UserContext = createContext();
 
 const createItinerary = () => {
+  const [inDatabase, setInDatabase] = useState([]);
+  const authApi = useContext(AuthAPI);
 
-    //TODO forms with an option to add activities
-    // clicking on "add activities" will create another component of fields
+  const { id } = useParams();
+
+//! Fetch logged in user data
+  useEffect(() => {
+    const fetchData = async () => {
+        const response = await fetch(`/api/trips/${id}`);
+        try {
+        if (!response.ok) {
+            throw new Error("Network error");
+        }
+        const data = await response.json();
+        if (data !== null) {
+            setInDatabase(data);
+        }
+        } catch (error) {
+        throw new Error("Network response was not OK");
+        }
+    };
+    fetchData();
+    }, []);
 
     return (
       <>
-        <CreateItineraryForm />
+        <UserContext.Provider value={inDatabase}>
+          <CreateItineraryForm />
+        </UserContext.Provider>
       </>
     );
 }
