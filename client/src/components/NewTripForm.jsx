@@ -52,22 +52,24 @@ const NewTripForm = ({ loginID, auth }) => {
     }
   };
 
-  const handleDelete = (id) => async () => {
-    try {
-      const response = await fetch(`/api/trips/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (!response.ok) {
-        throw new Error("Network error");
-      }
-      setRender(render + 1);
-    } catch (error) {
-      throw new Error("Network response was not OK");
-    }
-  };
+  //TODO Delete button for user?
+  // <button onClick={handleDelete(trip._id)}>Del</button>
+  // const handleDelete = (id) => async () => {
+  //   try {
+  //     const response = await fetch(`/api/trips/${id}`, {
+  //       method: "DELETE",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     if (!response.ok) {
+  //       throw new Error("Network error");
+  //     }
+  //     setRender(render + 1);
+  //   } catch (error) {
+  //     throw new Error("Network response was not OK");
+  //   }
+  // };
 
   useEffect(() => {
     if (!auth) {
@@ -205,7 +207,7 @@ const NewTripForm = ({ loginID, auth }) => {
         return (
           <div key={trip._id}>
             <h3>Trip {index + 1}</h3>
-            <button onClick={handleDelete(trip._id)}>Del</button>
+
             <ul>
               <li>Departure Date: {localDDate}</li>
               <li>Return Date: {localRDate}</li>

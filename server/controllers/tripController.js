@@ -1,6 +1,8 @@
 const express = require("express");
+const checkLogin = require("../middleware/loginMiddleware");
 const Trip = require("../models/Trip");
 const tripSeed = require("./seeds/tripSeed");
+
 const tripRouter = express.Router();
 
 tripRouter.get("/seed", tripSeed);
@@ -15,8 +17,8 @@ tripRouter.get("/", async (req, res) => {
   }
 });
 
-// //! get all details by id
-tripRouter.get("/fetch/:id", async (req, res) => {
+// //! get all details by id (for User)
+tripRouter.get("/fetch/:id", [checkLogin], async (req, res) => {
   const { id } = req.params;
   try {
     const trip = await Trip.find({ user: { _id: id } })
@@ -69,7 +71,8 @@ tripRouter.put("/setnewactivity/:id", async (req, res) => {
   }
 });
 
-tripRouter.post("/", async (req, res) => {
+//! Create
+tripRouter.post("/", [checkLogin], async (req, res) => {
   try {
     const { activityPreference, accomodationPreference } = req.body;
     if (
