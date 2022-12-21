@@ -21,7 +21,7 @@ function App() {
   return (
     <div>
       <AuthAPI.Provider value={{ auth, setAuth, loginID, setLoginID }}>
-        {/* <DataContext.Provider value={loginID}> */}
+
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Layout />}>
@@ -92,7 +92,7 @@ function App() {
             </Route>
           </Routes>
         </BrowserRouter>
-        {/* </DataContext.Provider> */}
+
       </AuthAPI.Provider>
     </div>
   );
