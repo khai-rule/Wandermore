@@ -6,7 +6,7 @@ import CustomSelect from "../components/CustomSelect";
 import CustomTextArea from "../components/CustomTextArea";
 import { tripRequestSchema } from "../components/validation/schema";
 import HiddenInput from "../components/HiddenInput";
-import { Button } from "@mui/material";
+import { Button, MenuItem } from "@mui/material";
 
 const NewTripForm = ({ loginID, auth }) => {
   const [inDatabase, setInDatabase] = useState([1, 2]);
@@ -139,10 +139,10 @@ const NewTripForm = ({ loginID, auth }) => {
                 name="activityPreference"
                 placeholder="Please select an activity"
               >
-                <option value="">Please select an activity type</option>
-                <option value="Adventure">Adventure</option>
-                <option value="Relaxation">Relaxation</option>
-                <option value="Cultural">Cultural</option>
+                <MenuItem value="">Please select an activity type</MenuItem>
+                <MenuItem value="Adventure">Adventure</MenuItem>
+                <MenuItem value="Relaxation">Relaxation</MenuItem>
+                <MenuItem value="Cultural">Cultural</MenuItem>
               </CustomSelect>
               <br />
               <CustomSelect
@@ -150,11 +150,11 @@ const NewTripForm = ({ loginID, auth }) => {
                 name="accomodationPreference"
                 placeholder="Please select accomodation type"
               >
-                <option value="">Please select accomodation type</option>
-                <option value="Hotel">Hotel</option>
-                <option value="Hostel">Hostel</option>
-                <option value="Bed & breakfast">Bed & Breakfast</option>
-                <option value="Others">Others</option>
+                <MenuItem value="">Please select accomodation type</MenuItem>
+                <MenuItem value="Hotel">Hotel</MenuItem>
+                <MenuItem value="Hostel">Hostel</MenuItem>
+                <MenuItem value="Bed & breakfast">Bed & Breakfast</MenuItem>
+                <MenuItem value="Others">Others</MenuItem>
               </CustomSelect>
               <br />
               <CustomInput
@@ -170,6 +170,7 @@ const NewTripForm = ({ loginID, auth }) => {
                 name="paxInfo"
                 type="textarea"
                 placeholder="Optional"
+                multiline="true"
               />
               <br />
               <CustomTextArea
@@ -177,6 +178,7 @@ const NewTripForm = ({ loginID, auth }) => {
                 name="otherInfo"
                 type="textarea"
                 placeholder="Optional"
+                multiline="true"
               />
               <br />
               <HiddenInput name="user" type="hidden" value="" />
