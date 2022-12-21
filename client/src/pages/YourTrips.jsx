@@ -13,8 +13,6 @@ const YourTrips = () => {
     const [inDatabase, setInDatabase] = useState();
     const authApi = useContext(AuthAPI);
 
-    console.log("alhamdulilah", authApi)
-
 //     // Return to login page if not logged in
 //   useEffect(() => {
 //     if (notLoggedIn) {
@@ -42,6 +40,8 @@ useEffect(() => {
     };
     fetchData();
     }, []);
+
+    console.log("cool", inDatabase)
 
     return (
         <>

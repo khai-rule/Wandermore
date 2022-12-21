@@ -25,6 +25,7 @@ function YourUpcomingTrips() {
     "https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2021/11/01_Mirbach_HiRes_sRGB-2048x1384.jpg";
 
   const display = () => {
+    //TODO if got trips, no activities = pending
     if (data?.trips < 1) {
       return (
         <>
