@@ -1,4 +1,4 @@
-// const bcrypt = require("bcrypt");
+const bcrypt = require("bcrypt");
 const express = require("express");
 const checkLogin = require("../middleware/loginMiddleware");
 const User = require("../models/User");
@@ -48,7 +48,15 @@ userRouter.post("/", async (req, res) => {
     return res.status(400).json({ error: "Inputs cannot be blank" });
   }
   try {
-    const user = await User.create(req.body);
+    const saltRounds = 10;
+    const { email, firstName, lastName, password } = req.body;
+    const hashed = bcrypt.hashSync(password, saltRounds);
+    const user = await User.create({
+      email: email,
+      firstName: firstName,
+      lastName: lastName,
+      password: hashed,
+    });
     res.status(201).json(user);
   } catch (error) {
     res.status(500).json(error);
@@ -66,10 +74,20 @@ userRouter.put("/:id", [checkLogin], async (req, res) => {
   }
   try {
     const currentUser = await User.findById(id).exec();
-    if (currentUser.password === passwordOld) {
-      const userUpdate = await User.findByIdAndUpdate(id, req.body, {
-        new: true,
-      });
+    const passwordMatched = bcrypt.compareSync(
+      passwordOld,
+      currentUser.password
+    );
+    if (passwordMatched) {
+      const saltRounds = 10;
+      const hashed = bcrypt.hashSync(password, saltRounds);
+      const userUpdate = await User.findByIdAndUpdate(
+        id,
+        { password: hashed },
+        {
+          new: true,
+        }
+      );
       return res.status(202).json({ msg: "Password changed" });
     }
     return res.status(401).json({ msg: "Unauthorized" });

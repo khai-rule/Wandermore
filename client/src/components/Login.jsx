@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
 import CustomInput from "../components/CustomInput";
@@ -18,7 +18,7 @@ import AuthAPI from "../utils/AuthAPI";
 const Login = () => {
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
-  const authApi = React.useContext(AuthAPI);
+  const { setLoginID, setAuth } = useContext(AuthAPI);
 
   const handleLogin = async (values, actions) => {
     await new Promise((resolve) => setTimeout(resolve, 500));
@@ -34,8 +34,8 @@ const Login = () => {
 
       if (response.ok) {
         actions.resetForm();
-        authApi.setLoginID(data.currentUser);
-        authApi.setAuth(data.authenticated);
+        setLoginID(data.currentUser);
+        setAuth(data.authenticated);
         // setNotLoggedIn(false);
         // setUser(values.email);
         navigate("/account");
