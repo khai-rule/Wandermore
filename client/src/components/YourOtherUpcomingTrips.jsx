@@ -12,6 +12,8 @@ import capitaliseFirstLetter from "../utilities/capitaliseFirstLetter"
 import formatDate from "../utilities/formatDate"
 import { NavLink } from "react-router-dom";
 
+// TODO Sort by dates
+// TODO only display those before today's daate
 
 function YourOtherUpcomingTrips() {
 
@@ -49,16 +51,6 @@ function YourOtherUpcomingTrips() {
 
       return (
         <>
-          <Typography variant="h4" align="center" component="h2" padding="40px 0">
-          Look forward to your trips
-          </Typography>
-          <Grid
-          container
-          spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 4, sm: 8, md: 12 }}
-          justifyContent="center"
-          sx={{ my: 8, px: 2}}
-          >
         
           <Grid item xs={6} md={6}>
             <CardActionArea component="a">
@@ -88,7 +80,6 @@ function YourOtherUpcomingTrips() {
             </CardActionArea>
           </Grid>
     
-          </Grid>
         </>
       )
     });
@@ -97,8 +88,19 @@ function YourOtherUpcomingTrips() {
 
   return (
     <>
-    {mapTrips()}
-      
+      <Typography variant="h4" align="center" component="h2" padding="40px 0">
+        Look forward to your other trips
+      </Typography>
+
+      <Grid
+      container
+      spacing={{ xs: 2, md: 3 }}
+      columns={{ xs: 4, sm: 8, md: 12 }}
+      justifyContent="center"
+      sx={{ my: 8, px: 2}}
+      >
+      {mapTrips()}
+      </Grid>
     </>
   );
 }

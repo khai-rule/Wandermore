@@ -7,8 +7,8 @@ const PendingTrips = ({ loginID, render }) => {
     const [renderDelete, setRenderDelete] = useState(0)
 
     //TODO sort - if trips has an activity - cant delete
+    //TODO edit their request
     //TODO direct them to another page after submit - unlikely for user to create 2 trips in succession
-
 
 //! Fetch Data
     useEffect(() => {
@@ -30,7 +30,7 @@ const PendingTrips = ({ loginID, render }) => {
         fetchData();
       }, [render, renderDelete]);
 
-
+//! Delete
   const handleDelete = (id) => async () => {
     try {
       const response = await fetch(`/api/trips/${id}`, {

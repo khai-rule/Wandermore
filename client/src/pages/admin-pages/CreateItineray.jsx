@@ -6,7 +6,7 @@ export const UserContext = createContext();
 
 const createItinerary = () => {
   const [inDatabase, setInDatabase] = useState([]);
-  const [refresh, setRefresh] = useState(false)
+  const [refresh, setRefresh] = useState(0)
 
   const { id } = useParams();
 
@@ -29,13 +29,10 @@ const createItinerary = () => {
     fetchData();
     }, [refresh]);
 
-    console.log("why", inDatabase)
-    console.log(id)
-
     return (
       <>
         <UserContext.Provider value={inDatabase}>
-          <CreateItineraryForm setFetch={refresh}/>
+          <CreateItineraryForm setRefresh={setRefresh} refresh={refresh}/>
         </UserContext.Provider>
       </>
     );

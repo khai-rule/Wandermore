@@ -34,7 +34,7 @@ const NewTripForm = ({ loginID, setRender, render }) => {
             body: JSON.stringify(tripID),
           });
           if (res.ok) {
-            // actions.resetForm();
+            actions.resetForm();
             setRender(render + 1)
             setMsg(
               "Trip request submitted successfully, please give us some time to come back with your Itinerary!"

@@ -8,7 +8,7 @@ import { activitySchema } from "../components/validation/schema";
 import { useParams } from 'react-router-dom'
 import { UserContext } from "../pages/admin-pages/CreateItineray";
 
-const CreateItineraryForm = ({ refresh }) => {
+const CreateItineraryForm = ({ refresh, setRefresh }) => {
   const [msg, setMsg] = useState("");
   const [updateMsg, setUpdateMsg] = useState("");
   const navigate = useNavigate();
@@ -16,10 +16,7 @@ const CreateItineraryForm = ({ refresh }) => {
   const userData = useContext(UserContext);
 
   const activities = userData?.activities
-
-  console.log("Activities", activities)
-  console.log("userData", userData)
-
+  
   const { id } = useParams();
 
   //   useEffect(() => {
@@ -57,7 +54,7 @@ const CreateItineraryForm = ({ refresh }) => {
             setMsg(
               "Activity successfully added"
             );
-            refresh(true)
+            setRefresh(refresh + 1)
           }
         } catch (error) {
           throw new Error("Network response was not OK");
@@ -82,16 +79,34 @@ const CreateItineraryForm = ({ refresh }) => {
       });
       if (response.ok) {
         setUpdateMsg("Activity Successfully Updated");
-        refresh(true)
+        setRefresh(refresh + 1);
       }
     } catch (error) {
       throw new Error("Network response was not OK");
     }
   };
 
+  //! Delete
+  const handleDelete = (id) => async () => {
+    try {
+      const response = await fetch(`/api/activities/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Network error");
+      }
+      setRefresh(refresh + 1);
+      setUpdateMsg("Activity Successfully Deleted")
+    } catch (error) {
+      throw new Error("Network response was not OK");
+    }
+  };
 
-  const addActivity = () => {};
 
+  //TODO to extract this as a component
   const addedActivities = () => {
     if (activities < 1) {
       return (
@@ -103,7 +118,6 @@ const CreateItineraryForm = ({ refresh }) => {
         const localNDate = nDate.toLocaleDateString("sv-SE");
         return (
           <>
-            <h1>Activities</h1>
             <div key={activity._id}>
               <Formik
                 enableReinitialize={true}
@@ -183,6 +197,7 @@ const CreateItineraryForm = ({ refresh }) => {
                       />
                       <br />
                       {/* <HiddenInput name="user" type="hidden" value="" /> */}
+
                       <button
                         type="submit"
                         onClick={() => {
@@ -192,6 +207,15 @@ const CreateItineraryForm = ({ refresh }) => {
                       >
                         Update Activity
                       </button>
+
+                      <button
+                        onClick={
+                          handleDelete(activity._id)
+                        }
+                      >
+                        Delete
+                      </button>
+
                     </fieldset>
                   </Form>
                 )}
@@ -209,7 +233,8 @@ const CreateItineraryForm = ({ refresh }) => {
   return (
     <div>
       <button onClick={() => navigate(-1)}>Back</button>
-      <h1>Itinerary</h1>
+      <h1>Create Itinerary</h1>
+        <h2>Add Activity</h2>
       <div>
         <Formik
           enableReinitialize={true}
@@ -305,6 +330,7 @@ const CreateItineraryForm = ({ refresh }) => {
         <p>{msg}</p>
       </div>
       <>
+        <h2>Activities Created</h2>
         {addedActivities()}
       </>
     </div>
