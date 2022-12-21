@@ -23,6 +23,7 @@ function App() {
       <AuthAPI.Provider value={{ auth, setAuth, loginID, setLoginID }}>
         <BrowserRouter>
           <Routes>
+            <Route></Route>
             <Route path="/" element={<Layout />}>
               <Route path="/" element={<Home />} />
 

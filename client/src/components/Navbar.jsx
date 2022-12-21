@@ -5,8 +5,7 @@ import Navbar from "../components/mui-components/Navbar";
 import Toolbar from "../components/mui-components/Toolbar";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
-import { Modal } from "@mui/material";
-import Login from "./Login";
+import AuthModal from "./AuthModal";
 
 const rightLink = {
   fontSize: 16,
@@ -16,37 +15,27 @@ const rightLink = {
 
 function AppAppBar() {
   const [open, setOpen] = useState(false);
-  const handleOpen = () => {
+  const [modalView, setModalView] = useState("login");
+
+  const handleOpen = (e) => {
+    console.log(e.target.firstChild.data);
     setOpen(true);
+    setModalView(e.target.firstChild.data);
   };
+
   const handleClose = () => {
     setOpen(false);
   };
+
+  //TODO Add sign up to Modal as a changing view
   return (
     <div>
-      <Modal
+      <AuthModal
         open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Box
-          sx={{
-            bgcolor: "primary.main",
-            color: "white",
-            margin: "auto",
-            width: "80%",
-          }}
-        >
-          <Login />
-        </Box>
-      </Modal>
-
+        handleClose={handleClose}
+        modalView={modalView}
+        setModalView={setModalView}
+      />
       <Navbar position="fixed">
         <Toolbar sx={{ justifyContent: "space-between", borderBottom: 1 }}>
           <Link
@@ -71,7 +60,7 @@ function AppAppBar() {
               sx={rightLink}
               as={NavLink}
             >
-              {"Dasboard (admin)"}
+              {"Dashboard (admin)"}
             </Link>
 
             <Link
@@ -100,19 +89,17 @@ function AppAppBar() {
               color="inherit"
               variant="h5"
               underline="none"
-              // to="/login"
-              sx={rightLink}
-              // as={NavLink}
+              sx={{ ...rightLink, color: "primary.light" }}
               onClick={handleOpen}
             >
               {"Login"}
             </Link>
             <Link
+              color="inherit"
               variant="h5"
               underline="none"
-              to="/signup"
               sx={{ ...rightLink, color: "primary.light" }}
-              as={NavLink}
+              onClick={handleOpen}
             >
               {"Sign Up"}
             </Link>

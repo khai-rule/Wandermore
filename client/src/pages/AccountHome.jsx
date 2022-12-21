@@ -12,7 +12,7 @@ const AccountHome = () => {
 
   useEffect(() => {
     if (!auth) {
-      navigate("/login");
+      navigate("/");
     }
   }, [auth]);
   //! Logout button for use else where.
