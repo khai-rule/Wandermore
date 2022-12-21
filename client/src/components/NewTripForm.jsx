@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
 import CustomInput from "../components/CustomInput";
@@ -6,14 +6,12 @@ import CustomSelect from "../components/CustomSelect";
 import CustomTextArea from "../components/CustomTextArea";
 import { tripRequestSchema } from "../components/validation/schema";
 import HiddenInput from "../components/HiddenInput";
-import AuthAPI from "../utils/AuthAPI";
 
-const NewTripForm = () => {
+const NewTripForm = ({ loginID, auth }) => {
   const [inDatabase, setInDatabase] = useState([]);
   const [msg, setMsg] = useState("");
   const [render, setRender] = useState(0);
   const navigate = useNavigate();
-  const authApi = React.useContext(AuthAPI);
 
   const handleTripSubmit = async (values, actions) => {
     await new Promise((resolve) => setTimeout(resolve, 500));
@@ -31,7 +29,7 @@ const NewTripForm = () => {
           //! adding aboutyou id to ARRAY in user database.
           // const response = await fetch(`/api/trips/getid/${authApi.loginID}`);
           // const fetchID = await response.json();
-          const res = await fetch(`/api/user/setnewtrip/${authApi.loginID}`, {
+          const res = await fetch(`/api/user/setnewtrip/${loginID}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
@@ -72,12 +70,12 @@ const NewTripForm = () => {
   };
 
   useEffect(() => {
-    if (!authApi.auth) {
+    if (!auth) {
       navigate("/login");
     }
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/trips/fetch/${authApi.loginID}`);
+        const response = await fetch(`/api/trips/fetch/${loginID}`);
         if (!response.ok) {
           throw new Error("Network error");
         }
@@ -90,7 +88,7 @@ const NewTripForm = () => {
       }
     };
     fetchData();
-  }, [authApi.loginID, render]);
+  }, [loginID, render]);
 
   return (
     <>
@@ -184,7 +182,7 @@ const NewTripForm = () => {
               <button
                 type="submit"
                 onClick={() => {
-                  setFieldValue("user", `${authApi.loginID}`);
+                  setFieldValue("user", `${loginID}`);
                 }}
                 disabled={isSubmitting}
               >
