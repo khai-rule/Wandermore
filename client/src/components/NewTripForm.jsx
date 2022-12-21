@@ -10,9 +10,7 @@ import { Button } from "@mui/material";
 
 
 const NewTripForm = ({ loginID, setRender, render }) => {
-  
 
-const NewTripForm = ({ loginID, auth }) => {
   const [inDatabase, setInDatabase] = useState([]);
   const [msg, setMsg] = useState("");
 
