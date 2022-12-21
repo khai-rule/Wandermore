@@ -13,7 +13,6 @@ import Dashboard from "./pages/admin-pages/Dashboard";
 import AuthAPI from "./utils/AuthAPI";
 
 function App() {
-  const [notLoggedIn, setNotLoggedIn] = useState(true);
   const [loginID, setLoginID] = useState("");
   const [user, setUser] = useState();
   const [auth, setAuth] = useState(false);
@@ -29,63 +28,31 @@ function App() {
 
               <Route
                 path="/account"
-                element={
-                  <AccountHome
-                    notLoggedIn={notLoggedIn}
-                    setNotLoggedIn={setNotLoggedIn}
-                    loginID={loginID}
-                    user={user}
-                  />
-                }
+                element={<AccountHome loginID={loginID} user={user} />}
               />
 
               <Route
                 path="/itinerary/:id"
-                element={
-                  <Itinerary
-                    notLoggedIn={notLoggedIn}
-                    setNotLoggedIn={setNotLoggedIn}
-                    loginID={loginID}
-                    user={user}
-                  />
-                }
+                element={<Itinerary loginID={loginID} user={user} />}
               />
 
               <Route
                 path="/yourtrips"
-                element={
-                  <YourTrips
-                    notLoggedIn={notLoggedIn}
-                    setNotLoggedIn={setNotLoggedIn}
-                    loginID={loginID}
-                    user={user}
-                  />
-                }
+                element={<YourTrips loginID={loginID} user={user} />}
               />
 
               <Route path="/signup" element={<SignUp />} />
 
               <Route
                 path="/login"
-                element={
-                  <Login
-                    setNotLoggedIn={setNotLoggedIn}
-                    setLoginID={setLoginID}
-                    setUser={setUser}
-                  />
-                }
+                element={<Login setLoginID={setLoginID} setUser={setUser} />}
               />
 
               <Route path="/newtrip" element={<NewTrip />} />
 
               <Route
                 path="/createitinerary/:id"
-                element={
-                  <CreateItinerary
-                    notLoggedIn={notLoggedIn}
-                    loginID={loginID}
-                  />
-                }
+                element={<CreateItinerary loginID={loginID} />}
               />
 
               <Route path="/dashboard" element={<Dashboard />} />

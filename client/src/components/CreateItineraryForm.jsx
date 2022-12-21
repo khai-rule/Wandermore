@@ -3,7 +3,7 @@ import { Form, Formik } from "formik";
 import CustomInput from "../components/CustomInput";
 import CustomTextArea from "../components/CustomTextArea";
 import { activitySchema } from "../components/validation/schema";
-import { useParams } from 'react-router-dom'
+import { useParams } from "react-router-dom";
 import { UserContext } from "../pages/admin-pages/CreateItineray";
 
 const CreateItineraryForm = ({ refresh, setRefresh }) => {
@@ -12,15 +12,9 @@ const CreateItineraryForm = ({ refresh, setRefresh }) => {
 
   const userData = useContext(UserContext);
 
-  const activities = userData?.activities
-  
-  const { id } = useParams();
+  const activities = userData?.activities;
 
-  //   useEffect(() => {
-  //     if (notLoggedIn) {
-  //       navigate("/login");
-  //     }
-  //   }, [navigate, notLoggedIn]);
+  const { id } = useParams();
 
   //! Add new activity
   const handleNewActivity = async (values, actions) => {
@@ -38,7 +32,7 @@ const CreateItineraryForm = ({ refresh, setRefresh }) => {
         actions.resetForm();
         const fetchAdded = await response.json();
         try {
-          console.log(fetchAdded)
+          console.log(fetchAdded);
           //! add new activity id to ARRAY in trip
           const res = await fetch(`/api/trips/setnewactivity/${id}`, {
             method: "PUT",
@@ -48,10 +42,8 @@ const CreateItineraryForm = ({ refresh, setRefresh }) => {
             body: JSON.stringify(fetchAdded),
           });
           if (res.ok) {
-            setMsg(
-              "Activity successfully added"
-            );
-            setRefresh(refresh + 1)
+            setMsg("Activity successfully added");
+            setRefresh(refresh + 1);
           }
         } catch (error) {
           throw new Error("Network response was not OK");
@@ -61,9 +53,8 @@ const CreateItineraryForm = ({ refresh, setRefresh }) => {
       throw new Error("Network response was not OK");
     }
   };
-  
 
-  //! Update 
+  //! Update
   const handleUpdateActivity = async (values, actions) => {
     await new Promise((resolve) => setTimeout(resolve, 500));
     try {
@@ -96,21 +87,18 @@ const CreateItineraryForm = ({ refresh, setRefresh }) => {
         throw new Error("Network error");
       }
       setRefresh(refresh + 1);
-      setUpdateMsg("Activity Successfully Deleted")
+      setUpdateMsg("Activity Successfully Deleted");
     } catch (error) {
       throw new Error("Network response was not OK");
     }
   };
 
-
   //TODO to extract this as a component
   const addedActivities = () => {
     if (activities < 1) {
-      return (
-        <h2>No activities added yet</h2>
-      )
+      return <h2>No activities added yet</h2>;
     } else {
-        const allActivities = activities?.map((activity, index) => {
+      const allActivities = activities?.map((activity, index) => {
         const nDate = new Date(activity.date);
         const localNDate = nDate.toLocaleDateString("sv-SE");
         return (
@@ -205,14 +193,9 @@ const CreateItineraryForm = ({ refresh, setRefresh }) => {
                         Update Activity
                       </button>
 
-                      <button
-                        onClick={
-                          handleDelete(activity._id)
-                        }
-                      >
+                      <button onClick={handleDelete(activity._id)}>
                         Delete
                       </button>
-
                     </fieldset>
                   </Form>
                 )}
@@ -223,13 +206,13 @@ const CreateItineraryForm = ({ refresh, setRefresh }) => {
         );
       });
 
-      return allActivities
-      }
+      return allActivities;
     }
+  };
 
   return (
     <div>
-        <h2>Add Activity</h2>
+      <h2>Add Activity</h2>
       <div>
         <Formik
           enableReinitialize={true}
@@ -242,7 +225,7 @@ const CreateItineraryForm = ({ refresh, setRefresh }) => {
             photo1: "",
             photo2: "",
             description: "",
-            trip: id
+            trip: id,
             // user: {}
           }}
           validationSchema={activitySchema}

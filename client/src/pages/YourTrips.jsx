@@ -11,14 +11,7 @@ export const UserContext = createContext();
 const YourTrips = () => {
   const navigate = useNavigate();
   const [inDatabase, setInDatabase] = useState();
-  const { auth } = useContext(AuthAPI);
-
-  //     // Return to login page if not logged in
-  //   useEffect(() => {
-  //     if (notLoggedIn) {
-  //       navigate("/login");
-  //     }
-  //   }, [navigate, notLoggedIn]);
+  const { auth, loginID } = useContext(AuthAPI);
 
   //TODO sort the data by dates
 
@@ -28,7 +21,7 @@ const YourTrips = () => {
       navigate("/");
     }
     const fetchData = async () => {
-      const response = await fetch(`/api/user/${authApi.loginID}`);
+      const response = await fetch(`/api/user/${loginID}`);
       try {
         if (!response.ok) {
           throw new Error("Network error");

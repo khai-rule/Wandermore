@@ -3,7 +3,7 @@ import Link from "@mui/material/Link";
 import Navbar from "../components/mui-components/Navbar";
 import Toolbar from "../components/mui-components/Toolbar";
 import { NavLink } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import AuthModal from "./AuthModal";
 import AuthAPI from "../utils/AuthAPI";
 
@@ -16,8 +16,7 @@ const rightLink = {
 function AppAppBar() {
   const [open, setOpen] = useState(false);
   const [modalView, setModalView] = useState("Login");
-  const [hide, setHide] = useState(false);
-  const { auth, setAuth } = useContext(AuthAPI);
+  const { auth, setAuth, loginID } = useContext(AuthAPI);
 
   const handleLogout = async () => {
     const response = await fetch("/api/sessions", {
@@ -34,12 +33,6 @@ function AppAppBar() {
   const handleClose = () => {
     setOpen(false);
   };
-
-  useEffect(() => {
-    if (!auth) {
-      setHide(true);
-    }
-  }, [auth]);
 
   //TODO Add sign up to Modal as a changing view
   return (
@@ -73,17 +66,21 @@ function AppAppBar() {
               alignItems: "inherit",
             }}
           >
-            <Link
-              color="inherit"
-              variant="h5"
-              underline="none"
-              to="/dashboard"
-              sx={rightLink}
-              as={NavLink}
-            >
-              {"Dashboard (admin)"}
-            </Link>
-            {hide === false ? (
+            {auth !== false && loginID === "63a2d821c9a00cb6cee4d134" ? (
+              <Link
+                color="inherit"
+                variant="h5"
+                underline="none"
+                to="/dashboard"
+                sx={rightLink}
+                as={NavLink}
+              >
+                {"Dashboard (admin)"}
+              </Link>
+            ) : (
+              <></>
+            )}
+            {auth !== false ? (
               <>
                 <Link
                   color="inherit"
@@ -136,7 +133,7 @@ function AppAppBar() {
               <></>
             )}
 
-            {hide !== false ? (
+            {auth === false ? (
               <>
                 <Link
                   color="inherit"

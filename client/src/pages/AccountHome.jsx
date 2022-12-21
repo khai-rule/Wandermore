@@ -18,7 +18,6 @@ const AccountHome = () => {
 
   const handleChange = (event, value) => {
     setView(value);
-    console.log(view);
   };
 
   return (

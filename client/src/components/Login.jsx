@@ -10,7 +10,7 @@ import AuthAPI from "../utils/AuthAPI";
 const Login = ({ handleClose, setModalView }) => {
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
-  const { setLoginID, setAuth } = useContext(AuthAPI);
+  const { setLoginID, setAuth, LoginID } = useContext(AuthAPI);
 
   const handleClick = (e) => {
     setModalView(e.target.firstChild.data);
@@ -29,13 +29,18 @@ const Login = ({ handleClose, setModalView }) => {
       const data = await response.json();
 
       if (response.ok) {
-        actions.resetForm();
-        setLoginID(data.currentUser);
-        setAuth(data.authenticated);
-        handleClose();
-        // setNotLoggedIn(false);
-        // setUser(values.email);
-        navigate("/account");
+        if (data.currentUser === "63a2d821c9a00cb6cee4d134") {
+          setLoginID(data.currentUser);
+          setAuth(data.authenticated);
+          handleClose();
+          navigate("/dashboard");
+        } else {
+          // actions.resetForm();
+          setLoginID(data.currentUser);
+          setAuth(data.authenticated);
+          handleClose();
+          navigate("/account");
+        }
       }
       setMsg(data.msg);
     } catch (error) {
