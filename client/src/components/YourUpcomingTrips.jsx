@@ -9,6 +9,7 @@ import { UserContext } from "../pages/YourTrips";
 import capitaliseFirstLetter from "../utilities/capitaliseFirstLetter";
 import formatDate from "../utilities/formatDate";
 import Header from "./Header";
+import { NavLink } from "react-router-dom";
 
 
 function YourUpcomingTrips() {
@@ -23,10 +24,10 @@ function YourUpcomingTrips() {
   const photo =
     data?.trips?.[0]?.activities?.[0]?.photo1 ??
     "https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2021/11/01_Mirbach_HiRes_sRGB-2048x1384.jpg";
-
+  const id = data?.trips?.[0]?._id
+    
   //TODO change link
   //TODO if got trips, no activities = pending
-  console.log
   
   const link = () => {
     if (data?.trips?.[0]?.activities < 1) {
@@ -40,7 +41,12 @@ function YourUpcomingTrips() {
       )
     } else {
       return (
-        <Link variant="subtitle1" color="inherit" href="">
+        <Link
+          to={`/itinerary/${id}`}
+          as={NavLink}
+          variant="subtitle1"
+          color="inherit"
+        >
           View Itinerary
         </Link>
       )

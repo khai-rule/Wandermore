@@ -29,6 +29,7 @@ const TripInfo = () => {
             <h5>{departureDate} - {returnDate}</h5>
             <h6>{pax} Pax, {paxInfo}</h6>
             <p>{otherInfo}</p>
+            <button>Notify User</button>
         </>
     );
 }

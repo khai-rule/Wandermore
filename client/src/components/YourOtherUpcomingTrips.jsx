@@ -42,7 +42,12 @@ function YourOtherUpcomingTrips() {
           )
         } else {
           return (
-            <Link variant="subtitle1" color="inherit" to="" as={NavLink}>
+            <Link
+              to="/itinerary"
+              as={NavLink}
+              variant="subtitle1"
+              color="inherit"
+            >
               View Itinerary
             </Link>
           )

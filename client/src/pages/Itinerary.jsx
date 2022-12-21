@@ -1,14 +1,39 @@
-import Activity from "../components/Activity";
+import Activities from "../components/Activities";
 import Header from "../components/Header";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 const Itinerary = () => {
+
+  const [inDatabase, setInDatabase] = useState();
+  const { id } = useParams();
+
+  //! Fetch Data
+  useEffect(() => {
+      const fetchData = async () => {
+          try {
+              const request = await fetch(`/api/trips/${id}`)
+              if (!request.ok) {
+                  throw new Error ("Network error");
+          }
+              const data = await request.json();
+              setInDatabase(data);
+          } catch (error) {
+              console.error(error);
+          };
+      };
+      fetchData()
+  }, []);
+
+  const activities = inDatabase?.activities
+
   return (
     <div>
       <Header
-      img={"https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2021/11/01_Mirbach_HiRes_sRGB-2048x1384.jpg"}
+      img={""}
       />
         Itinerary
-      <Activity />
+      <Activities activities={activities}/>
     </div>
   );
 };

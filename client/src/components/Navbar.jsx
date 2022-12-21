@@ -5,7 +5,7 @@ import Navbar from "../components/mui-components/Navbar";
 import Toolbar from "../components/mui-components/Toolbar";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
-import { Button, Modal } from "@mui/material";
+import { Modal } from "@mui/material";
 import Login from "./Login";
 
 const rightLink = {

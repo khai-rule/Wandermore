@@ -39,7 +39,7 @@ function App() {
               />
 
               <Route
-                path="/itinerary"
+                path="/itinerary/:id"
                 element={
                   <Itinerary
                     notLoggedIn={notLoggedIn}
