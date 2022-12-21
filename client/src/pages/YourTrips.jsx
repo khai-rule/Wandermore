@@ -9,47 +9,50 @@ import { useContext } from "react";
 export const UserContext = createContext();
 
 const YourTrips = () => {
-    const navigate = useNavigate();
-    const [inDatabase, setInDatabase] = useState();
-    const authApi = useContext(AuthAPI);
+  const navigate = useNavigate();
+  const [inDatabase, setInDatabase] = useState();
+  const { auth } = useContext(AuthAPI);
 
-//     // Return to login page if not logged in
-//   useEffect(() => {
-//     if (notLoggedIn) {
-//       navigate("/login");
-//     }
-//   }, [navigate, notLoggedIn]);
+  //     // Return to login page if not logged in
+  //   useEffect(() => {
+  //     if (notLoggedIn) {
+  //       navigate("/login");
+  //     }
+  //   }, [navigate, notLoggedIn]);
 
-//TODO sort the data by dates
+  //TODO sort the data by dates
 
-//! Fetch logged in user data
-useEffect(() => {
+  //! Fetch logged in user data
+  useEffect(() => {
+    if (!auth) {
+      navigate("/");
+    }
     const fetchData = async () => {
-        const response = await fetch(`/api/user/${authApi.loginID}`);
-        try {
+      const response = await fetch(`/api/user/${authApi.loginID}`);
+      try {
         if (!response.ok) {
-            throw new Error("Network error");
+          throw new Error("Network error");
         }
         const data = await response.json();
         if (data !== null) {
-            setInDatabase(data);
+          setInDatabase(data);
         }
-        } catch (error) {
+      } catch (error) {
         throw new Error("Network response was not OK");
-        }
+      }
     };
     fetchData();
-    }, []);
+  }, [auth]);
 
-    return (
-        <>
-            <UserContext.Provider value={inDatabase}>
-                <YourUpcomingTrips />
-                <YourOtherUpcomingTrips  />
-                <YourPastTrips />
-            </UserContext.Provider>
-        </>
-    );
-}
- 
+  return (
+    <>
+      <UserContext.Provider value={inDatabase}>
+        <YourUpcomingTrips />
+        <YourOtherUpcomingTrips />
+        <YourPastTrips />
+      </UserContext.Provider>
+    </>
+  );
+};
+
 export default YourTrips;

@@ -1,11 +1,11 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
 import Navbar from "../components/mui-components/Navbar";
 import Toolbar from "../components/mui-components/Toolbar";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import AuthModal from "./AuthModal";
+import AuthAPI from "../utils/AuthAPI";
 
 const rightLink = {
   fontSize: 16,
@@ -15,10 +15,18 @@ const rightLink = {
 
 function AppAppBar() {
   const [open, setOpen] = useState(false);
-  const [modalView, setModalView] = useState("login");
+  const [modalView, setModalView] = useState("Login");
+  const [hide, setHide] = useState(false);
+  const { auth, setAuth } = useContext(AuthAPI);
+
+  const handleLogout = async () => {
+    const response = await fetch("/api/sessions", {
+      method: "DELETE",
+    });
+    setAuth(false);
+  };
 
   const handleOpen = (e) => {
-    console.log(e.target.firstChild.data);
     setOpen(true);
     setModalView(e.target.firstChild.data);
   };
@@ -26,6 +34,12 @@ function AppAppBar() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    if (!auth) {
+      setHide(true);
+    }
+  }, [auth]);
 
   //TODO Add sign up to Modal as a changing view
   return (
@@ -51,7 +65,14 @@ function AppAppBar() {
 
           <Box sx={{ flex: 1 }} />
 
-          <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end" }}>
+          <Box
+            sx={{
+              flex: 1,
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "inherit",
+            }}
+          >
             <Link
               color="inherit"
               variant="h5"
@@ -62,47 +83,91 @@ function AppAppBar() {
             >
               {"Dashboard (admin)"}
             </Link>
+            {hide === false ? (
+              <>
+                <Link
+                  color="inherit"
+                  variant="h5"
+                  underline="none"
+                  to="/account"
+                  sx={rightLink}
+                  as={NavLink}
+                >
+                  {"Account"}
+                </Link>
 
-            <Link
-              color="inherit"
-              variant="h5"
-              underline="none"
-              to="/newtrip"
-              sx={rightLink}
-              as={NavLink}
-            >
-              {"+ New Trip"}
-            </Link>
+                <Link
+                  color="inherit"
+                  variant="h5"
+                  underline="none"
+                  to="/newtrip"
+                  sx={rightLink}
+                  as={NavLink}
+                >
+                  {"+ New Trip"}
+                </Link>
 
-            <Link
-              color="inherit"
-              variant="h5"
-              underline="none"
-              to="/yourtrips"
-              sx={rightLink}
-              as={NavLink}
-            >
-              {"Your Trips"}
-            </Link>
+                <Link
+                  color="inherit"
+                  variant="h5"
+                  underline="none"
+                  to="/yourtrips"
+                  sx={rightLink}
+                  as={NavLink}
+                >
+                  {"Your Trips"}
+                </Link>
 
-            <Link
-              color="inherit"
-              variant="h5"
-              underline="none"
-              sx={{ ...rightLink, color: "primary.light" }}
-              onClick={handleOpen}
-            >
-              {"Login"}
-            </Link>
-            <Link
-              color="inherit"
-              variant="h5"
-              underline="none"
-              sx={{ ...rightLink, color: "primary.light" }}
-              onClick={handleOpen}
-            >
-              {"Sign Up"}
-            </Link>
+                <Link
+                  color="inherit"
+                  variant="h5"
+                  underline="none"
+                  sx={{
+                    ...rightLink,
+                    color: "primary.light",
+                    cursor: "pointer",
+                  }}
+                  onClick={handleLogout}
+                >
+                  {"Log Out"}
+                </Link>
+              </>
+            ) : (
+              <></>
+            )}
+
+            {hide !== false ? (
+              <>
+                <Link
+                  color="inherit"
+                  variant="h5"
+                  underline="none"
+                  sx={{
+                    ...rightLink,
+                    color: "primary.light",
+                    cursor: "pointer",
+                  }}
+                  onClick={handleOpen}
+                >
+                  {"Login"}
+                </Link>
+                <Link
+                  color="inherit"
+                  variant="h5"
+                  underline="none"
+                  sx={{
+                    ...rightLink,
+                    color: "primary.light",
+                    cursor: "pointer",
+                  }}
+                  onClick={handleOpen}
+                >
+                  {"Sign Up"}
+                </Link>
+              </>
+            ) : (
+              <></>
+            )}
           </Box>
         </Toolbar>
       </Navbar>
