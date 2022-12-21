@@ -1,6 +1,7 @@
 import HeroLayout from "./HeroLayout";
 import Typography from "../components/mui-components/Typography";
 import Link from "@mui/material/Link";
+import { NavLink } from "react-router-dom";
 
 const Header = ({ img, text, height, link, linkText }) => {
 
@@ -13,11 +14,21 @@ const Header = ({ img, text, height, link, linkText }) => {
         }}
         >
 
-            <Typography color="inherit" align="center" variant="h2" padding="4px 0">
+            <Typography
+                color="inherit"
+                align="center"
+                variant="h2"
+                padding="4px 0"
+            >
                 {text}
             </Typography>
 
-            <Link variant="subtitle1" color="inherit" href={link} padding="4px 0">
+            <Link
+                variant="subtitle1"
+                color="inherit"
+                to={link}
+                padding="4px 0"
+            >
                 {linkText}
             </Link>
 

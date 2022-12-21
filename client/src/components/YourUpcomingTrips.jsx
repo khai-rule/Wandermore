@@ -33,7 +33,8 @@ function YourUpcomingTrips() {
       return (
         <>
         <Typography variant="subtitle2" color="inherit">
-          Your Itinerary is being prepared
+          Your Itinerary is being prepared. <br />
+          We will notified you once it is ready.
         </Typography>
         </>
       )
@@ -116,7 +117,7 @@ function YourUpcomingTrips() {
                   {country}
                 </Typography>
                 <Typography variant="h6" color="inherit" paragraph>
-                  {depatureDate} - <br></br> {returnDate}
+                  {depatureDate} - <br /> {returnDate}
                 </Typography>
 
                 {link()}

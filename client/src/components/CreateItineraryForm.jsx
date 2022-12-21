@@ -8,16 +8,17 @@ import { activitySchema } from "../components/validation/schema";
 import { useParams } from 'react-router-dom'
 import { UserContext } from "../pages/admin-pages/CreateItineray";
 
-const CreateItineraryForm = () => {
+const CreateItineraryForm = ({ refresh }) => {
   const [msg, setMsg] = useState("");
   const [updateMsg, setUpdateMsg] = useState("");
   const navigate = useNavigate();
 
   const userData = useContext(UserContext);
 
-  console.log("lol",userData)
+  const activities = userData?.activities
 
-  const inDatabase = [userData]
+  console.log("Activities", activities)
+  console.log("userData", userData)
 
   const { id } = useParams();
 
@@ -40,23 +41,23 @@ const CreateItineraryForm = () => {
       });
       if (response.ok) {
         setMsg("Activity Successfully Created");
-        actions.resetForm();
+        // actions.resetForm();
+        const fetchAdded = await response.json();
         try {
+          console.log(fetchAdded)
           //! add new activity id to ARRAY in trip
-          const response = await fetch(`/api/activities/getid/${id}`);
-          const fetchID = await response.json();
           const res = await fetch(`/api/trips/setnewactivity/${id}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(fetchID),
+            body: JSON.stringify(fetchAdded),
           });
           if (res.ok) {
             setMsg(
-              "Trip request submitted successfully, please give us some time to come back with your Itinerary!"
+              "Activity successfully added"
             );
-            console.log("idfetch", fetchID)
+            refresh(true)
           }
         } catch (error) {
           throw new Error("Network response was not OK");
@@ -81,227 +82,28 @@ const CreateItineraryForm = () => {
       });
       if (response.ok) {
         setUpdateMsg("Activity Successfully Updated");
-        fetchData();
+        refresh(true)
       }
     } catch (error) {
       throw new Error("Network response was not OK");
     }
   };
 
-  //! Form
-  // const form = (name, date, time, duration, location, photo1, photo2, description, index) => {
-  //   return (
-  //       <div>
-  //       <Formik
-  //       initialValues={{
-  //           name: "",
-  //           date: "",
-  //           time: "",
-  //           duration: "",
-  //           location: "",
-  //           photo1: "",
-  //           photo2: "",
-  //           description: "",
-  //           user: ""
-  //         }}
-  //       validationSchema={activitySchema}
-  //       onSubmit={handleActivitySubmit}
-  //     >
-  //       {({ isSubmitting, setFieldValue }) => (
-  //         <Form autoComplete="off">
-  //           <fieldset>
-  //             <legend>Activity {index}</legend>
-  //           <CustomInput
-  //               label="Name"
-  //               name="name"
-  //               type="text"
-  //               placeholder="Name of Activity"
-  //           />
-  //           <br />
-  //           <CustomInput
-  //               label="Date"
-  //               name="date"
-  //               type="date"
-  //               placeholder="Date of Activity"
-  //           />
-  //           <br />
-  //           <CustomTextArea
-  //               label="Time"
-  //               name="time"
-  //               type="date"
-  //               placeholder="Time of Activity"
-  //           />
-  //           <br />
-
-  //           <CustomInput
-  //               label="Duration"
-  //               name="duration"
-  //               type="text"
-  //               placeholder="Duration of Activity (hrs)"
-  //           />
-  //           <br />
-
-  //           <CustomInput
-  //               label="Location"
-  //               name="location"
-  //               type="text"
-  //               placeholder="Location of Activity"
-  //           />
-  //           <br />
-
-  //           <CustomInput
-  //               label="First Photo"
-  //               name="photo1"
-  //               type="text"
-  //               placeholder="Photos of Activity"
-  //           />
-  //           <br />
-
-  //           <CustomInput
-  //               label="Second Photo"
-  //               name="photo2"
-  //               type="text"
-  //               placeholder="Photos of Activity"
-  //           />
-  //           <br />
-
-  //           <CustomTextArea
-  //               label="Description"
-  //               name="description"
-  //               type="textarea"
-  //               placeholder="Description of Activity"
-  //           />
-  //           <br />
-  //             <HiddenInput name="user" type="hidden" value="" />
-  //             <button
-  //             type="submit"
-  //             // onClick={() => {
-  //             //   setFieldValue("user", `${loginID}`);
-  //             // }}
-  //             disabled={isSubmitting}>
-  //               Add/Update Activity
-  //             </button>
-  //           </fieldset>
-  //         </Form>
-  //       )}
-  //     </Formik>
-  //     <p>{msg}</p>
-  //       </div>
-  //   )
-  // }
 
   const addActivity = () => {};
 
-  // const mapInDatabase = inDatabase?.map((item) => {
-  //     const name = item.name
-  //     const date = item.date
-  //     const time = item.time
-  //     const duration = item.duration
-  //     const location = item.location
-  //     const photo1 = item.photo1
-  //     const photo2 = item.photo2
-  //     const description = item.description
-  //     const index = inDatabase?.indexOf(item) + 1
-  //     const key = item._id
-  //     return form(name, date, time, duration, location, photo1, photo2, description, index, key)
-  // })
-
-  return (
-    <div>
-      <button onClick={() => navigate(-1)}>Back</button>
-      <h1>Itinerary</h1>
-      <div>
-        <Formik
-          enableReinitialize={true}
-          initialValues={{
-            name: "",
-            date: "",
-            startTime: "",
-            endTime: "",
-            location: "",
-            photo: "",
-            description: "",
-            trip: id
-            // user: {}
-          }}
-          validationSchema={activitySchema}
-          onSubmit={handleNewActivity}
-        >
-          {({ isSubmitting }) => (
-            <Form autoComplete="off">
-              <fieldset>
-                <legend>Create a New Activity</legend>
-                <CustomInput
-                  label="Name"
-                  name="name"
-                  type="text"
-                  placeholder="Name of Activity"
-                />
-                <br />
-                <CustomInput
-                  label="Date"
-                  name="date"
-                  type="date"
-                  placeholder="Date of Activity"
-                />
-                <br />
-                <CustomInput
-                  label="Start Time"
-                  name="startTime"
-                  type="time"
-                  placeholder="Start Time of Activity"
-                />
-                <br />
-                <CustomInput
-                  label="End Time"
-                  name="endTime"
-                  type="time"
-                  placeholder="End Time of Activity"
-                />
-                <br />
-                <CustomInput
-                  label="Location"
-                  name="location"
-                  type="text"
-                  placeholder="Location of Activity"
-                />
-                <br />
-                <CustomInput
-                  label="Photo"
-                  name="photo"
-                  type="text"
-                  placeholder="Photos of Activity"
-                />
-                <br />
-                <CustomTextArea
-                  label="Description"
-                  name="description"
-                  type="textarea"
-                  placeholder="Description of Activity"
-                />
-                <br />
-                {/* <HiddenInput name="user" type="hidden" value="" /> */}
-                <button
-                  type="submit"
-                  // onClick={() => {
-                  //   setFieldValue("user", `${loginID}`);
-                  // }}
-                  disabled={isSubmitting}
-                >
-                  Add Activity
-                </button>
-              </fieldset>
-            </Form>
-          )}
-        </Formik>
-        <p>{msg}</p>
-      </div>
-      <>
-        <h1>Activities</h1>
-        {inDatabase.map((activity, index) => {
-          const nDate = new Date(activity.date);
-          const localNDate = nDate.toLocaleDateString("sv-SE");
-          return (
+  const addedActivities = () => {
+    if (activities < 1) {
+      return (
+        <h2>No activities added yet</h2>
+      )
+    } else {
+        const allActivities = activities?.map((activity, index) => {
+        const nDate = new Date(activity.date);
+        const localNDate = nDate.toLocaleDateString("sv-SE");
+        return (
+          <>
+            <h1>Activities</h1>
             <div key={activity._id}>
               <Formik
                 enableReinitialize={true}
@@ -311,7 +113,8 @@ const CreateItineraryForm = () => {
                   startTime: activity.startTime,
                   endTime: activity.endTime,
                   location: activity.location,
-                  photo: activity.photo,
+                  photo1: activity.photo1,
+                  photo2: activity.photo2,
                   description: activity.description,
                   id: activity._id,
                   // user: {}
@@ -359,10 +162,17 @@ const CreateItineraryForm = () => {
                       />
                       <br />
                       <CustomInput
-                        label="Photo"
-                        name="photo"
+                        label="Photo 1"
+                        name="photo2"
                         type="text"
-                        placeholder="Photos of Activity"
+                        placeholder="Photo 1 of Activity"
+                      />
+                      <br />
+                      <CustomInput
+                        label="Photo 2"
+                        name="photo2"
+                        type="text"
+                        placeholder="Photo 2 of Activity"
                       />
                       <br />
                       <CustomTextArea
@@ -388,8 +198,114 @@ const CreateItineraryForm = () => {
               </Formik>
               <p>{updateMsg}</p>
             </div>
-          );
-        })}
+          </>
+        );
+      });
+
+      return allActivities
+      }
+    }
+
+  return (
+    <div>
+      <button onClick={() => navigate(-1)}>Back</button>
+      <h1>Itinerary</h1>
+      <div>
+        <Formik
+          enableReinitialize={true}
+          initialValues={{
+            name: "",
+            date: "",
+            startTime: "",
+            endTime: "",
+            location: "",
+            photo1: "",
+            photo2: "",
+            description: "",
+            trip: id
+            // user: {}
+          }}
+          validationSchema={activitySchema}
+          onSubmit={handleNewActivity}
+        >
+          {({ isSubmitting }) => (
+            <Form autoComplete="off">
+              <fieldset>
+                <legend>Create a New Activity</legend>
+                <CustomInput
+                  label="Name"
+                  name="name"
+                  type="text"
+                  placeholder="Name of Activity"
+                />
+                <br />
+                <CustomInput
+                  label="Date"
+                  name="date"
+                  type="date"
+                  placeholder="Date of Activity"
+                />
+                <br />
+                <CustomInput
+                  label="Start Time"
+                  name="startTime"
+                  type="time"
+                  placeholder="Start Time of Activity"
+                />
+                <br />
+                <CustomInput
+                  label="End Time"
+                  name="endTime"
+                  type="time"
+                  placeholder="End Time of Activity"
+                />
+                <br />
+                <CustomInput
+                  label="Location"
+                  name="location"
+                  type="text"
+                  placeholder="Location of Activity"
+                />
+                <br />
+                <CustomInput
+                  label="Photo 1"
+                  name="photo1"
+                  type="text"
+                  placeholder="Photo 1 of Activity"
+                />
+                <br />
+                <CustomInput
+                  label="Photo 2"
+                  name="photo2"
+                  type="text"
+                  placeholder="Photo 2 of Activity"
+                />
+                <br />
+                <CustomTextArea
+                  label="Description"
+                  name="description"
+                  type="textarea"
+                  placeholder="Description of Activity"
+                />
+                <br />
+                {/* <HiddenInput name="user" type="hidden" value="" /> */}
+                <button
+                  type="submit"
+                  // onClick={() => {
+                  //   setFieldValue("user", `${loginID}`);
+                  // }}
+                  disabled={isSubmitting}
+                >
+                  Add Activity
+                </button>
+              </fieldset>
+            </Form>
+          )}
+        </Formik>
+        <p>{msg}</p>
+      </div>
+      <>
+        {addedActivities()}
       </>
     </div>
   );
