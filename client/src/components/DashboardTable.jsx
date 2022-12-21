@@ -3,6 +3,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import capitaliseFirstLetter from '../utilities/capitaliseFirstLetter';
+import formatDate from '../utilities/formatDate';
 
 //TODO get rid of the infinity request in console
 
@@ -40,7 +42,9 @@ export default function DataTable() {
             }
         };
         fetchData();
-        }, [inDatabase]);
+        }, [message]);
+
+        console.log(inDatabase)
 
     const rows = () => {
         const mapInDatabase = inDatabase?.map(item => {
@@ -55,12 +59,12 @@ export default function DataTable() {
             const id = item?._id
             const obj = {
                 id: id,
-                firstName: firstName,
-                lastName: lastName, 
-                email: email,
-                country: country, 
-                departureDate: departureDate,
-                returnDate: returnDate,
+                firstName: capitaliseFirstLetter(firstName),
+                lastName: capitaliseFirstLetter(lastName), 
+                email: capitaliseFirstLetter(email),
+                country: capitaliseFirstLetter(country), 
+                departureDate: formatDate(departureDate),
+                returnDate: formatDate(returnDate),
                 //TODO to check if there is an activity
                 status: "Pending"
             }
@@ -117,18 +121,18 @@ export default function DataTable() {
 
   return (
     <>
-        <div style={{ height: 400, width: '100%' }}>
+      <p>{message}</p>
+      {actions()}
+      <div style={{ height: 800, width: '100%' }}>
         <DataGrid
             onRowClick={handleRowClick} {...data}
             rows={rows() ?? rows}
             rowCount={2}
             columns={columns}
-            pageSize={5}
+            pageSize={10}
             rowsPerPageOptions={[5]}
         />
-        </div>
-        <p>{message}</p>
-        {actions()}
+      </div>
     </>
   );
 }
