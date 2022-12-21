@@ -9,13 +9,15 @@ import formatDate from '../utilities/formatDate';
 //TODO get rid of the infinity request in console
 
 const columns = [
-    { field: 'firstName', headerName: 'First name', width: 150 },
-    { field: 'lastName', headerName: 'Last name', width: 150 },
-    { field: 'email', headerName: 'Email', width: 200 },
+  { field: 'status', headerName: 'Status', width: 150, },
+  { field: 'firstName', headerName: 'First name', width: 150 },
+  { field: 'lastName', headerName: 'Last name', width: 150 },
+  { field: 'email', headerName: 'Email', width: 200 },
   { field: 'country', headerName: 'Country', width: 150, },
   { field: 'departureDate', headerName: 'Departure', width: 250, },
   { field: 'returnDate', headerName: 'Return', width: 250, },
-  { field: 'status', headerName: 'Status', width: 150, },
+  { field: 'paxInfo', headerName: 'Pax Info', width: 200 , },
+  { field: 'otherInfo', headerName: 'Others', width: 200, },
 ];
 
 
@@ -56,6 +58,8 @@ export default function DataTable() {
             // const localNDate = nDate.toLocaleDateString('sv-SE');
             const departureDate = item?.departureDate
             const returnDate = item?.returnDate
+            const paxInfo = item?.paxInfo
+            const otherInfo = item?.otherInfo
             const id = item?._id
             const obj = {
                 id: id,
@@ -65,8 +69,10 @@ export default function DataTable() {
                 country: capitaliseFirstLetter(country), 
                 departureDate: formatDate(departureDate),
                 returnDate: formatDate(returnDate),
+                paxInfo: capitaliseFirstLetter(paxInfo), 
+                otherInfo: capitaliseFirstLetter(otherInfo), 
                 //TODO to check if there is an activity
-                status: "Pending"
+                status: "Incomplete"
             }
             return obj
         })
@@ -127,9 +133,9 @@ export default function DataTable() {
         <DataGrid
             onRowClick={handleRowClick} {...data}
             rows={rows() ?? rows}
-            rowCount={2}
+            rowCount={1}
             columns={columns}
-            pageSize={10}
+            pageSize={20}
             rowsPerPageOptions={[5]}
         />
       </div>

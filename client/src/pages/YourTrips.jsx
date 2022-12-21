@@ -22,7 +22,7 @@ const YourTrips = () => {
 
 //TODO sort the data by dates
 
-//! Fetch data
+//! Fetch logged in user data
 useEffect(() => {
     const fetchData = async () => {
         const response = await fetch(`/api/user/${authApi.loginID}`);
@@ -41,7 +41,7 @@ useEffect(() => {
     fetchData();
     }, []);
 
-    console.log("cool", inDatabase)
+    console.log(inDatabase)
 
     return (
         <>

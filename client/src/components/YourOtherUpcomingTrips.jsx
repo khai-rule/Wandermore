@@ -14,8 +14,6 @@ import formatDate from "../utilities/formatDate"
 function YourOtherUpcomingTrips() {
 
   const data = useContext(UserContext);
-  console.log("dalam other", (data?.trips)?.slice(1))
-  console.log("dalam othe2r", data)
 
   const mapTrips = () => {
     const trips = (data?.trips)?.slice(1)?.map(item => {

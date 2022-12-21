@@ -24,8 +24,30 @@ function YourUpcomingTrips() {
     data?.trips[0]?.activities[0]?.photo ??
     "https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2021/11/01_Mirbach_HiRes_sRGB-2048x1384.jpg";
 
+  //TODO change link
+  //TODO if got trips, no activities = pending
+  console.log
+  
+  const link = () => {
+    if (data?.trips[0]?.activities < 1) {
+      return (
+        <>
+        <Typography variant="subtitle2" color="inherit">
+          Your Itinerary is being prepared
+        </Typography>
+        </>
+      )
+    } else {
+      return (
+        <Link variant="subtitle1" color="inherit" href="">
+          View Itinerary
+        </Link>
+      )
+    }
+  }
+    
+
   const display = () => {
-    //TODO if got trips, no activities = pending
     if (data?.trips < 1) {
       return (
         <>
@@ -96,9 +118,9 @@ function YourUpcomingTrips() {
                 <Typography variant="h6" color="inherit" paragraph>
                   {depatureDate} - <br></br> {returnDate}
                 </Typography>
-                <Link variant="subtitle1" color="inherit" href="">
-                  View Itinerary
-                </Link>
+
+                {link()}
+
               </Box>
             </Grid>
           </Grid>
