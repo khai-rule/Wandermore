@@ -41,8 +41,6 @@ useEffect(() => {
     fetchData();
     }, []);
 
-    console.log(inDatabase)
-
     return (
         <>
             <UserContext.Provider value={inDatabase}>
