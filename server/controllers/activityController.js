@@ -48,6 +48,17 @@ activityRouter.get("/getid/:id", async (req, res) => {
   }
 });
 
+  //! Delete by ID
+  activityRouter.delete("/:id", async (req, res) => {
+    const { id } = req.params;
+    try {
+      const activity = await Activity.findByIdAndDelete(id).exec();
+      return res.json(activity);
+    } catch (err) {
+      res.status(500).send({ err });
+    }
+  });
+
 activityRouter.put("/:id", async (req, res) => {
   const { id } = req.params;
   try {

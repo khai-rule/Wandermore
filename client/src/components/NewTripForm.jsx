@@ -8,11 +8,13 @@ import { tripRequestSchema } from "../components/validation/schema";
 import HiddenInput from "../components/HiddenInput";
 import { Button } from "@mui/material";
 
+
+const NewTripForm = ({ loginID, setRender, render }) => {
+  
+
 const NewTripForm = ({ loginID, auth }) => {
-  const [inDatabase, setInDatabase] = useState([1, 2]);
+  const [inDatabase, setInDatabase] = useState([]);
   const [msg, setMsg] = useState("");
-  const [render, setRender] = useState(0);
-  const navigate = useNavigate();
 
   const handleTripSubmit = async (values, actions) => {
     await new Promise((resolve) => setTimeout(resolve, 500));
@@ -36,11 +38,11 @@ const NewTripForm = ({ loginID, auth }) => {
             body: JSON.stringify(tripID),
           });
           if (res.ok) {
-            // actions.resetForm();
+            actions.resetForm();
+            setRender(render + 1)
             setMsg(
               "Trip request submitted successfully, please give us some time to come back with your Itinerary!"
             );
-            setRender(render + 1);
           }
         } catch (error) {
           throw new Error("Network response was not OK");
@@ -51,48 +53,9 @@ const NewTripForm = ({ loginID, auth }) => {
     }
   };
 
-  //TODO Delete button for user?
-  // <button onClick={handleDelete(trip._id)}>Del</button>
-  // const handleDelete = (id) => async () => {
-  //   try {
-  //     const response = await fetch(`/api/trips/${id}`, {
-  //       method: "DELETE",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     });
-  //     if (!response.ok) {
-  //       throw new Error("Network error");
-  //     }
-  //     setRender(render + 1);
-  //   } catch (error) {
-  //     throw new Error("Network response was not OK");
-  //   }
-  // };
-
-  useEffect(() => {
-    if (!auth) {
-      navigate("/login");
-    }
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`/api/trips/fetch/${loginID}`);
-        if (!response.ok) {
-          throw new Error("Network error");
-        }
-        const data = await response.json();
-        if (data !== null) {
-          setInDatabase(data.trips);
-        }
-      } catch (error) {
-        throw new Error("Network response was not OK");
-      }
-    };
-    fetchData();
-  }, [loginID, render]);
-
   return (
     <>
+      <h1>New Trip</h1>
       <Formik
         enableReinitialize={true}
         initialValues={{
@@ -191,38 +154,10 @@ const NewTripForm = ({ loginID, auth }) => {
                 Submit
               </Button>
             </fieldset>
-            <Link to="/account">
-              <Button variant="outlined">Back</Button>
-            </Link>
           </Form>
         )}
       </Formik>
       <p>{msg}</p>
-      {inDatabase === null ? <h2>Your Trip requests:</h2> : <></>}
-      {inDatabase?.map((trip, index) => {
-        const dDate = new Date(trip.departureDate);
-        const localDDate = dDate.toLocaleDateString("en-GB");
-        const rDate = new Date(trip.returnDate);
-        const localRDate = rDate.toLocaleDateString("en-GB");
-        return (
-          <div key={trip._id}>
-            <h3>Trip {index + 1}</h3>
-
-            <ul>
-              <li>Departure Date: {localDDate}</li>
-              <li>Return Date: {localRDate}</li>
-              <li>Country: {trip.country}</li>
-              <li>Activity Preference: {trip.activityPreference}</li>
-              <li>Accomodation Preference: {trip.accomodationPreference}</li>
-              <li>No. of Pax: {trip.pax}</li>
-              <li>Pax Info: {trip.paxInfo === "" ? "N/A" : trip.paxInfo}</li>
-              <li>
-                Anything Else: {trip.otherInfo === "" ? "N/A" : trip.otherInfo}
-              </li>
-            </ul>
-          </div>
-        );
-      })}
     </>
   );
 };

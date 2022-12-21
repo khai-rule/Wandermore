@@ -10,33 +10,50 @@ import { useContext } from "react";
 import { UserContext } from "../pages/YourTrips";
 import capitaliseFirstLetter from "../utilities/capitaliseFirstLetter"
 import formatDate from "../utilities/formatDate"
+import { NavLink } from "react-router-dom";
+
+// TODO Sort by dates
+// TODO only display those before today's daate
 
 function YourOtherUpcomingTrips() {
 
   const data = useContext(UserContext);
+  const trips = (data?.trips)?.slice(1)
 
+  const photo = trips?.[0]?.activities?.[0]?.photo1 ?? "https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2021/11/01_Mirbach_HiRes_sRGB-2048x1384.jpg"
+  
   const mapTrips = () => {
-    const trips = (data?.trips)?.slice(1)?.map(item => {
-      const country = capitaliseFirstLetter(item.country)
-      const activityPreference = capitaliseFirstLetter(item.activityPreference)
-      const depatureDate = formatDate(item.departureDate)
-      const returnDate = formatDate(item.returnDate)
-      const photo = item?.activities[0]?.photo1 ?? "https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2021/11/01_Mirbach_HiRes_sRGB-2048x1384.jpg"
+    const displayTrips = trips?.map(trip => {
+      const country = capitaliseFirstLetter(trip.country)
+      const activityPreference = capitaliseFirstLetter(trip.activityPreference)
+      const depatureDate = formatDate(trip.departureDate)
+      const returnDate = formatDate(trip.returnDate)
+
+
+      const link = () => {
+        if (trip?.activities < 1) {
+          return (
+            <>
+              <Typography variant="subtitle2" color="inherit">
+                Your Itinerary is being prepared.
+                We will notify you once it is ready.
+              </Typography>
+            </>
+          )
+        } else {
+          return (
+            <Link variant="subtitle1" color="inherit" to="" as={NavLink}>
+              View Itinerary
+            </Link>
+          )
+        }
+      }
+
       return (
         <>
-          <Typography variant="h4" align="center" component="h2" padding="40px 0">
-          Look forward to your trips
-          </Typography>
-          <Grid
-          container
-          spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 4, sm: 8, md: 12 }}
-          justifyContent="center"
-          sx={{ my: 8, px: 2}}
-          >
         
           <Grid item xs={6} md={6}>
-            <CardActionArea component="a" href="#">
+            <CardActionArea component="a">
               <Card sx={{ display: 'flex', boxShadow: 0, borderRadius: 0 }}>
     
                   <CardMedia
@@ -51,31 +68,39 @@ function YourOtherUpcomingTrips() {
                           {country}
                       </Typography>
                       <Typography variant="body1" color="text.secondary" sx={{ my: 1 }}>
-                          {depatureDate} - <br></br> {returnDate}
+                          {depatureDate} - {returnDate}
                       </Typography>
                       <Typography variant="p" paragraph sx={{ my: 1 }}>
                         Get ready for your {activityPreference} trip!
                       </Typography>
-                      <Link variant="body1" color="inherit" href="">
-                          View Itinerary
-                      </Link>
+                          {link()}
                   </CardContent>
     
               </Card>
             </CardActionArea>
           </Grid>
     
-          </Grid>
         </>
       )
     });
-    return trips
+    return displayTrips
   }
 
   return (
     <>
-    {mapTrips()}
-      
+      <Typography variant="h4" align="center" component="h2" padding="40px 0">
+        Look forward to your other trips
+      </Typography>
+
+      <Grid
+      container
+      spacing={{ xs: 2, md: 3 }}
+      columns={{ xs: 4, sm: 8, md: 12 }}
+      justifyContent="center"
+      sx={{ my: 8, px: 2}}
+      >
+      {mapTrips()}
+      </Grid>
     </>
   );
 }
