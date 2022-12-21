@@ -38,7 +38,6 @@ sessions.post("/", async (req, res) => {
 sessions.delete("/", (req, res) => {
   req.session.destroy(() => {
     res.json({ msg: "Logout success" });
-    res.redirect("/");
   });
 });
 

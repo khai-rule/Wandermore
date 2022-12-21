@@ -1,25 +1,26 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import AboutYouForm from "../components/AboutYouForm";
 import LoginMaint from "../components/LoginMaint";
 import MiniNavOption from "../components/MiniNavOption";
-import NewTripForm from "../components/NewTripForm";
 import AuthAPI from "../utils/AuthAPI";
 
 const AccountHome = () => {
   const [view, setView] = useState("aboutYou");
   const navigate = useNavigate();
-  const authApi = React.useContext(AuthAPI);
+  const { loginID, auth, setAuth } = useContext(AuthAPI);
 
-  //* Code to push back to login page if not Logged in
   useEffect(() => {
-    if (!authApi.auth) {
+    if (!auth) {
       navigate("/login");
     }
-  }, [authApi.auth]);
-
-  const handleLogout = () => {
-    authApi.setAuth(false);
+  }, [auth]);
+  //! Logout button for use else where.
+  const handleLogout = async () => {
+    const response = await fetch("/api/sessions", {
+      method: "DELETE",
+    });
+    setAuth(false);
   };
 
   return (
@@ -40,29 +41,13 @@ const AccountHome = () => {
             view={view}
             setView={setView}
           />
-          {/* {" | "}
-          <MiniNavOption
-            label="New Trip"
-            option="newTrip"
-            view={view}
-            setView={setView}
-          /> */}
         </div>
-        {/* <Link to="/newtrip">
-          <button>New Trip +</button>
-        </Link> */}
       </nav>
-      {
-        view === "aboutYou" ? (
-          <AboutYouForm loginID={authApi.loginID} />
-        ) : (
-          // view === "loginInfo" ? (
-          <LoginMaint loginID={authApi.loginID} />
-        )
-        // ) : (
-        //   <NewTripForm loginID={authApi.loginID} />
-        // )
-      }
+      {view === "aboutYou" ? (
+        <AboutYouForm loginID={loginID} />
+      ) : (
+        <LoginMaint loginID={loginID} />
+      )}
     </div>
   );
 };

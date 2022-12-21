@@ -3,9 +3,7 @@ import AuthAPI from "../utils/AuthAPI";
 import { useContext } from "react";
 
 const NewTrip = () => {
-  const authApi = useContext(AuthAPI);
-  const loginID = authApi.loginID;
-  const auth = authApi.auth;
+  const { loginID, auth } = useContext(AuthAPI);
 
   return (
     <>
