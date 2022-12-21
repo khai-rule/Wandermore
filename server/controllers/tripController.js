@@ -5,6 +5,7 @@ const tripSeed = require("./seeds/tripSeed");
 
 const tripRouter = express.Router();
 
+//TODO Seed request - to remove when live
 tripRouter.get("/seed", tripSeed);
 
 //! All trips, show user

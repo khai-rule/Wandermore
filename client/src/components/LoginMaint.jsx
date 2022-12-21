@@ -16,39 +16,37 @@ const LoginMaint = ({ loginID }) => {
 
   const handlePasswordChange = async (values, actions) => {
     await new Promise((resolve) => setTimeout(resolve, 500));
-    try {
-      const res = await fetch(`/api/user/${loginID}`);
-      const data = await res.json();
-      if (values.passwordOld === data.password) {
-        if (values.passwordOld === values.password) {
+    if (values.passwordOld === values.password) {
+      actions.resetForm();
+      setMsg("Old Password and New Password cannot be the same");
+    } else {
+      try {
+        // const res = await fetch(`/api/user/check/${loginID}`);
+        // if (res.ok) {
+        const response = await fetch(`/api/user/${loginID}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        });
+        if (response.ok) {
           actions.resetForm();
-          setMsg("Your new password is the same. Nothing happened.");
+          setMsg("Your password has been changed!");
         } else {
-          const response = await fetch(`/api/user/${loginID}`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(values),
-          });
-          if (response.ok) {
-            actions.resetForm();
-            setMsg("Your password has been changed!");
-          }
+          actions.resetForm();
+          setMsg("Your old password is incorrect, please try again");
         }
-      } else {
-        actions.resetForm();
-        setMsg("Your old password is incorrect, please try again");
+      } catch (error) {
+        throw new Error("Network response error not OK");
       }
-    } catch (error) {
-      throw new Error("Network response was not OK");
     }
   };
 
   //! Fetch Data
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`/api/user/database/${loginID}`);
+      const response = await fetch(`/api/user/fetch/${loginID}`);
       try {
         if (!response.ok) {
           throw new Error("Network error");

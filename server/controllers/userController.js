@@ -1,32 +1,33 @@
 // const bcrypt = require("bcrypt");
 const express = require("express");
+const checkLogin = require("../middleware/loginMiddleware");
 const User = require("../models/User");
 const userSeed = require("./seeds/userSeed");
-const userRouter = express.Router();
-const ObjectId = require("mongodb").ObjectId;
 
+const userRouter = express.Router();
+
+//TODO Seed request - to remove when live
 userRouter.get("/seed", userSeed);
 
 //! View all users
 userRouter.get("/", async (req, res) => {
   try {
     const users = await User.find()
-    .populate("aboutYou")
-    .populate({
-      path: "trips",
-      populate: {
-        path: "activities"
-      },
-    });
-  res.status(200).send(users);
-} catch (err) {
-  res.status(500).send({ err });
-}
+      .populate("aboutYou")
+      .populate({
+        path: "trips",
+        populate: {
+          path: "activities",
+        },
+      });
+    res.status(200).send(users);
+  } catch (err) {
+    res.status(500).send({ err });
+  }
 });
 
-
-// For LoginMaint page
-userRouter.get("/database/:id", async (req, res) => {
+//! Read by ID and return only email, firstName and LastName
+userRouter.get("/fetch/:id", [checkLogin], async (req, res) => {
   const { id } = req.params;
   try {
     const userInfo = await User.findById(id, {
@@ -41,17 +42,11 @@ userRouter.get("/database/:id", async (req, res) => {
   }
 });
 
+//! Create
 userRouter.post("/", async (req, res) => {
   if (req.body.any === "") {
     return res.status(400).json({ error: "Inputs cannot be blank" });
   }
-  // else if (req.body.password === "") {
-  //   return res.status(400).json({ error: "password cannot be blank" });
-  // } else if (req.body.firstName === "") {
-  //   return res.status(400).json({ error: "First Name cannot be blank" });
-  // } else if (req.body.lastName === "") {
-  //   return res.status(400).json({ error: "Last Name cannot be blank" });
-  // }
   try {
     const user = await User.create(req.body);
     res.status(201).json(user);
@@ -60,19 +55,31 @@ userRouter.post("/", async (req, res) => {
   }
 });
 
-userRouter.put("/:id", async (req, res) => {
+//! Update for change password component
+userRouter.put("/:id", [checkLogin], async (req, res) => {
   const { id } = req.params;
+  const { passwordOld, password } = req.body;
+  if (passwordOld === password) {
+    return res
+      .status(403)
+      .json({ msg: "Old and New Password cannot be the same" });
+  }
   try {
-    const userUpdate = await User.findByIdAndUpdate(id, req.body, {
-      new: true,
-    });
-    res.json(userUpdate);
+    const currentUser = await User.findById(id).exec();
+    if (currentUser.password === passwordOld) {
+      const userUpdate = await User.findByIdAndUpdate(id, req.body, {
+        new: true,
+      });
+      return res.status(202).json({ msg: "Password changed" });
+    }
+    return res.status(401).json({ msg: "Unauthorized" });
   } catch (error) {
-    res.status(500).json({ error });
+    return res.status(500).json({ error });
   }
 });
-// Updating new aboutYou id to user
-userRouter.put("/setaboutyou/:id", async (req, res) => {
+
+//! Update new aboutYou id to user
+userRouter.put("/setaboutyou/:id", [checkLogin], async (req, res) => {
   const { id } = req.params;
   try {
     const userUpdate = await User.findByIdAndUpdate(
@@ -87,6 +94,7 @@ userRouter.put("/setaboutyou/:id", async (req, res) => {
     res.status(500).json({ error });
   }
 });
+
 // Updating new newTrip id to user
 userRouter.put("/setnewtrip/:id", async (req, res) => {
   const { id } = req.params;
@@ -145,7 +153,6 @@ userRouter.put("/setnewtrip/:id", async (req, res) => {
 //   return res.json(user);
 // });
 
-
 // userRouter.get("/:id", async (req, res) => {
 //   const { id } = req.params;
 //   try {
@@ -166,7 +173,7 @@ userRouter.get("/:id", async (req, res) => {
       .populate({
         path: "trips",
         populate: {
-          path: "activities"
+          path: "activities",
         },
       });
     res.status(200).send(userInfo);
