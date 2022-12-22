@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import formatDate from "../utilities/formatDate";
 import capitaliseFirstLetter from "../utilities/capitaliseFirstLetter";
 import { useNavigate } from "react-router-dom";
-import AuthAPI from "../utils/AuthAPI";
+import AuthAPI from "../utilities/AuthAPI";
 
 const Itinerary = () => {
   const [inDatabase, setInDatabase] = useState();
@@ -46,9 +46,13 @@ const Itinerary = () => {
 
   return (
     <div>
-      <Header img={photo} text={header + " " + subHeader}   />
+      <Header img={photo} text={header + " " + subHeader} />
       <button onClick={() => navigate(-1)}>Back</button>
-      <Activities activities={activities} departureDate={inDatabase?.departureDate} returnDate={inDatabase?.returnDate}/>
+      <Activities
+        activities={activities}
+        departureDate={inDatabase?.departureDate}
+        returnDate={inDatabase?.returnDate}
+      />
     </div>
   );
 };

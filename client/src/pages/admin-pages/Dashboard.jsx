@@ -1,7 +1,7 @@
 import { useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import DashboardTable from "../../components/DashboardTable";
-import AuthAPI from "../../utils/AuthAPI";
+import AuthAPI from "../../utilities/AuthAPI";
 
 const Dashboard = () => {
   const { auth, loginID } = useContext(AuthAPI);

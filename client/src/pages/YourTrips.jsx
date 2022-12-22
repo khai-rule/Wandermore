@@ -3,7 +3,7 @@ import YourPastTrips from "../components/YourPastTrips";
 import YourOtherUpcomingTrips from "../components/YourOtherUpcomingTrips";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState, createContext } from "react";
-import AuthAPI from "../utils/AuthAPI";
+import AuthAPI from "../utilities/AuthAPI";
 import { useContext } from "react";
 
 export const UserContext = createContext();

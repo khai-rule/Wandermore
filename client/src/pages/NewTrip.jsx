@@ -1,5 +1,5 @@
 import NewTripForm from "../components/NewTripForm";
-import AuthAPI from "../utils/AuthAPI";
+import AuthAPI from "../utilities/AuthAPI";
 import { useContext, useState, useEffect } from "react";
 import PendingTrips from "../components/PendingTrips";
 import { useNavigate } from "react-router-dom";

@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AboutYouForm from "../components/AboutYouForm";
 import LoginMaint from "../components/LoginMaint";
-import AuthAPI from "../utils/AuthAPI";
+import AuthAPI from "../utilities/AuthAPI";
 import Header from "../components/Header";
 
 const AccountHome = () => {

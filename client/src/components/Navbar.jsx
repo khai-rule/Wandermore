@@ -5,7 +5,7 @@ import Toolbar from "../components/mui-components/Toolbar";
 import { NavLink } from "react-router-dom";
 import { useState, useContext } from "react";
 import AuthModal from "./AuthModal";
-import AuthAPI from "../utils/AuthAPI";
+import AuthAPI from "../utilities/AuthAPI";
 
 const rightLink = {
   fontSize: 16,

@@ -10,7 +10,7 @@ import NewTrip from "./pages/NewTrip";
 import CreateItinerary from "./pages/admin-pages/CreateItineray";
 import YourTrips from "./pages/YourTrips";
 import Dashboard from "./pages/admin-pages/Dashboard";
-import AuthAPI from "./utils/AuthAPI";
+import AuthAPI from "./utilities/AuthAPI";
 
 function App() {
   const [loginID, setLoginID] = useState("");

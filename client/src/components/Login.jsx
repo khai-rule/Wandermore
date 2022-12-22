@@ -5,7 +5,7 @@ import CustomInput from "../components/CustomInput";
 import { loginSchema } from "../components/validation/schema";
 import { Grid, Box, Avatar, Button } from "@mui/material";
 import Typography from "./mui-components/Typography";
-import AuthAPI from "../utils/AuthAPI";
+import AuthAPI from "../utilities/AuthAPI";
 
 const Login = ({ handleClose, setModalView }) => {
   const [msg, setMsg] = useState("");
