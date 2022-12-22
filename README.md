@@ -1,4 +1,4 @@
-# Fullstack Development - Project 3
+# Fullstack Development - GA Project 3
 
 # Wandermore
 
@@ -33,9 +33,11 @@
 
 ## Wireframes
 
-<!-- Khai -->
+Coming soon.
 
 ## User Stories
+
+Wandermore is a Travel app:
 
 1. Customer can create account
 2. Customer can log into their account
@@ -71,5 +73,5 @@ This is a 2-man project, hence we will briefly share what each individual contri
 
 ## References
 
-Images from [Kinfolk](https://www.kinfolk.com/)
-Theme moodboard from [Marshal](https://www.behance.net/gallery/156181337/Marshall-E-commerce?tracking_source=search_projects_recommended%7CUX+design)
+- Images from [Kinfolk](https://www.kinfolk.com/)
+- Theme moodboard from [Marshal](https://www.behance.net/gallery/156181337/Marshall-E-commerce?tracking_source=search_projects_recommended%7CUX+design)
