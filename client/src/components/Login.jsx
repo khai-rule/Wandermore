@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
 import CustomInput from "../components/CustomInput";
 import { loginSchema } from "../components/validation/schema";
-import { Grid, Box, Avatar } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 import Typography from "./mui-components/Typography";
 import AuthAPI from "../utilities/AuthAPI";
 import Button from "./mui-components/Button";
@@ -53,19 +53,19 @@ const Login = ({ handleClose, setModalView }) => {
   return (
     <>
       <Typography component="h1" variant="h5">
-        Welcome Back
+        Welcome Back, Wanderer!
       </Typography>
 
-      <Typography variant="p" sx={{ py:1 }}>
+      <Typography variant="p" sx={{ py: 1 }}>
         <Grid item xs>
-        Not a Member yet? 
-        <Link
-        style={{ color: "inherit", textDecoration: "inherit" }}
-        onClick={handleClick}
-        >
-        {" Sign Up"}
-        </Link>
-        .
+          Not a Member yet?
+          <Link
+            style={{ color: "inherit", textDecoration: "inherit" }}
+            onClick={handleClick}
+          >
+            {" Sign Up"}
+          </Link>
+          .
         </Grid>
       </Typography>
 
@@ -81,7 +81,6 @@ const Login = ({ handleClose, setModalView }) => {
           {({ isSubmitting }) => (
             <Form autoComplete="off">
               <CustomInput
-
                 name="email"
                 type="email"
                 placeholder="Your Email"
@@ -93,7 +92,6 @@ const Login = ({ handleClose, setModalView }) => {
               />
               <br />
               <CustomInput
-
                 name="password"
                 type="password"
                 placeholder="Your Password"
@@ -110,16 +108,14 @@ const Login = ({ handleClose, setModalView }) => {
                 variant="outlined"
                 color="primary"
                 sx={{ mt: 3, mb: 2, width: "100%" }}
-                style={{ border: '1px solid' }}
+                style={{ border: "1px solid" }}
               >
                 Log In
               </Button>
             </Form>
           )}
         </Formik>
-
         <Typography variant="subtitle2">{msg}</Typography>
-
       </Box>
     </>
   );

@@ -2,8 +2,10 @@ import { useState } from "react";
 import { Form, Formik } from "formik";
 import CustomInput from "../components/CustomInput";
 import { signUpSchema } from "../components/validation/schema";
-import { Box, Button, Typography } from "@mui/material";
+import { Grid, Box } from "@mui/material";
 import { Link } from "react-router-dom";
+import Button from "./mui-components/Button";
+import Typography from "./mui-components/Typography";
 
 const SignUp = ({ handleOpen, setModalView }) => {
   const [msg, setMsg] = useState("");
@@ -35,8 +37,22 @@ const SignUp = ({ handleOpen, setModalView }) => {
   return (
     <>
       <Typography component="h1" variant="h5">
-        Sign up
+        Are you ready to Wandermore?
       </Typography>
+
+      <Typography variant="p" sx={{ py: 1 }}>
+        <Grid item xs>
+          Already signed up?
+          <Link
+            style={{ color: "inherit", textDecoration: "inherit" }}
+            onClick={handleClick}
+          >
+            {" Login"}
+          </Link>
+          .
+        </Grid>
+      </Typography>
+
       <Box sx={{ mt: 1, width: "70%" }}>
         <Formik
           initialValues={{
@@ -114,25 +130,17 @@ const SignUp = ({ handleOpen, setModalView }) => {
               <Button
                 disabled={isSubmitting}
                 type="submit"
-                variant="contained"
-                color="success"
+                variant="outlined"
+                color="primary"
                 sx={{ mt: 3, mb: 2, width: "100%" }}
+                style={{ border: "1px solid" }}
               >
-                Submit
+                Join us
               </Button>
             </Form>
           )}
         </Formik>
-        <Box>
-          {msg} Already signed up? 👉
-          <Link
-            style={{ color: "inherit", textDecoration: "inherit" }}
-            onClick={handleClick}
-          >
-            {"Login"}
-          </Link>
-          .
-        </Box>
+        <Typography variant="subtitle2">{msg}</Typography>
       </Box>
     </>
   );
