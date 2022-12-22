@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import formatDate from "../utilities/formatDate";
 
@@ -60,7 +60,13 @@ const PendingTrips = ({ loginID, render }) => {
       return (
         <>
           {trip.activities.length === 0 ? (
-            <div>
+            <fieldset
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                border: "0",
+              }}
+            >
               <div key={trip._id}>
                 <h3>
                   {trip.country}: {departureD} - {returnD}
@@ -70,9 +76,10 @@ const PendingTrips = ({ loginID, render }) => {
                   <li>
                     Accomodation Preference: {trip.accomodationPreference}
                   </li>
-                  <li>No. of Pax: {trip.pax}</li>
+                  <li>No. of Wanderers: {trip.pax}</li>
                   <li>
-                    Pax Info: {trip.paxInfo === "" ? "N/A" : trip.paxInfo}
+                    Additional Wanderer Info:{" "}
+                    {trip.paxInfo === "" ? "N/A" : trip.paxInfo}
                   </li>
                   <li>
                     Anything Else:{" "}
@@ -80,8 +87,17 @@ const PendingTrips = ({ loginID, render }) => {
                   </li>
                 </ul>
               </div>
-              <Button onClick={handleDelete(trip._id)}>Delete</Button>
-            </div>
+              <Button
+                onClick={handleDelete(trip._id)}
+                variant="outlined"
+                style={{
+                  width: "25%",
+                  alignSelf: "flex-end",
+                }}
+              >
+                Delete
+              </Button>
+            </fieldset>
           ) : (
             <></>
           )}
@@ -92,10 +108,16 @@ const PendingTrips = ({ loginID, render }) => {
   };
 
   return (
-    <>
-      {inDatabase.length === 0 ? <></> : <h2>Pending Trips</h2>}
-      {pending()}
-    </>
+    <Grid
+      container
+      direction="row"
+      justifyContent="space-between"
+      alignItems="flex-start"
+      width="70%"
+    >
+      {inDatabase.length === 0 ? <></> : <h1>Pending Trips</h1>}
+      <Box sx={{ width: "50%" }}>{pending()}</Box>
+    </Grid>
   );
 };
 

@@ -5,7 +5,7 @@ import CustomSelect from "../components/CustomSelect";
 import CustomTextArea from "../components/CustomTextArea";
 import { tripRequestSchema } from "../components/validation/schema";
 import HiddenInput from "../components/HiddenInput";
-import { Box, Button, MenuItem } from "@mui/material";
+import { Box, Button, Grid, MenuItem } from "@mui/material";
 
 const NewTripForm = ({ loginID, setRender, render }) => {
   const [msg, setMsg] = useState("");
@@ -48,9 +48,15 @@ const NewTripForm = ({ loginID, setRender, render }) => {
   };
 
   return (
-    <>
-      <Box sx={{ width: "25%" }}>
-        <h1>New Trip</h1>
+    <Grid
+      container
+      direction="row"
+      justifyContent="space-between"
+      alignItems="flex-start"
+      width="70%"
+    >
+      <h1>New Trip</h1>
+      <Box sx={{ width: "50%" }}>
         <Formik
           enableReinitialize={true}
           initialValues={{
@@ -69,8 +75,13 @@ const NewTripForm = ({ loginID, setRender, render }) => {
         >
           {({ isSubmitting, setFieldValue }) => (
             <Form autoComplete="off">
-              <fieldset>
-                <legend>New Trip Request</legend>
+              <fieldset
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  border: "0",
+                }}
+              >
                 <CustomInput
                   label="Departure Date"
                   name="departureDate"
@@ -134,7 +145,7 @@ const NewTripForm = ({ loginID, setRender, render }) => {
                 </CustomSelect>
                 <br />
                 <CustomInput
-                  label="No. of Pax"
+                  label="No. of Wanderers"
                   name="pax"
                   type="number"
                   placeholder="1"
@@ -146,7 +157,7 @@ const NewTripForm = ({ loginID, setRender, render }) => {
                 />
                 <br />
                 <CustomTextArea
-                  label="Additional Pax Info"
+                  label="Additional Wanderer Info"
                   name="paxInfo"
                   type="textarea"
                   placeholder="Optional"
@@ -180,7 +191,7 @@ const NewTripForm = ({ loginID, setRender, render }) => {
                   variant="outlined"
                   style={{
                     width: "25%",
-                    margin: "auto",
+                    alignSelf: "flex-end",
                   }}
                 >
                   Submit
@@ -191,7 +202,7 @@ const NewTripForm = ({ loginID, setRender, render }) => {
         </Formik>
         <p>{msg}</p>
       </Box>
-    </>
+    </Grid>
   );
 };
 
