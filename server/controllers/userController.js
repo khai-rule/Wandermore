@@ -2,12 +2,11 @@ const bcrypt = require("bcrypt");
 const express = require("express");
 const checkLogin = require("../middleware/loginMiddleware");
 const User = require("../models/User");
-const userSeed = require("./seeds/userSeed");
+// const userSeed = require("./seeds/userSeed");
 
 const userRouter = express.Router();
 
-//TODO Seed request - to remove when live
-userRouter.get("/seed", userSeed);
+// userRouter.get("/seed", userSeed);
 
 //! View all users
 userRouter.get("/", async (req, res) => {

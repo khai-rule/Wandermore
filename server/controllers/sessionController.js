@@ -3,17 +3,7 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const sessions = express.Router();
 
-//! Check if logged in
-sessions.get("/:id", (req, res) => {
-  const { id } = req.params;
-  if (req.session.userid !== id) {
-    res.status(401).json({ msg: "Cannot see" });
-    console.log("asda", req.session);
-  } else {
-    res.json({ msg: "Need more milo" });
-  }
-});
-
+//! Session Login
 sessions.post("/", async (req, res) => {
   const { email, password } = req.body;
   const foundUser = await User.findOne({ email: email }).exec();

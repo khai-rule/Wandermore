@@ -1,12 +1,11 @@
 const express = require("express");
 const checkLogin = require("../middleware/loginMiddleware");
 const Trip = require("../models/Trip");
-const tripSeed = require("./seeds/tripSeed");
+// const tripSeed = require("./seeds/tripSeed");
 
 const tripRouter = express.Router();
 
-//TODO Seed request - to remove when live
-tripRouter.get("/seed", tripSeed);
+// tripRouter.get("/seed", tripSeed);
 
 //! All trips, show user
 tripRouter.get("/", async (req, res) => {
@@ -35,7 +34,10 @@ tripRouter.get("/fetch/:id", [checkLogin], async (req, res) => {
 tripRouter.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const trip = await Trip.findById(id).populate("activities").populate("user").exec();
+    const trip = await Trip.findById(id)
+      .populate("activities")
+      .populate("user")
+      .exec();
     res.json(trip);
   } catch (error) {
     res.status(500).json({ error });
