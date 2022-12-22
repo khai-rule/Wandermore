@@ -97,6 +97,7 @@ const LoginMaint = ({ loginID }) => {
                     margin: "auto",
                   }}
                   title="You cannot change this."
+                  variant="standard"
                 />
                 <br />
                 <CustomInput
@@ -110,6 +111,7 @@ const LoginMaint = ({ loginID }) => {
                     margin: "auto",
                   }}
                   title="You cannot change this."
+                  variant="standard"
                 />
                 <br />
                 <CustomInput
@@ -123,6 +125,7 @@ const LoginMaint = ({ loginID }) => {
                     margin: "auto",
                   }}
                   title="You cannot change this."
+                  variant="standard"
                 />
                 <br />
                 <CustomInput
