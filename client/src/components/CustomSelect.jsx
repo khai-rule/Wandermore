@@ -11,6 +11,11 @@ const CustomSelect = ({ label, ...props }) => {
         {...field}
         {...props}
         className={meta.touched && meta.error ? "input-error" : ""}
+        sx={{
+          "& fieldset": {
+            borderRadius: "0",
+          },
+        }}
       />
       {meta.touched && meta.error && (
         <span className="error"> {meta.error} </span>

@@ -58,7 +58,7 @@ const NewTripForm = ({ loginID, setRender, render }) => {
       <Box sx={{ width: "50%" }}>
         <h1>New Trip</h1>
         <p style={{ width: "50%" }}>
-          You're rearing to go, Wanderer! Please send us your upcoming trip
+          You're raring to go, Wanderer! Please send us your upcoming trip
           details and we will come back as soon as we can!
         </p>
       </Box>
