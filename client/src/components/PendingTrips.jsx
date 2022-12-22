@@ -74,7 +74,7 @@ const PendingTrips = ({ loginID, render }) => {
                 <div style={{ display: "flex" }}>
                   <ul
                     style={{
-                      width: "50%",
+                      width: "65%",
                       padding: "0",
                       margin: "0",
                       listStyleType: "none",
@@ -89,7 +89,7 @@ const PendingTrips = ({ loginID, render }) => {
                   </ul>
                   <ul
                     style={{
-                      width: "50%",
+                      width: "35%",
                       padding: "0",
                       margin: "0",
                       listStyleType: "none",
