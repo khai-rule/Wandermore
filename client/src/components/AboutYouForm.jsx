@@ -3,7 +3,7 @@ import { Form, Formik } from "formik";
 import CustomInput from "../components/CustomInput";
 import HiddenInput from "./HiddenInput";
 import { aboutYouSchema } from "../components/validation/schema";
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 
 const AboutYouForm = ({ loginID }) => {
   const [inDatabase, setInDatabase] = useState({
@@ -85,7 +85,7 @@ const AboutYouForm = ({ loginID }) => {
   }, [loginID]);
 
   return (
-    <div>
+    <Box sx={{ width: "25%" }}>
       <Formik
         enableReinitialize={true}
         initialValues={inDatabase}
@@ -101,6 +101,10 @@ const AboutYouForm = ({ loginID }) => {
                 name="dateOfBirth"
                 type="date"
                 placeholder="Enter your date of birth"
+                style={{
+                  width: "100%",
+                  margin: "auto",
+                }}
               />
               <br />
               <CustomInput
@@ -108,6 +112,10 @@ const AboutYouForm = ({ loginID }) => {
                 name="hobbies"
                 type="text"
                 placeholder="Optional"
+                style={{
+                  width: "100%",
+                  margin: "auto",
+                }}
               />
               <br />
               <CustomInput
@@ -115,6 +123,10 @@ const AboutYouForm = ({ loginID }) => {
                 name="countryOfResidence"
                 type="text"
                 placeholder="Enter your home country"
+                style={{
+                  width: "100%",
+                  margin: "auto",
+                }}
               />
               <br />
               <CustomInput
@@ -122,6 +134,10 @@ const AboutYouForm = ({ loginID }) => {
                 name="dietaryRestrictions"
                 type="text"
                 placeholder="Optional"
+                style={{
+                  width: "100%",
+                  margin: "auto",
+                }}
               />
               <br />
               <CustomInput
@@ -129,25 +145,51 @@ const AboutYouForm = ({ loginID }) => {
                 name="accessibility"
                 type="text"
                 placeholder="Optional"
+                style={{
+                  width: "100%",
+                  margin: "auto",
+                }}
               />
               <br />
               <HiddenInput name="user" type="hidden" value="" />
-              <Button
-                type="submit"
-                onClick={() => {
-                  setFieldValue("user", `${loginID}`);
-                }}
-                disabled={isSubmitting}
-                variant="outlined"
-              >
-                Update Info
-              </Button>{" "}
+              <br />
+              {inDatabase.dateOfBirth === "" ? (
+                <Button
+                  type="submit"
+                  onClick={() => {
+                    setFieldValue("user", `${loginID}`);
+                  }}
+                  disabled={isSubmitting}
+                  variant="outlined"
+                  style={{
+                    width: "25%",
+                    margin: "auto",
+                  }}
+                >
+                  Add
+                </Button>
+              ) : (
+                <Button
+                  type="submit"
+                  onClick={() => {
+                    setFieldValue("user", `${loginID}`);
+                  }}
+                  disabled={isSubmitting}
+                  variant="outlined"
+                  style={{
+                    width: "25%",
+                    margin: "auto",
+                  }}
+                >
+                  Update
+                </Button>
+              )}{" "}
               <span>{msg}</span>
             </fieldset>
           </Form>
         )}
       </Formik>
-    </div>
+    </Box>
   );
 };
 

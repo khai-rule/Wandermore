@@ -1,9 +1,10 @@
-import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Grid, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AboutYouForm from "../components/AboutYouForm";
 import LoginMaint from "../components/LoginMaint";
 import AuthAPI from "../utils/AuthAPI";
+import Header from "../components/Header";
 
 const AccountHome = () => {
   const [view, setView] = useState("aboutYou");
@@ -21,7 +22,8 @@ const AccountHome = () => {
   };
 
   return (
-    <div>
+    <Grid sx={{ height: "100%" }}>
+      <Header text="Account Home" />
       <nav>
         <ToggleButtonGroup
           value={view}
@@ -42,7 +44,7 @@ const AccountHome = () => {
       ) : (
         <LoginMaint loginID={loginID} />
       )}
-    </div>
+    </Grid>
   );
 };
 

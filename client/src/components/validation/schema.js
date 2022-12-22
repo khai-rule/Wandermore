@@ -10,7 +10,10 @@ export const signUpSchema = yup.object().shape({
   password: yup
     .string()
     .min(6)
-    .matches(passwordRules, { message: "Please create a stronger password" })
+    .matches(passwordRules, {
+      message:
+        "Password requires at least 1 uppercase, 1 lowercase letter and 1 number",
+    })
     .required("Required"),
   confirmPassword: yup
     .string()
@@ -23,7 +26,10 @@ export const loginMaintSchema = yup.object().shape({
   password: yup
     .string()
     .min(6)
-    .matches(passwordRules, { message: "Please create a stronger password" })
+    .matches(passwordRules, {
+      message:
+        "Password requires at least 1 uppercase, 1 lowercase letter and 1 number",
+    })
     .required("Required"),
   confirmPassword: yup
     .string()

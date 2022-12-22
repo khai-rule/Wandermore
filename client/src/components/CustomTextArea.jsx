@@ -1,4 +1,4 @@
-import { TextareaAutosize, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { useField } from "formik";
 
 const CustomTextArea = ({ label, ...props }) => {

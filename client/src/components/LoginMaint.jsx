@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Form, Formik } from "formik";
 import CustomInput from "../components/CustomInput";
 import { loginMaintSchema } from "../components/validation/schema";
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 
 const LoginMaint = ({ loginID }) => {
   const [inDatabase, setInDatabase] = useState({
@@ -62,7 +62,7 @@ const LoginMaint = ({ loginID }) => {
   }, [loginID]);
 
   return (
-    <div>
+    <Box sx={{ width: "25%" }}>
       <Formik
         enableReinitialize={true}
         initialValues={inDatabase}
@@ -79,6 +79,10 @@ const LoginMaint = ({ loginID }) => {
                 type="email"
                 placeholder="Enter your email"
                 disabled={true}
+                style={{
+                  width: "100%",
+                  margin: "auto",
+                }}
               />
               <br />
               <CustomInput
@@ -87,6 +91,10 @@ const LoginMaint = ({ loginID }) => {
                 type="text"
                 placeholder="Enter your first name"
                 disabled={true}
+                style={{
+                  width: "100%",
+                  margin: "auto",
+                }}
               />
               <br />
               <CustomInput
@@ -95,6 +103,10 @@ const LoginMaint = ({ loginID }) => {
                 type="text"
                 placeholder="Enter your last name"
                 disabled={true}
+                style={{
+                  width: "100%",
+                  margin: "auto",
+                }}
               />
               <br />
               <CustomInput
@@ -102,6 +114,10 @@ const LoginMaint = ({ loginID }) => {
                 name="passwordOld"
                 type="password"
                 placeholder="Enter your Old Password"
+                style={{
+                  width: "100%",
+                  margin: "auto",
+                }}
               />
               <br />
               <CustomInput
@@ -109,6 +125,10 @@ const LoginMaint = ({ loginID }) => {
                 name="password"
                 type="password"
                 placeholder="Enter your New Password"
+                style={{
+                  width: "100%",
+                  margin: "auto",
+                }}
               />
               <br />
               <CustomInput
@@ -116,9 +136,22 @@ const LoginMaint = ({ loginID }) => {
                 name="confirmPassword"
                 type="password"
                 placeholder="Enter your New Password again"
+                style={{
+                  width: "100%",
+                  margin: "auto",
+                }}
               />
               <br />
-              <Button type="submit" disabled={isSubmitting} variant="outlined">
+              <br />
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                variant="outlined"
+                style={{
+                  width: "41%",
+                  margin: "auto",
+                }}
+              >
                 Change Password
               </Button>{" "}
               <span>{msg}</span>
@@ -126,7 +159,7 @@ const LoginMaint = ({ loginID }) => {
           </Form>
         )}
       </Formik>
-    </div>
+    </Box>
   );
 };
 

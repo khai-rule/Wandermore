@@ -101,7 +101,7 @@ function AppAppBar() {
                   sx={rightLink}
                   as={NavLink}
                 >
-                  {"+ New Trip"}
+                  {"New Trip +"}
                 </Link>
 
                 <Link
