@@ -108,23 +108,23 @@ const PendingTrips = ({ loginID, render }) => {
   };
 
   return (
-    <Grid
-      container
-      direction="row"
-      justifyContent="space-between"
-      alignItems="flex-start"
-      width="70%"
-    >
+    <>
       {inDatabase.length === 0 ? (
         <></>
       ) : (
-        <div>
-          <Divider style={{ width: "70%" }} variant="fullWidth" />
-          <h1>Pending Trips</h1>
-        </div>
+        <Divider style={{ width: "70%" }} variant="fullWidth" />
       )}
-      <Box sx={{ width: "50%" }}>{pending()}</Box>
-    </Grid>
+      <Grid
+        container
+        direction="row"
+        justifyContent="space-between"
+        alignItems="flex-start"
+        width="70%"
+      >
+        {inDatabase.length === 0 ? <></> : <h1>Pending Trips</h1>}
+        <Box sx={{ width: "50%" }}>{pending()}</Box>
+      </Grid>
+    </>
   );
 };
 
