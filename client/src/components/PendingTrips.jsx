@@ -71,21 +71,37 @@ const PendingTrips = ({ loginID, render }) => {
                 <h3>
                   {trip.country}: {departureD} - {returnD}
                 </h3>
-                <ul>
-                  <li>Activity Preference: {trip.activityPreference}</li>
-                  <li>
-                    Accomodation Preference: {trip.accomodationPreference}
-                  </li>
-                  <li>No. of Wanderers: {trip.pax}</li>
-                  <li>
-                    Additional Wanderer Info:{" "}
-                    {trip.paxInfo === "" ? "N/A" : trip.paxInfo}
-                  </li>
-                  <li>
-                    Anything Else:{" "}
-                    {trip.otherInfo === "" ? "N/A" : trip.otherInfo}
-                  </li>
-                </ul>
+                <div style={{ display: "flex" }}>
+                  <ul
+                    style={{
+                      width: "50%",
+                      padding: "0",
+                      margin: "0",
+                      listStyleType: "none",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    <li>Activity Preference</li>
+                    <li>Accomodation Preference</li>
+                    <li>No. of Wanderers</li>
+                    <li>Additional Wanderer Info</li>
+                    <li>Anything Else</li>
+                  </ul>
+                  <ul
+                    style={{
+                      width: "50%",
+                      padding: "0",
+                      margin: "0",
+                      listStyleType: "none",
+                    }}
+                  >
+                    <li>{trip.activityPreference}</li>
+                    <li>{trip.accomodationPreference}</li>
+                    <li>{trip.pax}</li>
+                    <li>{trip.paxInfo === "" ? "N/A" : trip.paxInfo}</li>
+                    <li>{trip.otherInfo === "" ? "N/A" : trip.otherInfo}</li>
+                  </ul>
+                </div>
               </div>
               <Button
                 onClick={handleDelete(trip._id)}
