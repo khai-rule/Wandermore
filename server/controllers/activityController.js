@@ -1,12 +1,13 @@
 const express = require("express");
+const checkLogin = require("../middleware/loginMiddleware");
 const Activity = require("../models/Activity");
-const seed = require("./seeds/activitySeed");
+// const seed = require("./seeds/activitySeed");
 
 const activityRouter = express.Router();
 
-activityRouter.get("/seed", seed);
+// activityRouter.get("/seed", seed);
 
-activityRouter.get("/", async (req, res) => {
+activityRouter.get("/", [checkLogin], async (req, res) => {
   try {
     const activity = await Activity.find().exec();
     res.json(activity);
@@ -15,7 +16,7 @@ activityRouter.get("/", async (req, res) => {
   }
 });
 
-activityRouter.get("/:id", async (req, res) => {
+activityRouter.get("/:id", [checkLogin], async (req, res) => {
   const { id } = req.params;
   try {
     const activity = await Activity.findById(id).exec();
@@ -25,7 +26,7 @@ activityRouter.get("/:id", async (req, res) => {
   }
 });
 
-activityRouter.post("/", async (req, res) => {
+activityRouter.post("/", [checkLogin], async (req, res) => {
   try {
     const activity = await Activity.create(req.body);
     res.status(201).json(activity);
@@ -35,7 +36,7 @@ activityRouter.post("/", async (req, res) => {
 });
 
 //! get multiple _id details by id - for ARRAY
-activityRouter.get("/getid/:id", async (req, res) => {
+activityRouter.get("/getid/:id", [checkLogin], async (req, res) => {
   const { id } = req.params;
   try {
     const newActivityID = await Activity.findOne(
@@ -48,18 +49,18 @@ activityRouter.get("/getid/:id", async (req, res) => {
   }
 });
 
-  //! Delete by ID
-  activityRouter.delete("/:id", async (req, res) => {
-    const { id } = req.params;
-    try {
-      const activity = await Activity.findByIdAndDelete(id).exec();
-      return res.json(activity);
-    } catch (err) {
-      res.status(500).send({ err });
-    }
-  });
+//! Delete by ID
+activityRouter.delete("/:id", [checkLogin], async (req, res) => {
+  const { id } = req.params;
+  try {
+    const activity = await Activity.findByIdAndDelete(id).exec();
+    return res.json(activity);
+  } catch (err) {
+    res.status(500).send({ err });
+  }
+});
 
-activityRouter.put("/:id", async (req, res) => {
+activityRouter.put("/:id", [checkLogin], async (req, res) => {
   const { id } = req.params;
   try {
     const activity = await Activity.findByIdAndUpdate(id, req.body, {

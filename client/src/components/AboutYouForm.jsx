@@ -15,6 +15,7 @@ const AboutYouForm = ({ loginID }) => {
     user: {},
   });
   const [msg, setMsg] = useState("");
+  const [render, setRender] = useState(0);
 
   const handleAboutYouSubmit = async (values) => {
     await new Promise((resolve) => setTimeout(resolve, 500));
@@ -40,6 +41,7 @@ const AboutYouForm = ({ loginID }) => {
             });
             if (res.ok) {
               setMsg("Your details have been Added!");
+              setRender(render + 1);
             }
           } catch (error) {
             throw new Error("Network response was not OK");
@@ -82,7 +84,7 @@ const AboutYouForm = ({ loginID }) => {
       }
     };
     fetchData();
-  }, [loginID]);
+  }, [loginID, render]);
 
   return (
     <Grid

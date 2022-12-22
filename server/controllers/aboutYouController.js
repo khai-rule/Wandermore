@@ -1,12 +1,11 @@
 const express = require("express");
 const checkLogin = require("../middleware/loginMiddleware");
 const AboutYou = require("../models/AboutYou");
-const seed = require("./seeds/aboutYouSeed");
+// const seed = require("./seeds/aboutYouSeed");
 
 const aboutYouRouter = express.Router();
 
-//TODO Seed request - to remove when live
-aboutYouRouter.get("/seed", seed);
+// aboutYouRouter.get("/seed", seed);
 
 //! READ by ID
 aboutYouRouter.get("/:id", [checkLogin], async (req, res) => {

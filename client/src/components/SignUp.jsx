@@ -26,9 +26,9 @@ const SignUp = ({ handleOpen, setModalView }) => {
         throw new Error("Network response was not OK");
       }
       actions.resetForm();
-      setMsg("Account Created, please login.");
+      setMsg("Account created.");
     } catch (error) {
-      setMsg("Account exists, please login");
+      setMsg("Account exists.");
     }
   };
 
@@ -124,8 +124,7 @@ const SignUp = ({ handleOpen, setModalView }) => {
           )}
         </Formik>
         <Box>
-          {msg}
-          Already signed up? 👉
+          {msg} Already signed up? 👉
           <Link
             style={{ color: "inherit", textDecoration: "inherit" }}
             onClick={handleClick}
