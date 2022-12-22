@@ -20,6 +20,7 @@ function YourOtherUpcomingTrips() {
   const data = useContext(UserContext);
   const trips = (data?.trips)?.slice(1)
 
+
   const photo = trips?.[0]?.activities?.[0]?.photo1 ?? "https://kinfolkmagprod.wpenginepowered.com/wp-content/uploads/2021/11/01_Mirbach_HiRes_sRGB-2048x1384.jpg"
   
   const mapTrips = () => {
@@ -93,10 +94,11 @@ function YourOtherUpcomingTrips() {
 
   return (
     <>
+    { trips < 1 ? <></> :
       <Typography variant="h4" align="center" component="h2" padding="40px 0">
         Look forward to your other trips
       </Typography>
-
+    }
       <Grid
       container
       spacing={{ xs: 2, md: 3 }}
