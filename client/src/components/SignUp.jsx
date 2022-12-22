@@ -42,12 +42,12 @@ const SignUp = ({ handleOpen, setModalView }) => {
 
       <Typography variant="p" sx={{ py: 1 }}>
         <Grid item xs>
-          Already signed up?
+          Already signed up?{" "}
           <Link
             style={{ color: "inherit", textDecoration: "inherit" }}
             onClick={handleClick}
           >
-            {" Login"}
+            {"Login"}
           </Link>
           .
         </Grid>
