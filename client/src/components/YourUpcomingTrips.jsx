@@ -73,7 +73,6 @@ function YourUpcomingTrips() {
         container
         columns={{ xs: 4, sm: 8, md: 12 }}
         justifyContent="center"
-        sx={{ my: 2, px: 2 }}
       >
         <Paper
           sx={{
