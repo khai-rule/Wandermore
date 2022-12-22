@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Form, Formik } from "formik";
 import CustomInput from "../components/CustomInput";
 import { loginMaintSchema } from "../components/validation/schema";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 
 const LoginMaint = ({ loginID }) => {
   const [inDatabase, setInDatabase] = useState({
@@ -62,104 +62,121 @@ const LoginMaint = ({ loginID }) => {
   }, [loginID]);
 
   return (
-    <Box sx={{ width: "25%" }}>
-      <Formik
-        enableReinitialize={true}
-        initialValues={inDatabase}
-        validationSchema={loginMaintSchema}
-        onSubmit={handlePasswordChange}
-      >
-        {({ isSubmitting }) => (
-          <Form autoComplete="off">
-            <fieldset>
-              <legend>Login Info</legend>
-              <CustomInput
-                label="Email"
-                name="email"
-                type="email"
-                placeholder="Enter your email"
-                disabled={true}
+    <Grid
+      container
+      direction="row"
+      justifyContent="space-between"
+      alignItems="flex-start"
+      width="70%"
+    >
+      <h1>Login Info</h1>
+      <Box sx={{ width: "50%" }}>
+        <Formik
+          enableReinitialize={true}
+          initialValues={inDatabase}
+          validationSchema={loginMaintSchema}
+          onSubmit={handlePasswordChange}
+        >
+          {({ isSubmitting }) => (
+            <Form autoComplete="off">
+              <fieldset
                 style={{
-                  width: "100%",
-                  margin: "auto",
-                }}
-              />
-              <br />
-              <CustomInput
-                label="First Name"
-                name="firstName"
-                type="text"
-                placeholder="Enter your first name"
-                disabled={true}
-                style={{
-                  width: "100%",
-                  margin: "auto",
-                }}
-              />
-              <br />
-              <CustomInput
-                label="Last Name"
-                name="lastName"
-                type="text"
-                placeholder="Enter your last name"
-                disabled={true}
-                style={{
-                  width: "100%",
-                  margin: "auto",
-                }}
-              />
-              <br />
-              <CustomInput
-                label="Old Password"
-                name="passwordOld"
-                type="password"
-                placeholder="Enter your Old Password"
-                style={{
-                  width: "100%",
-                  margin: "auto",
-                }}
-              />
-              <br />
-              <CustomInput
-                label="New Password"
-                name="password"
-                type="password"
-                placeholder="Enter your New Password"
-                style={{
-                  width: "100%",
-                  margin: "auto",
-                }}
-              />
-              <br />
-              <CustomInput
-                label="Confirm New Password"
-                name="confirmPassword"
-                type="password"
-                placeholder="Enter your New Password again"
-                style={{
-                  width: "100%",
-                  margin: "auto",
-                }}
-              />
-              <br />
-              <br />
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                variant="outlined"
-                style={{
-                  width: "41%",
-                  margin: "auto",
+                  display: "flex",
+                  flexDirection: "column",
+                  border: "0",
                 }}
               >
-                Change Password
-              </Button>{" "}
-              <span>{msg}</span>
-            </fieldset>
-          </Form>
-        )}
-      </Formik>
-    </Box>
+                <CustomInput
+                  label="Email"
+                  name="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  disabled={true}
+                  style={{
+                    width: "100%",
+                    margin: "auto",
+                  }}
+                  title="You cannot change this."
+                />
+                <br />
+                <CustomInput
+                  label="First Name"
+                  name="firstName"
+                  type="text"
+                  placeholder="Enter your first name"
+                  disabled={true}
+                  style={{
+                    width: "100%",
+                    margin: "auto",
+                  }}
+                  title="You cannot change this."
+                />
+                <br />
+                <CustomInput
+                  label="Last Name"
+                  name="lastName"
+                  type="text"
+                  placeholder="Enter your last name"
+                  disabled={true}
+                  style={{
+                    width: "100%",
+                    margin: "auto",
+                  }}
+                  title="You cannot change this."
+                />
+                <br />
+                <CustomInput
+                  label="Old Password"
+                  name="passwordOld"
+                  type="password"
+                  placeholder="Enter your Old Password"
+                  style={{
+                    width: "100%",
+                    margin: "auto",
+                  }}
+                />
+                <br />
+                <CustomInput
+                  label="New Password"
+                  name="password"
+                  type="password"
+                  placeholder="Enter your New Password"
+                  style={{
+                    width: "100%",
+                    margin: "auto",
+                  }}
+                />
+                <br />
+                <CustomInput
+                  label="Confirm New Password"
+                  name="confirmPassword"
+                  type="password"
+                  placeholder="Enter your New Password again"
+                  style={{
+                    width: "100%",
+                    margin: "auto",
+                  }}
+                />
+                <br />
+                <br />
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  variant="outlined"
+                  style={{
+                    width: "30%",
+                    alignSelf: "flex-end",
+                  }}
+                >
+                  Change Password
+                </Button>{" "}
+                <span>{msg}</span>
+              </fieldset>
+            </Form>
+          )}
+        </Formik>
+      </Box>
+    </Grid>
   );
 };
 

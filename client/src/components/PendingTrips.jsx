@@ -1,4 +1,4 @@
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button, Grid, Divider } from "@mui/material";
 import { useEffect, useState } from "react";
 import formatDate from "../utilities/formatDate";
 
@@ -115,7 +115,14 @@ const PendingTrips = ({ loginID, render }) => {
       alignItems="flex-start"
       width="70%"
     >
-      {inDatabase.length === 0 ? <></> : <h1>Pending Trips</h1>}
+      {inDatabase.length === 0 ? (
+        <></>
+      ) : (
+        <div>
+          <Divider style={{ width: "70%" }} variant="fullWidth" />
+          <h1>Pending Trips</h1>
+        </div>
+      )}
       <Box sx={{ width: "50%" }}>{pending()}</Box>
     </Grid>
   );

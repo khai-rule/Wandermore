@@ -35,7 +35,7 @@ const NewTrip = () => {
           variant="fullWidth"
         />
         <NewTripForm loginID={loginID} setRender={setRender} render={render} />
-        <Divider style={{ width: "70%" }} variant="fullWidth" />
+
         <PendingTrips loginID={loginID} render={render} />
         <Divider
           style={{ border: "0", width: "70%", marginTop: "50px" }}

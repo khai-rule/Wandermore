@@ -3,7 +3,7 @@ import { Form, Formik } from "formik";
 import CustomInput from "../components/CustomInput";
 import HiddenInput from "./HiddenInput";
 import { aboutYouSchema } from "../components/validation/schema";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 
 const AboutYouForm = ({ loginID }) => {
   const [inDatabase, setInDatabase] = useState({
@@ -85,111 +85,125 @@ const AboutYouForm = ({ loginID }) => {
   }, [loginID]);
 
   return (
-    <Box sx={{ width: "25%" }}>
-      <Formik
-        enableReinitialize={true}
-        initialValues={inDatabase}
-        validationSchema={aboutYouSchema}
-        onSubmit={handleAboutYouSubmit}
-      >
-        {({ isSubmitting, setFieldValue }) => (
-          <Form autoComplete="off">
-            <fieldset>
-              <legend>About You</legend>
-              <CustomInput
-                label="Date of Birth"
-                name="dateOfBirth"
-                type="date"
-                placeholder="Enter your date of birth"
+    <Grid
+      container
+      direction="row"
+      justifyContent="space-between"
+      alignItems="flex-start"
+      width="70%"
+    >
+      <h1>About You</h1>
+      <Box sx={{ width: "50%" }}>
+        <Formik
+          enableReinitialize={true}
+          initialValues={inDatabase}
+          validationSchema={aboutYouSchema}
+          onSubmit={handleAboutYouSubmit}
+        >
+          {({ isSubmitting, setFieldValue }) => (
+            <Form autoComplete="off">
+              <fieldset
                 style={{
-                  width: "100%",
-                  margin: "auto",
+                  display: "flex",
+                  flexDirection: "column",
+                  border: "0",
                 }}
-              />
-              <br />
-              <CustomInput
-                label="Hobbies and Interests"
-                name="hobbies"
-                type="text"
-                placeholder="Optional"
-                style={{
-                  width: "100%",
-                  margin: "auto",
-                }}
-              />
-              <br />
-              <CustomInput
-                label="Country of Residence"
-                name="countryOfResidence"
-                type="text"
-                placeholder="Enter your home country"
-                style={{
-                  width: "100%",
-                  margin: "auto",
-                }}
-              />
-              <br />
-              <CustomInput
-                label="Dietary Restrictions"
-                name="dietaryRestrictions"
-                type="text"
-                placeholder="Optional"
-                style={{
-                  width: "100%",
-                  margin: "auto",
-                }}
-              />
-              <br />
-              <CustomInput
-                label="Accessibility Assistance"
-                name="accessibility"
-                type="text"
-                placeholder="Optional"
-                style={{
-                  width: "100%",
-                  margin: "auto",
-                }}
-              />
-              <br />
-              <HiddenInput name="user" type="hidden" value="" />
-              <br />
-              {inDatabase.dateOfBirth === "" ? (
-                <Button
-                  type="submit"
-                  onClick={() => {
-                    setFieldValue("user", `${loginID}`);
-                  }}
-                  disabled={isSubmitting}
-                  variant="outlined"
+              >
+                <CustomInput
+                  label="Date of Birth"
+                  name="dateOfBirth"
+                  type="date"
+                  placeholder="Enter your date of birth"
                   style={{
-                    width: "25%",
+                    width: "100%",
                     margin: "auto",
                   }}
-                >
-                  Add
-                </Button>
-              ) : (
-                <Button
-                  type="submit"
-                  onClick={() => {
-                    setFieldValue("user", `${loginID}`);
-                  }}
-                  disabled={isSubmitting}
-                  variant="outlined"
+                />
+                <br />
+                <CustomInput
+                  label="Hobbies and Interests"
+                  name="hobbies"
+                  type="text"
+                  placeholder="Optional"
                   style={{
-                    width: "25%",
+                    width: "100%",
                     margin: "auto",
                   }}
-                >
-                  Update
-                </Button>
-              )}{" "}
-              <span>{msg}</span>
-            </fieldset>
-          </Form>
-        )}
-      </Formik>
-    </Box>
+                />
+                <br />
+                <CustomInput
+                  label="Country of Residence"
+                  name="countryOfResidence"
+                  type="text"
+                  placeholder="Enter your home country"
+                  style={{
+                    width: "100%",
+                    margin: "auto",
+                  }}
+                />
+                <br />
+                <CustomInput
+                  label="Dietary Restrictions"
+                  name="dietaryRestrictions"
+                  type="text"
+                  placeholder="Optional"
+                  style={{
+                    width: "100%",
+                    margin: "auto",
+                  }}
+                />
+                <br />
+                <CustomInput
+                  label="Accessibility Assistance"
+                  name="accessibility"
+                  type="text"
+                  placeholder="Optional"
+                  style={{
+                    width: "100%",
+                    margin: "auto",
+                  }}
+                />
+                <br />
+                <HiddenInput name="user" type="hidden" value="" />
+                <br />
+                {inDatabase.dateOfBirth === "" ? (
+                  <Button
+                    type="submit"
+                    onClick={() => {
+                      setFieldValue("user", `${loginID}`);
+                    }}
+                    disabled={isSubmitting}
+                    variant="outlined"
+                    style={{
+                      width: "25%",
+                      alignSelf: "flex-end",
+                    }}
+                  >
+                    Add
+                  </Button>
+                ) : (
+                  <Button
+                    type="submit"
+                    onClick={() => {
+                      setFieldValue("user", `${loginID}`);
+                    }}
+                    disabled={isSubmitting}
+                    variant="outlined"
+                    style={{
+                      width: "25%",
+                      alignSelf: "flex-end",
+                    }}
+                  >
+                    Update
+                  </Button>
+                )}{" "}
+                <span>{msg}</span>
+              </fieldset>
+            </Form>
+          )}
+        </Formik>
+      </Box>
+    </Grid>
   );
 };
 
