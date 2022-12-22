@@ -46,7 +46,7 @@ const Itinerary = () => {
 
   return (
     <div>
-      <Header img={photo} text={header + " " + subHeader}   />
+      <Header img={photo} text={header + " - " + subHeader}   />
       <button onClick={() => navigate(-1)}>Back</button>
       <Activities activities={activities} departureDate={inDatabase?.departureDate} returnDate={inDatabase?.returnDate}/>
     </div>
