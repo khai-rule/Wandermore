@@ -69,7 +69,13 @@ const LoginMaint = ({ loginID }) => {
       alignItems="flex-start"
       width="70%"
     >
-      <h1>Login Info</h1>
+      <Box sx={{ width: "50%" }}>
+        <h1>Login Info</h1>
+        <p style={{ width: "50%" }}>
+          Hi Wanderer, these are your login details. You can change your
+          password as required.
+        </p>
+      </Box>
       <Box sx={{ width: "50%" }}>
         <Formik
           enableReinitialize={true}

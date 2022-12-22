@@ -95,7 +95,7 @@ const PendingTrips = ({ loginID, render }) => {
                   alignSelf: "flex-end",
                 }}
               >
-                Delete
+                Cancel
               </Button>
             </fieldset>
           ) : (
@@ -121,7 +121,17 @@ const PendingTrips = ({ loginID, render }) => {
         alignItems="flex-start"
         width="70%"
       >
-        {inDatabase.length === 0 ? <></> : <h1>Pending Trips</h1>}
+        {inDatabase.length === 0 ? (
+          <></>
+        ) : (
+          <Box sx={{ width: "50%" }}>
+            <h1>Pending Trips</h1>
+            <p style={{ width: "50%" }}>
+              Here is a list of trips you have submitted and are pending our
+              review. When trips are being processed, they will not appear here.
+            </p>
+          </Box>
+        )}
         <Box sx={{ width: "50%" }}>{pending()}</Box>
       </Grid>
     </>

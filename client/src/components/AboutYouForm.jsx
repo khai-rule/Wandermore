@@ -92,7 +92,13 @@ const AboutYouForm = ({ loginID }) => {
       alignItems="flex-start"
       width="70%"
     >
-      <h1>About You</h1>
+      <Box sx={{ width: "50%" }}>
+        <h1>About You</h1>
+        <p style={{ width: "50%" }}>
+          Hello there, Wanderer! Please set up your details to enable us to
+          personalize your future trips!
+        </p>
+      </Box>
       <Box sx={{ width: "50%" }}>
         <Formik
           enableReinitialize={true}

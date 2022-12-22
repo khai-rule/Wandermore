@@ -55,7 +55,13 @@ const NewTripForm = ({ loginID, setRender, render }) => {
       alignItems="flex-start"
       width="70%"
     >
-      <h1>New Trip</h1>
+      <Box sx={{ width: "50%" }}>
+        <h1>New Trip</h1>
+        <p style={{ width: "50%" }}>
+          You're rearing to go, Wanderer! Please send us your upcoming trip
+          details and we will come back as soon as we can!
+        </p>
+      </Box>
       <Box sx={{ width: "50%" }}>
         <Formik
           enableReinitialize={true}
