@@ -32,7 +32,6 @@ const CreateItineraryForm = ({ refresh, setRefresh }) => {
         actions.resetForm();
         const fetchAdded = await response.json();
         try {
-          console.log(fetchAdded);
           //! add new activity id to ARRAY in trip
           const res = await fetch(`/api/trips/setnewactivity/${id}`, {
             method: "PUT",

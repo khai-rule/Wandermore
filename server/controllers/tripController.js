@@ -35,7 +35,14 @@ tripRouter.get("/fetch/:id", [checkLogin], async (req, res) => {
 tripRouter.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const trip = await Trip.findById(id).populate("activities").populate("user").exec();
+    const trip = await Trip.findById(id)
+    .populate("activities")
+    .populate({
+      path: "user",
+      populate: {
+        path: "aboutYou",
+      },
+    });
     res.json(trip);
   } catch (error) {
     res.status(500).json({ error });
