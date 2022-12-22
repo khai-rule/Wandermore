@@ -34,6 +34,7 @@ const Itinerary = () => {
   }, [auth, loginID]);
 
   const activities = inDatabase?.activities;
+
   const photo = activities?.[0]?.photo1;
   const country = inDatabase?.country;
   const activityPreference = inDatabase?.activityPreference;
@@ -45,10 +46,9 @@ const Itinerary = () => {
 
   return (
     <div>
-      <Header img={photo} text={header} />
+      <Header img={photo} text={header + " " + subHeader}   />
       <button onClick={() => navigate(-1)}>Back</button>
-      <h1>Your Activities</h1>
-      <Activities activities={activities} />
+      <Activities activities={activities} departureDate={inDatabase?.departureDate} returnDate={inDatabase?.returnDate}/>
     </div>
   );
 };

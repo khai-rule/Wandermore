@@ -15,8 +15,9 @@ const Header = ({ img, text, height, link, linkText }) => {
         >
 
             <Typography
+                display="flex"
                 color="inherit"
-                align="center"
+                alignItems="left"
                 variant="h2"
                 padding="4px 0"
             >
