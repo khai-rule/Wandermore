@@ -70,7 +70,6 @@ export default function DataTable() {
                 returnDate: formatDate(returnDate),
                 paxInfo: capitaliseFirstLetter(paxInfo), 
                 otherInfo: capitaliseFirstLetter(otherInfo), 
-                //TODO to check if there is an activity
                 status: "Incomplete"
             }
             return obj
@@ -107,7 +106,7 @@ export default function DataTable() {
     const data = rows();
     const handleRowClick = (params) => {
         setId(params.row.id)
-        setMessage(`User ${params.row.firstName} "${params.row.id}" clicked`);
+        setMessage(`${params.row.firstName} trip ID:"${params.row.id}" Selected`);
       };
     
       //! Only show buttons when item is clicked
