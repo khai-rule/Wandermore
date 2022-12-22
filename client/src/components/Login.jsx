@@ -3,9 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { Form, Formik } from "formik";
 import CustomInput from "../components/CustomInput";
 import { loginSchema } from "../components/validation/schema";
-import { Grid, Box, Avatar, Button } from "@mui/material";
+import { Grid, Box, Avatar } from "@mui/material";
 import Typography from "./mui-components/Typography";
 import AuthAPI from "../utils/AuthAPI";
+import Button from "./mui-components/Button";
 
 const Login = ({ handleClose, setModalView }) => {
   const [msg, setMsg] = useState("");
@@ -51,13 +52,24 @@ const Login = ({ handleClose, setModalView }) => {
 
   return (
     <>
-      <Avatar sx={{ m: 1, bgcolor: "success.main" }}>
-        {/* <LockOutlinedIcon /> */}
-      </Avatar>
       <Typography component="h1" variant="h5">
-        Log In
+        Welcome Back
       </Typography>
-      <Box sx={{ mt: 1, width: "70%" }}>
+
+      <Typography variant="p" sx={{ py:1 }}>
+        <Grid item xs>
+        Not a Member yet? 
+        <Link
+        style={{ color: "inherit", textDecoration: "inherit" }}
+        onClick={handleClick}
+        >
+        {" Sign Up"}
+        </Link>
+        .
+        </Grid>
+      </Typography>
+
+      <Box sx={{ mt: 1, width: "80%" }}>
         <Formik
           initialValues={{
             email: "",
@@ -69,10 +81,10 @@ const Login = ({ handleClose, setModalView }) => {
           {({ isSubmitting }) => (
             <Form autoComplete="off">
               <CustomInput
-                label="Email"
+
                 name="email"
                 type="email"
-                placeholder="Enter your email"
+                placeholder="Your Email"
                 style={{
                   backgroundColor: "white",
                   width: "100%",
@@ -81,10 +93,10 @@ const Login = ({ handleClose, setModalView }) => {
               />
               <br />
               <CustomInput
-                label="Password"
+
                 name="password"
                 type="password"
-                placeholder="Enter your Password"
+                placeholder="Your Password"
                 style={{
                   backgroundColor: "white",
                   width: "100%",
@@ -95,30 +107,19 @@ const Login = ({ handleClose, setModalView }) => {
               <Button
                 disabled={isSubmitting}
                 type="submit"
-                variant="contained"
-                color="success"
+                variant="outlined"
+                color="primary"
                 sx={{ mt: 3, mb: 2, width: "100%" }}
+                style={{ border: '1px solid' }}
               >
                 Log In
               </Button>
             </Form>
           )}
         </Formik>
-        <Grid container>
-          <Grid item xs>
-            Not a Member yet? 👉
-            <Link
-              style={{ color: "inherit", textDecoration: "inherit" }}
-              onClick={handleClick}
-            >
-              {"Sign Up"}
-            </Link>
-            .
-          </Grid>
-          <Grid container>
-            <p>{msg}</p>
-          </Grid>
-        </Grid>
+
+        <Typography variant="subtitle2">{msg}</Typography>
+
       </Box>
     </>
   );
