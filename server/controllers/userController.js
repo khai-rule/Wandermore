@@ -9,7 +9,7 @@ const userRouter = express.Router();
 // userRouter.get("/seed", userSeed);
 
 //! View all users
-userRouter.get("/", async (req, res) => {
+userRouter.get("/", [checkLogin], async (req, res) => {
   try {
     const users = await User.find()
       .populate("aboutYou")
@@ -113,7 +113,7 @@ userRouter.put("/setaboutyou/:id", [checkLogin], async (req, res) => {
 });
 
 // Updating new newTrip id to user
-userRouter.put("/setnewtrip/:id", async (req, res) => {
+userRouter.put("/setnewtrip/:id", [checkLogin], async (req, res) => {
   const { id } = req.params;
   try {
     const userUpdate = await User.findByIdAndUpdate(
@@ -181,7 +181,7 @@ userRouter.put("/setnewtrip/:id", async (req, res) => {
 // });
 
 //! View a single user all data
-userRouter.get("/:id", async (req, res) => {
+userRouter.get("/:id", [checkLogin], async (req, res) => {
   try {
     // const usersData = await User.find({ email: "johntan@gmail.com" })
     const { id } = req.params;

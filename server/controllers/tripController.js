@@ -8,7 +8,7 @@ const tripRouter = express.Router();
 // tripRouter.get("/seed", tripSeed);
 
 //! All trips, show user
-tripRouter.get("/", async (req, res) => {
+tripRouter.get("/", [checkLogin], async (req, res) => {
   try {
     const trip = await Trip.find().populate("user");
     res.json(trip);
@@ -31,7 +31,7 @@ tripRouter.get("/fetch/:id", [checkLogin], async (req, res) => {
 });
 
 //! get all details by id
-tripRouter.get("/:id", async (req, res) => {
+tripRouter.get("/:id", [checkLogin], async (req, res) => {
   const { id } = req.params;
   try {
     const trip = await Trip.findById(id)
@@ -45,7 +45,7 @@ tripRouter.get("/:id", async (req, res) => {
 });
 
 //! get multiple _id details by id - for ARRAY
-tripRouter.get("/getid/:id/:id2", async (req, res) => {
+tripRouter.get("/getid/:id/:id2", [checkLogin], async (req, res) => {
   const { id } = req.params;
   try {
     const newTripID = await Trip.find({ user: { _id: id } }, { _id: 1 })
@@ -58,7 +58,7 @@ tripRouter.get("/getid/:id/:id2", async (req, res) => {
 });
 
 //! Add new activity id to trip
-tripRouter.put("/setnewactivity/:id", async (req, res) => {
+tripRouter.put("/setnewactivity/:id", [checkLogin], async (req, res) => {
   const { id } = req.params;
   try {
     const updateTrip = await Trip.findByIdAndUpdate(
@@ -97,7 +97,7 @@ tripRouter.post("/", [checkLogin], async (req, res) => {
   }
 });
 
-tripRouter.get("/data", async (req, res) => {
+tripRouter.get("/data", [checkLogin], async (req, res) => {
   try {
     const trip = await Trip.find({}).populate({ path: "activities" });
     res.status(200).send(trip);
@@ -107,7 +107,7 @@ tripRouter.get("/data", async (req, res) => {
 });
 
 //! Delete by ID
-tripRouter.delete("/:id", async (req, res) => {
+tripRouter.delete("/:id", [checkLogin], async (req, res) => {
   const { id } = req.params;
   try {
     const trip = await Trip.findByIdAndDelete(id).exec();
