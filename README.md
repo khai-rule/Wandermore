@@ -74,4 +74,3 @@ This is a 2-man project, hence we will briefly share what each individual contri
 ## References
 
 - Images from [Kinfolk](https://www.kinfolk.com/)
-- Theme moodboard from [Marshal](https://www.behance.net/gallery/156181337/Marshall-E-commerce?tracking_source=search_projects_recommended%7CUX+design)

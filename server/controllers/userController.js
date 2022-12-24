@@ -183,7 +183,6 @@ userRouter.put("/setnewtrip/:id", [checkLogin], async (req, res) => {
 //! View a single user all data
 userRouter.get("/:id", [checkLogin], async (req, res) => {
   try {
-    // const usersData = await User.find({ email: "johntan@gmail.com" })
     const { id } = req.params;
     const userInfo = await User.findById(id)
       .populate("aboutYou")

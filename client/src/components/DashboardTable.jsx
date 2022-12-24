@@ -6,8 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import capitaliseFirstLetter from '../utilities/capitaliseFirstLetter';
 import formatDate from '../utilities/formatDate';
 
-//TODO get rid of the infinity request in console
-
 const columns = [
   { field: 'status', headerName: 'Status', width: 150, },
   { field: 'firstName', headerName: 'First name', width: 150 },
@@ -46,7 +44,6 @@ export default function DataTable() {
         fetchData();
         }, [message]);
 
-        console.log(inDatabase)
 
     const rows = () => {
         const mapInDatabase = inDatabase?.map(item => {
@@ -103,13 +100,14 @@ export default function DataTable() {
         navigate(`/createitinerary/${id}`);
     }
 
+    //! Event target MUI
     const data = rows();
     const handleRowClick = (params) => {
         setId(params.row.id)
         setMessage(`${params.row.firstName} trip ID:"${params.row.id}" Selected`);
       };
     
-      //! Only show buttons when item is clicked
+      //! Show buttons when item is clicked
       const actions = () => {
         if (message === "") {
             return
@@ -127,6 +125,7 @@ export default function DataTable() {
     <>
       <p>{message}</p>
       {actions()}
+
       <div style={{ height: 800, width: '100%' }}>
         <DataGrid
             onRowClick={handleRowClick} {...data}
@@ -138,5 +137,6 @@ export default function DataTable() {
         />
       </div>
     </>
+    
   );
 }
