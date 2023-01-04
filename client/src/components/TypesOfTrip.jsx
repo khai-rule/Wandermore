@@ -90,7 +90,7 @@ export default function ProductCategories() {
   return (
     <Container component="section" sx={{ pt: 8, pb: 4, bgcolor:"secondary.light" }} maxWidth={false}>
       <Typography variant="h4" align="center" component="h2">
-        Tailored for Every Travellers
+        Tailored for Every Wanderer
       </Typography>
       <Box sx={{ my: 8, display: 'flex', flexWrap: 'wrap', justifyContent:"center"}}>
         {images.map((image) => (
