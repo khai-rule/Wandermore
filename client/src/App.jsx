@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import AccountHome from "./pages/AccountHome";
@@ -22,7 +22,6 @@ function App() {
       <AuthAPI.Provider value={{ auth, setAuth, loginID, setLoginID }}>
         <BrowserRouter>
           <Routes>
-            <Route></Route>
             <Route path="/" element={<Layout />}>
               <Route path="/" element={<Home />} />
 
